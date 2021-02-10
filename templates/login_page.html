@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_panel.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <title>HoC Login</title>
@@ -9,9 +10,9 @@
 
 {% block body %}
 <main>
+    <div class="filter"></div>
      <header>
          <h1 class="logo">Heroes of Civilization</h1>
      </header>
-
  </main>
 {% endblock %}W
