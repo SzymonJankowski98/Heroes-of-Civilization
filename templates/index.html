@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <title>Heroes of Civilization</title>
+{% endblock %}
+
+{% block body %}
+ <main>
+     <header>
+         <h1 class="logo">Heroes of Civilization</h1>
+     </header>
+     <div class="btn_box">
+         <div class="btn">
+            <span>ZALOGUJ</span>
+         </div>
+         <div class="btn">
+            <span>ZAREJESTRUJ</span>
+         </div>
+     </div>
+ </main>
+{% endblock %}W
