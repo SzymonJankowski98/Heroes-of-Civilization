@@ -2,6 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user_page.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -15,5 +16,8 @@
      <header>
          <h1 class="logo">Heroes of Civilization</h1>
      </header>
+     <div class="btn" onclick="location.href = '/login';">
+            <span>WYLOGUJ</span>
+     </div>
  </main>
 {% endblock %}W
