@@ -1,0 +1,12 @@
+.login_panel {
+    height: 480px;
+}
+
+.login_panel header {
+    height: 20%;
+}
+
+.login_form {
+    height: 80%;
+    top: 20%;
+}
