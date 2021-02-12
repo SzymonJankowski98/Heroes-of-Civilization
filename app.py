@@ -10,6 +10,22 @@ db = cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab
 cursor = db.cursor()
 
 
+def get_games_info(name):
+    print(name)
+    ids = []
+    cursor.execute(''' SELECT game_id FROM users_in_games WHERE user_name = :usr_name ''', usr_name=name)
+    for i in cursor:
+        ids.append(i)
+    infos = []
+    objType = db.gettype("G_INFO_TABLE")
+    for g_id in ids:
+        cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [name, g_id[0]]))
+        for y in cursor:
+            infos.append(list(y))
+
+    return infos
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -57,9 +73,16 @@ def register_page():
 def user_page():
     if "user" in session:
         user = session["user"]
-        return render_template("user_page.html", usr=user)
+        infos = get_games_info(user)
+        print(infos)
+        return render_template("user_page.html", usr=user, ids_list=infos)
     else:
         return redirect(url_for("login_page"))
+
+
+@app.route('/game')
+def game_page():
+    return render_template("game_page.html")
 
 
 @app.route('/logout')

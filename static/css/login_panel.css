@@ -6,6 +6,7 @@
 }
 
 .logo {
+    cursor: pointer;
     font-size: 3em;
     text-align: left;
     margin-left: 3%;
