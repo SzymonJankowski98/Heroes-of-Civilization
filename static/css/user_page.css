@@ -242,6 +242,6 @@ td img.enter {
     padding: 10px;
 }
 
-.add {
-    float: left;
+.enter, .add {
+    cursor: pointer;
 }
