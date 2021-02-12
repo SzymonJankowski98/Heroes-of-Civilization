@@ -145,6 +145,18 @@
             </table>
             </div>
         </div>
+        <div class="add_game">
+            <header>
+                <h1>Nowa gra</h1>
+            </header>
+            <form class="new_game_form" action="#" method="POST">
+                <img src="{{ url_for('static', filename='images/sword.png') }}">
+                <input type="number" placeholder="Szerokość">
+                <input type="number" placeholder="Wysokość">
+                <input type="number" placeholder="Gracze">
+                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">
+            </form>
+        </div>
      </div>
  </main>
 {% endblock %}W
