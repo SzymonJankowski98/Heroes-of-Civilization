@@ -17,14 +17,21 @@
      <header>
          <h1 class="logo">Heroes of Civilization</h1>
      </header>
+     {% with messages = get_flashed_messages() %}
+         {% if messages %}
+             {% for msg in messages %}
+                 <p>{{ msg }}</p>
+             {% endfor %}
+         {% endif %}
+     {% endwith %}
      <div class="login_panel">
          <header>
              <h1>Zarejestruj się</h1>
          </header>
-         <form class="login_form">
-             <input type="text" placeholder="Nazwa użytkownika">
-             <input type="password" placeholder="Hasło">
-             <input type="password" placeholder="Powtórz hasło">
+         <form class="login_form" action="#" method="POST">
+             <input type="text" placeholder="Nazwa użytkownika" name="nm">
+             <input type="password" placeholder="Hasło" name="pw">
+             <input type="password" placeholder="Powtórz hasło" name="rpw">
              <button>ZAREJESTRUJ</button>
          </form>
      </div>
