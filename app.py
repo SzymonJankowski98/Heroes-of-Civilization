@@ -1,7 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from datetime import timedelta
 import cx_Oracle
-cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+
+#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -89,6 +91,10 @@ def game_page():
 def logout():
     session.pop("user", None)
     return redirect(url_for("login_page"))
+
+@app.route('/game')
+def game():
+    return render_template('game.html')
 
 
 if __name__ == '__main__':
