@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_panel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -13,9 +13,466 @@
 {% block body %}
 <main>
      <div class="game">
+         <div class="filter"></div>
         <header>
          <h1 class="logo">Heroes of Civilization</h1>
         </header>
+         <div class="map" id="map">
+             <div class="field">
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+             </div>
+             <div class="field">
+             </div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field">
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+             </div>
+             <div class="field water"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field water"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field">
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+                 <div class="map_object">
+
+                 </div>
+             </div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field">
+                 <div class="map_object">
+
+                 </div>
+             </div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field water"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field water"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+             <div class="field"></div>
+         </div>
      </div>
- </main>
+</main>
+<script type="text/javascript" src="{{ url_for('static', filename='JS/game.js') }}"></script>
 {% endblock %}W
