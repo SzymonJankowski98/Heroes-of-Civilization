@@ -11,23 +11,23 @@ body {
 
 .logo {
     font-size: 3em;
-    position: relative;
+    position: absolute;
     text-align: left;
     margin-left: 3%;
-    text-shadow:   0px -3px 0 #212121,
-                   0px -3px 0 #212121,
-                   0px  3px 0 #212121,
-                     0px  3px 0 #212121,
-                    -3px  0px 0 #212121,
-                     3px  0px 0 #212121,
-                    -3px  0px 0 #212121,
-                     3px  0px 0 #212121,
+    text-shadow:   0 -3px 0 #212121,
+                   0 -3px 0 #212121,
+                   0  3px 0 #212121,
+                     0  3px 0 #212121,
+                    -3px  0 0 #212121,
+                     3px  0 0 #212121,
+                    -3px  0 0 #212121,
+                     3px  0 0 #212121,
                     -3px -3px 0 #212121,
                      3px -3px 0 #212121,
                     -3px  3px 0 #212121,
                      3px  3px 0 #212121,
                     -3px  9px 0 #212121,
-                     0px  9px 0 #212121,
+                     0  9px 0 #212121,
                      3px  9px 0 #212121,
                      0 9px 1px rgba(0,0,0,.1),
                      0 0 3px rgba(0,0,0,.1),
@@ -171,7 +171,7 @@ body {
     z-index: 1;
 }
 
-.resource_container {
+.resources .resource_container {
     display: inline-flex;
     padding: 5px 12px;
     z-index: 1;
@@ -185,13 +185,13 @@ body {
     z-index: 1;
 }
 
-.resource_container img{
+.resources .resource_container img{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.resource_container h1{
+.resources .resource_container h1{
     padding-left: 6px;
     position: relative;
     font-size: 1.5em;
@@ -205,22 +205,28 @@ body {
 
 .science_tab {
     position: absolute;
-    width: 300px;
-    height: 400px;
+    width: 450px;
+    height: 500px;
     background-color: #f2f2f2;
     border-radius: 8px;
     z-index: 3;
     display: none;
 }
 
-.science_tab header {
+.science_tab>header {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
     width: 100%;
-    height: 15%;
+    height: 12%;
     background-color: #fca311;
     border-radius: 8px 8px 0 0;
 }
 
-.science_tab header h1 {
+.science_tab>header h1 {
     position: relative;
     font-size: 2em;
     line-height: 50%;
@@ -237,4 +243,130 @@ body {
     top: 15px;
     width: 30px;
     height: 30px;
+}
+
+.science_list {
+    position: relative;
+    height: 88%;
+    top: 12%;
+}
+
+.available_science {
+    display: inline-flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.science_element {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.science_element:not(:last-child) {
+    border-bottom: 1px lightgray solid;
+}
+
+.science_list header {
+    display: inline-flex;
+    width: 100%;
+}
+
+.science_list header img{
+    width: 50px;
+    height: 50px;
+    padding: 5px 5px 5px 15px;
+}
+
+.science_list header h1 {
+    font-size: 1.3em;
+    display: block;
+    font-weight: bold;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding: 0 12px;
+    margin: auto 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.science_list span {
+    position: relative;
+    margin: 0;
+    display: block;
+    font-size: 1em;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding: 0 12px;
+    line-height: 95%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: justify;
+}
+
+.required_resources {
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.required_resources .resource_container {
+    display: inline-flex;
+    padding: 0 6px;
+    z-index: 1;
+}
+
+.required_resources .resource_container img{
+    position: relative;
+    width: 25px;
+    height: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.required_resources .resource_container h1{
+    padding-left: 3px;
+    position: relative;
+    font-size: 0.9em;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+}
+
+.btn_confirm{
+    display: block;
+    background-color: #279c27;
+    border: 0;
+    padding: 5px;
+    width: 60%;
+    margin: 7px auto 10px auto;
+    color: white;
+    border-radius: 40px;
+    transition: 0.3s;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn_confirm:focus{
+    outline: none;
+}
+
+.btn_confirm:hover{
+    background-color: limegreen;
+    transform: scale(1.03);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
