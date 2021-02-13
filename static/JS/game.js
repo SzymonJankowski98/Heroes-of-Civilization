@@ -1,5 +1,6 @@
 // Make the DIV element draggable:
-dragElement(document.getElementById("map"));
+dragMap(document.getElementById("map"));
+dragTab(document.getElementById("science_tab"));
 
 var size_x = 10;
 var size_y = 10;
@@ -9,7 +10,7 @@ function set_size(x, y) {
   size_y = y;
 }
 
-function dragElement(elmnt) {
+function dragMap(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elmnt.id + "map")) {
     // if present, the header is where you move the DIV from:
@@ -72,6 +73,74 @@ function dragElement(elmnt) {
   }
 }
 
+function dragTab(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "science_header")) {
+    // if present, the header is where you move the DIV from:
+    document.getElementById(elmnt.id + "science_header").onmousedown = dragMouseDown;
+  } else {
+    // otherwise, move the DIV from anywhere inside the DIV:
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+
+    var positionInfo = elmnt.getBoundingClientRect();
+
+    if (elmnt.offsetTop - pos2 >= 0) {
+      if ((elmnt.offsetTop - pos2 <= document.documentElement.clientHeight - positionInfo.height))
+      {
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+      }
+      else
+      {
+        elmnt.style.top = document.documentElement.clientHeight - positionInfo.height + "px";
+      }
+    }
+    else {
+      elmnt.style.top = 0 + "px";
+    }
+
+    if (elmnt.offsetLeft - pos1 >= 0) {
+      if ((elmnt.offsetLeft - pos1 <= document.documentElement.clientWidth - positionInfo.width))
+      {
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+      else
+      {
+        elmnt.style.left = document.documentElement.clientWidth - positionInfo.width + "px";
+      }
+    }
+    else {
+      elmnt.style.left = 0 + "px";
+    }
+  }
+
+  function closeDragElement() {
+    // stop moving when mouse button is released:
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
 var map = 1;
 
 function change_map() {
@@ -104,4 +173,19 @@ function change_map() {
       buildings[i].style.display = "block";
     }
   }
+}
+
+var science = 0;
+
+function toggle_science() {
+
+   var science_tab =  document.getElementById("science_tab");
+   if (science === 0) {
+     science = 1;
+     science_tab.style.display = 'block';
+   }
+   else {
+     science = 0;
+     science_tab.style.display = 'none';
+   }
 }
