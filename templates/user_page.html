@@ -39,89 +39,19 @@
             </div>
             <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
-              <tbody>
-                <tr>
-{#                    <script>#}
-{#                        var i, j, x="";#}
-{#                        for (i=0; i<{{ ids_list }}length; i++){#}
-{#                            for (j=0; j<4; j++){#}
-{#                                cursor.execproc()#}
-{#                            }#}
-{#                        }#}
-{##}
-{#                    </script>#}
-                  <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-              </tbody>
+                <tbody>
+                    {% for i in games %}
+                        <tr>
+                          <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                          <td>#{{ i[0] }}</td>
+                          <td>{{ i[1] }}x{{ i[2] }}</td>
+                          <td>{{ i[3] }}/{{ i[4] }}</td>
+                          <td>
+                              <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
+                          </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
             </div>
         </div>
@@ -145,34 +75,18 @@
             <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
               <tbody>
-                <tr>
-                  <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-                <tr>
-                  <td><img  src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                  <td>#1232 </td>
-                  <td>100x100</td>
-                  <td>1/2</td>
-                  <td>
-                      <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
-                  </td>
-                </tr>
-              </tbody>
+                    {% for i in all_games %}
+                        <tr>
+                          <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                          <td>#{{ i[0] }}</td>
+                          <td>{{ i[1] }}x{{ i[2] }}</td>
+                          <td>{{ i[3] }}/{{ i[4] }}</td>
+                          <td>
+                              <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="location.href = '/game';">
+                          </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
             </div>
         </div>
