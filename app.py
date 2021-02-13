@@ -2,8 +2,8 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from datetime import timedelta
 import cx_Oracle
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -13,7 +13,6 @@ cursor = db.cursor()
 
 
 def get_games_info(name):
-    print(name)
     ids = []
     cursor.execute(''' SELECT game_id FROM users_in_games WHERE user_name = :usr_name ''', usr_name=name)
     for i in cursor:
@@ -24,8 +23,13 @@ def get_games_info(name):
         cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [name, g_id[0]]))
         for y in cursor:
             infos.append(list(y))
+    nfull = []
+    objType2 = db.gettype("NFULL_GAMES_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("nfull_games_info", objType2, [name]))
+    for rec in cursor:
+        nfull.append(list(rec))
 
-    return infos
+    return infos, nfull
 
 
 @app.route('/')
@@ -75,9 +79,9 @@ def register_page():
 def user_page():
     if "user" in session:
         user = session["user"]
-        infos = get_games_info(user)
-        print(infos)
-        return render_template("user_page.html", usr=user, ids_list=infos)
+        infos, nfull = get_games_info(user)
+        print(infos, nfull)
+        return render_template("user_page.html", usr=user, games=infos, all_games=nfull)
     else:
         return redirect(url_for("login_page"))
 
