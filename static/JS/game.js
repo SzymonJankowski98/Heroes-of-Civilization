@@ -41,3 +41,37 @@ function dragElement(elmnt) {
     document.onmousemove = null;
   }
 }
+
+var map = 1;
+
+function change_map() {
+
+  var i = 0;
+  const buildings = document.getElementsByClassName("building");
+  const units = document.getElementsByClassName("unit");
+
+  if (map === 1)
+  {
+    map = 2;
+    document.getElementById("change_map").src = "/static/images/swords2.png";
+
+    for (i = 0; i < buildings.length; i++) {
+      buildings[i].style.visibility = "hidden";
+    }
+
+    for (i = 0; i < units.length; i++) {
+      units[i].style.visibility = "visible";
+    }
+  } else {
+    map = 1;
+    document.getElementById("change_map").src = "/static/images/castle_button.png";
+
+    for (i = 0; i < units.length; i++) {
+      units[i].style.visibility = "hidden";
+    }
+
+    for (i = 0; i < buildings.length; i++) {
+      buildings[i].style.visibility = "visible";
+    }
+  }
+}

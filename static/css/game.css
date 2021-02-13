@@ -75,8 +75,17 @@ body {
 .map_object {
     position: relative;
     margin: 3px;
+}
+
+.building {
     background: url("../images/castle.png");
     background-size: 100%;
+}
+
+.unit {
+    background: url("../images/mace.png");
+    background-size: 100%;
+    visibility: hidden;
 }
 
 .btn_next_turn, .btn_change_map {
