@@ -56,22 +56,22 @@ function change_map() {
     document.getElementById("change_map").src = "/static/images/swords2.png";
 
     for (i = 0; i < buildings.length; i++) {
-      buildings[i].style.visibility = "hidden";
+      buildings[i].style.display = "none";
     }
 
     for (i = 0; i < units.length; i++) {
-      units[i].style.visibility = "visible";
+      units[i].style.display = "block";
     }
   } else {
     map = 1;
     document.getElementById("change_map").src = "/static/images/castle_button.png";
 
     for (i = 0; i < units.length; i++) {
-      units[i].style.visibility = "hidden";
+      units[i].style.display = "none";
     }
 
     for (i = 0; i < buildings.length; i++) {
-      buildings[i].style.visibility = "visible";
+      buildings[i].style.display = "block";
     }
   }
 }

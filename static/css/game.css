@@ -85,7 +85,7 @@ body {
 .unit {
     background: url("../images/mace.png");
     background-size: 100%;
-    visibility: hidden;
+    display: none;
 }
 
 .btn_next_turn, .btn_change_map {
