@@ -1,6 +1,14 @@
 // Make the DIV element draggable:
 dragElement(document.getElementById("map"));
 
+var size_x = 10;
+var size_y = 10;
+
+function set_size(x, y) {
+  size_x = x;
+  size_y = y;
+}
+
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
   if (document.getElementById(elmnt.id + "map")) {
@@ -31,8 +39,30 @@ function dragElement(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+    if (elmnt.offsetTop - pos2 <= 150) {
+       if (elmnt.offsetTop - pos2 >= -((document.documentElement.clientWidth / 15 * size_y) - (document.documentElement.clientHeight) + 150)) {
+         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+       }
+       else {
+         elmnt.style.top = -((document.documentElement.clientWidth / 15 * size_y) - (document.documentElement.clientHeight) + 150) + "px";
+       }
+    }
+    else {
+      elmnt.style.top = 150 + "px";
+    }
+
+    if (elmnt.offsetLeft - pos1 <= 150) {
+      if (elmnt.offsetLeft - pos1 >= -((document.documentElement.clientWidth / 15 * size_x) - (document.documentElement.clientWidth) + 150)) {
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+      }
+      else {
+        elmnt.style.left = -((document.documentElement.clientWidth / 15 * size_x) - (document.documentElement.clientWidth) + 150) + "px";
+      }
+    }
+    else {
+      elmnt.style.left = 150 + "px";
+    }
   }
 
   function closeDragElement() {
