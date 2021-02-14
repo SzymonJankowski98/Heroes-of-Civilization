@@ -336,6 +336,10 @@ body {
     text-align: center;
 }
 
+.required_resources .resource_container h1 span{
+    color: forestgreen;
+}
+
 .btn_confirm{
     display: block;
     background-color: #279c27;
@@ -435,7 +439,7 @@ body {
 
 .buildings_and_units_tab {
     position: absolute;
-    width: 500px;
+    width: 552px;
     height: 600px;
     background-color: transparent;
     border-radius: 8px;
@@ -477,6 +481,19 @@ body {
     transition: 0.3s;
 }
 
+
+.buildings_tab1_content, .buildings_tab2_content, .units_tab1_content, .units_tab2_content {
+    display: none;
+}
+
+.buildings_tab1_content, .buildings_tab2_content {
+    overflow-y: auto;
+}
+
+.buildings_tab1_content {
+    display: block;
+}
+
 .buildings_tab1, .buildings_tab2 {
     background-color: #fca311;
 }
@@ -484,6 +501,7 @@ body {
 .buildings_tab1 {
     transform: translateY(-12px);
 }
+
 
 .buildings_tab1:hover, .buildings_tab2:hover, .units_tab1:hover, .units_tab2:hover {
     transform: translateY(-12px);
@@ -544,4 +562,93 @@ body {
     top: 12px;
     width: 30px;
     height: 30px;
+}
+
+.buildings_tab1_content, .buildings_tab2_content {
+    position: relative;
+    top: 10%;
+    width: 100%;
+    height: 90%;
+}
+
+.buildings_tab1_element header, .buildings_tab2_element header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.buildings_tab2_element header {
+    justify-content: flex-start;
+}
+
+.buildings_tab1_element header img, .buildings_tab2_element header img  {
+    width: 50px;
+    height: 50px;
+    padding: 5px 5px 5px 15px;
+}
+
+.buildings_tab1_element header h1, .buildings_tab2_element header h1 {
+    font-size: 1.3em;
+    display: block;
+    font-weight: bold;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding: 0 12px;
+    margin: auto 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.buildings_tab1_element:not(:last-child), .buildings_tab2_element:not(:last-child) {
+    border-bottom: 1px lightgray solid;
+}
+
+.building_level {
+    width: 25px;
+    height: 25px;
+    display: block;
+    position: relative;
+    right: 0px;
+    top: 0px;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 60%;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding: 6px;
+    margin: auto 15px auto 12px;
+    text-align: center;
+    vertical-align: center;
+    border: 4px solid #14213d;
+    border-radius: 50%;
+    background-color: dodgerblue;
+}
+
+.buildings_tab1_element>span, .buildings_tab2_element>span {
+    position: relative;
+    margin: 0;
+    display: block;
+    font-size: 1em;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding: 0 12px;
+    line-height: 95%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: justify;
+}
+
+.required_resources>span {
+    position: relative;
+    margin: 0;
+    display: block;
+    font-size: 1.2em;
+    font-family: 'Bree Serif', sans-serif;
+    color: #14213d;
+    padding:  12px 3px 3px 12px;
+    line-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: justify;
+    font-weight: bold;
 }

@@ -196,33 +196,49 @@ function activate_tab(elmnt) {
     elmnt.style.transform = "translateY(-12px)";
     document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "#f5cc16";
     document.getElementById("buildings_and_fields_content_h1").innerText = "Budynki na polu";
+    document.getElementById("buildings_tab1_content").style.display = "block";
     document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
     document.getElementById("units_tab1").style.transform = "translateY(0px)";
     document.getElementById("units_tab2").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab2_content").style.display = "none";
+    document.getElementById("units_tab1_content").style.display = "none";
+    document.getElementById("units_tab2_content").style.display = "none";
   }
   if ("buildings_tab2".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
     document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "#f5cc16";
     document.getElementById("buildings_and_fields_content_h1").innerText = "Dostępne budynki";
+    document.getElementById("buildings_tab2_content").style.display = "block";
     document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
     document.getElementById("units_tab1").style.transform = "translateY(0px)";
     document.getElementById("units_tab2").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab1_content").style.display = "none";
+    document.getElementById("units_tab1_content").style.display = "none";
+    document.getElementById("units_tab2_content").style.display = "none";
   }
   if ("units_tab1".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
     document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "lightslategray";
     document.getElementById("buildings_and_fields_content_h1").innerText = "Jednostki na polu";
+    document.getElementById("units_tab1_content").style.display = "block";
     document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
     document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
     document.getElementById("units_tab2").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab1_content").style.display = "none";
+    document.getElementById("buildings_tab2_content").style.display = "none";
+    document.getElementById("units_tab2_content").style.display = "none";
   }
   if ("units_tab2".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
     document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "lightslategray";
     document.getElementById("buildings_and_fields_content_h1").innerText = "Dostępne jednostki";
+    document.getElementById("units_tab2_content").style.display = "block";
     document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
     document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
     document.getElementById("units_tab1").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab1_content").style.display = "none";
+    document.getElementById("buildings_tab2_content").style.display = "none";
+    document.getElementById("units_tab1_content").style.display = "none";
   }
 }
 
