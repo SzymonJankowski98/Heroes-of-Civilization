@@ -440,3 +440,116 @@ body {
     text-align: justify;
     list-style-type: none;
 }
+
+.buildings_and_units_tab {
+    position: absolute;
+    width: 500px;
+    height: 600px;
+    background-color: transparent;
+    border-radius: 8px;
+    z-index: 3;
+}
+
+.buildings_and_units_tab>header {
+    position: absolute;
+    display: inline-flex;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    border-radius: 8px 8px 0 0;
+}
+
+.buildings_and_units_tab_header_background {
+    position: absolute;
+    transform: translateY(12px);
+    width: 100%;
+    height: 100%;
+    background-color: #f2f2f2;
+}
+
+
+.buildings_tab1, .buildings_tab2, .units_tab1, .units_tab2 {
+    position: relative;
+    cursor: pointer;
+    bottom: 0;
+    text-align: center;
+    width: calc(25% - 3px);
+    height: calc(100% + 12px);
+    background-color: #14213d;
+    border-radius: 12px 12px 0 0;
+    transition: 0.3s;
+}
+
+.buildings_tab1, .buildings_tab2 {
+    background-color: #fca311;
+}
+
+.buildings_tab1 {
+    transform: translateY(-12px);
+}
+
+.buildings_tab1:hover, .buildings_tab2:hover, .units_tab1:hover, .units_tab2:hover {
+    transform: translateY(-12px);
+}
+
+.tabs_content {
+    position: relative;
+    display: block;
+    height: 90%;
+    width: 100%;
+    top: 10%;
+    background-color: #f2f2f2;
+    border-radius: 0 0 12px 12px;
+}
+
+.tab_image {
+    position: relative;
+    margin: auto 0;
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+}
+
+.tab_image_add {
+    position: absolute;
+    right: 25%;
+    bottom: 18%;
+    width: 20px;
+    height: 20px;
+}
+
+.tabs_content>header {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 10%;
+    background-color: #f5cc16;
+    transition: background-color 0.3s ease;
+}
+
+.tabs_content>header h1 {
+    position: relative;
+    margin: 0;
+    padding: 6px;
+    font-size: 1.7em;
+    font-family: 'Bree Serif', sans-serif;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: all 0.3s;
+}
+
+.tabs_content>header .exit {
+    margin: 0;
+    position: absolute;
+    cursor: pointer;
+    right: 12px;
+    top: 12px;
+    width: 30px;
+    height: 30px;
+}
