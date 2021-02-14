@@ -213,7 +213,7 @@ td img.enter {
     position: relative;
 }
 
-.new_game_form input {
+.new_game_form input{
     box-sizing: border-box;
     display: flex;
     height: 80%;
@@ -243,18 +243,18 @@ td img.enter {
 
 }
 
-.new_game_form img{
+/* nadpisuje poprzedni input */
+.new_game_form input {
     width: 36px;
     height: 36px;
     display: block;
     position: relative;
-    float: left;
     top: 50%;
     transform: translateY(-50%);
-    padding: 10px;
-}
+    float: left;
+    padding:1px;
+    }
 
 .enter, .add {
     cursor: pointer;
 }
-
