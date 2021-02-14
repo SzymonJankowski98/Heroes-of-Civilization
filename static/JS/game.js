@@ -1,6 +1,7 @@
 // Make the DIV element draggable:
 dragMap(document.getElementById("map"));
-dragTab(document.getElementById("science_tab"));
+dragTab(document.getElementById("science_tab", "science_header"));
+dragTab(document.getElementById("buildings_and_units_tab", "buildings_and_units_tab_header"));
 
 var size_x = 10;
 var size_y = 10;
@@ -73,11 +74,11 @@ function dragMap(elmnt) {
   }
 }
 
-function dragTab(elmnt) {
+function dragTab(elmnt, tag) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "science_header")) {
+  if (document.getElementById(elmnt.id + tag)) {
     // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "science_header").onmousedown = dragMouseDown;
+    document.getElementById(elmnt.id + tag).onmousedown = dragMouseDown;
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
     elmnt.onmousedown = dragMouseDown;
@@ -188,4 +189,43 @@ function toggle_science() {
      science = 0;
      science_tab.style.display = 'none';
    }
+}
+
+function activate_tab(elmnt) {
+  if ("buildings_tab1".includes(elmnt.id)) {
+    elmnt.style.transform = "translateY(-12px)";
+    document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "#f5cc16";
+    document.getElementById("buildings_and_fields_content_h1").innerText = "Budynki na polu";
+    document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
+    document.getElementById("units_tab1").style.transform = "translateY(0px)";
+    document.getElementById("units_tab2").style.transform = "translateY(0px)";
+  }
+  if ("buildings_tab2".includes(elmnt.id)) {
+    elmnt.style.transform = "translateY(-12px)";
+    document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "#f5cc16";
+    document.getElementById("buildings_and_fields_content_h1").innerText = "Dostępne budynki";
+    document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
+    document.getElementById("units_tab1").style.transform = "translateY(0px)";
+    document.getElementById("units_tab2").style.transform = "translateY(0px)";
+  }
+  if ("units_tab1".includes(elmnt.id)) {
+    elmnt.style.transform = "translateY(-12px)";
+    document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "lightslategray";
+    document.getElementById("buildings_and_fields_content_h1").innerText = "Jednostki na polu";
+    document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
+    document.getElementById("units_tab2").style.transform = "translateY(0px)";
+  }
+  if ("units_tab2".includes(elmnt.id)) {
+    elmnt.style.transform = "translateY(-12px)";
+    document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "lightslategray";
+    document.getElementById("buildings_and_fields_content_h1").innerText = "Dostępne jednostki";
+    document.getElementById("buildings_tab1").style.transform = "translateY(0px)";
+    document.getElementById("buildings_tab2").style.transform = "translateY(0px)";
+    document.getElementById("units_tab1").style.transform = "translateY(0px)";
+  }
+}
+
+function exit_buildings_units_tab() {
+  document.getElementById("buildings_and_units_tab").style.display = 'none';
 }

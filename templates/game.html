@@ -722,8 +722,7 @@
                             <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
                             <div class="required_resources">
                                 <div class="resource_container">
-                                    <img class="resource"
-                                         src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+                                    <img class="resource" src="{{ url_for('static', filename='images/gold-ingots.png') }}">
                                     <h1>98</h1>
                                 </div>
                                 <div class="resource_container">
@@ -746,6 +745,31 @@
                             <button class="btn_confirm">Zbadaj(4)</button>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div id="buildings_and_units_tab" class="buildings_and_units_tab">
+                <header id="buildings_and_units_tab_header" class="buildings_and_units_tab_header">
+                    <div class="buildings_and_units_tab_header_background"></div>
+                    <div id="buildings_tab1" onclick="activate_tab(this)" class="buildings_tab1">
+                        <img class="tab_image" src="{{ url_for('static', filename='images/castle_tab.png') }}">
+                    </div>
+                    <div id="buildings_tab2" onclick="activate_tab(this)" class="buildings_tab2">
+                        <img class="tab_image" src="{{ url_for('static', filename='images/castle_tab.png') }}">
+                        <img class="tab_image_add" src="{{ url_for('static', filename='images/add.png') }}">
+                    </div>
+                    <div id="units_tab1" onclick="activate_tab(this)" class="units_tab1">
+                        <img class="tab_image" src="{{ url_for('static', filename='images/knight.png') }}">
+                    </div>
+                    <div id="units_tab2" onclick="activate_tab(this)" class="units_tab2">
+                        <img class="tab_image" src="{{ url_for('static', filename='images/knight.png') }}">
+                        <img class="tab_image_add" src="{{ url_for('static', filename='images/add.png') }}">
+                    </div>
+                </header>
+                <div class="tabs_content">
+                    <header id="buildings_and_fields_content_header">
+                        <h1 id="buildings_and_fields_content_h1">Budynki na polu</h1>
+                        <img class="exit" onclick="exit_buildings_units_tab()" src="{{ url_for('static', filename='images/exit.png') }}">
+                    </header>
                 </div>
             </div>
         </div>
