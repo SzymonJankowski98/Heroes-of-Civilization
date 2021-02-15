@@ -325,7 +325,7 @@ body {
     z-index: 1;
 }
 
-.unit_stats .stat_container {
+.units_tab1_content .unit_stats .stat_container {
     padding: 0 8px;
 }
 
@@ -337,7 +337,7 @@ body {
     transform: translateY(-50%);
 }
 
-.unit_stats .stat_container img {
+.units_tab1_content .unit_stats .stat_container img {
     width: 30px;
     height: 30px;
 }
@@ -353,8 +353,9 @@ body {
     text-align: center;
 }
 
-.unit_stats .stat_container h1 {
+.units_tab1_content .unit_stats .stat_container h1 {
     padding-left: 6px;
+    font-size: 1.1em;
 }
 
 .required_resources .resource_container h1 span{
@@ -605,7 +606,7 @@ body {
     width: 100%;
 }
 
-.buildings_tab2_element header, .units_tab1_content header {
+.buildings_tab2_element header, .units_tab1_content header, .units_tab2_content header {
     justify-content: flex-start;
 }
 
@@ -674,7 +675,7 @@ body {
     text-align: justify;
 }
 
-.required_resources>span {
+.required_resources>span, .unit_stats>span {
     position: relative;
     margin: 0;
     display: block;
@@ -687,4 +688,50 @@ body {
     -moz-osx-font-smoothing: grayscale;
     text-align: justify;
     font-weight: bold;
+}
+
+.recruit_section input{
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-start;
+    padding: 12px;
+    margin: 0 0 12px 12px;
+    border-radius: 40px 0 0 40px;
+    font-size: 0.9rem;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    border: 1px solid #f2f2f2;
+}
+
+.recruit_section input::placeholder {
+  color: #8f8fa1;
+  font-family: 'Ubuntu', sans-serif;
+  opacity: 0.7;
+}
+
+.recruit_section input:focus{
+    outline: none;
+}
+
+.btn_recruit{
+    background-color: #279c27;
+    border: 0;
+    padding: 11px;
+    color: white;
+    border-radius: 0 40px 40px 0;
+    cursor: pointer;
+    font-family: 'Ubuntu', sans-serif;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    font-weight: bold;
+    transform: translateX(-5px) translateY(1px);
+}
+
+.btn_recruit:focus{
+    outline: none;
+}
+
+.btn_recruit:hover{
+    background-color: limegreen;
 }

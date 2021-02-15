@@ -1,7 +1,7 @@
 // Make the DIV element draggable:
 dragMap(document.getElementById("map"));
-dragTab(document.getElementById("science_tab", "science_header"));
-dragTab(document.getElementById("buildings_and_units_tab", "buildings_and_units_tab_header"));
+dragTab(document.getElementById("science_tab"), "science_header");
+dragTab(document.getElementById("buildings_and_units_tab"), "buildings_and_fields_content_h1");
 
 var size_x = 10;
 var size_y = 10;
@@ -76,9 +76,9 @@ function dragMap(elmnt) {
 
 function dragTab(elmnt, tag) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + tag)) {
+  if (document.getElementById(tag)) {
     // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + tag).onmousedown = dragMouseDown;
+    document.getElementById(tag).onmousedown = dragMouseDown;
   } else {
     // otherwise, move the DIV from anywhere inside the DIV:
     elmnt.onmousedown = dragMouseDown;
