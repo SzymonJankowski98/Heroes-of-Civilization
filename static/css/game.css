@@ -313,19 +313,23 @@ body {
     text-align: justify;
 }
 
-.required_resources {
+.required_resources, .unit_stats {
     margin: 0 auto;
     display: flex;
     justify-content: flex-start;
 }
 
-.required_resources .resource_container {
+.required_resources .resource_container, .unit_stats .stat_container{
     display: inline-flex;
-    padding: 0 6px;
+    padding: 0 4px;
     z-index: 1;
 }
 
-.required_resources .resource_container img{
+.unit_stats .stat_container {
+    padding: 0 8px;
+}
+
+.required_resources .resource_container img, .unit_stats .stat_container img{
     position: relative;
     width: 25px;
     height: 25px;
@@ -333,15 +337,24 @@ body {
     transform: translateY(-50%);
 }
 
-.required_resources .resource_container h1{
-    padding-left: 3px;
+.unit_stats .stat_container img {
+    width: 30px;
+    height: 30px;
+}
+
+.required_resources .resource_container h1, .unit_stats .stat_container h1{
+    padding-left: 4px;
     position: relative;
-    font-size: 0.9em;
+    font-size: 1em;
     font-family: 'Bree Serif', sans-serif;
     color: #14213d;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
+}
+
+.unit_stats .stat_container h1 {
+    padding-left: 6px;
 }
 
 .required_resources .resource_container h1 span{
@@ -494,7 +507,7 @@ body {
     display: none;
 }
 
-.buildings_tab1_content, .buildings_tab2_content {
+.buildings_tab1_content, .buildings_tab2_content,.units_tab1_content , .units_tab2_content {
     overflow-y: auto;
 }
 
@@ -572,30 +585,43 @@ body {
     height: 30px;
 }
 
-.buildings_tab1_content, .buildings_tab2_content {
+.buildings_tab1_content, .buildings_tab2_content, .units_tab1_content, .units_tab2_content {
     position: relative;
     top: 10%;
     width: 100%;
     height: 90%;
 }
 
-.buildings_tab1_element header, .buildings_tab2_element header {
+.units_tab1_element {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.buildings_tab1_element header, .buildings_tab2_element header,
+.units_tab1_content header, .units_tab2_content header {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.buildings_tab2_element header {
+.buildings_tab2_element header, .units_tab1_content header {
     justify-content: flex-start;
 }
 
-.buildings_tab1_element header img, .buildings_tab2_element header img  {
+.units_tab1_element header span{
+    color: mediumblue;
+}
+
+.buildings_tab1_element header img, .buildings_tab2_element header img,
+.units_tab1_content header img, .units_tab2_content header img {
     width: 50px;
     height: 50px;
     padding: 5px 5px 5px 15px;
 }
 
-.buildings_tab1_element header h1, .buildings_tab2_element header h1 {
+.buildings_tab1_element header h1, .buildings_tab2_element header h1,
+.units_tab1_content header h1, .units_tab2_content header h1 {
     font-size: 1.3em;
     display: block;
     font-weight: bold;
@@ -607,7 +633,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.buildings_tab1_element:not(:last-child), .buildings_tab2_element:not(:last-child) {
+.buildings_tab1_element:not(:last-child), .buildings_tab2_element:not(:last-child),
+.units_tab1_element:not(:last-child), .units_tab2_element:not(:last-child) {
     border-bottom: 1px lightgray solid;
 }
 
@@ -632,7 +659,8 @@ body {
     background-color: dodgerblue;
 }
 
-.buildings_tab1_element>span, .buildings_tab2_element>span {
+.buildings_tab1_element>span, .buildings_tab2_element>span,
+.units_tab1_element>span, .units_tab2_element>span{
     position: relative;
     margin: 0;
     display: block;
