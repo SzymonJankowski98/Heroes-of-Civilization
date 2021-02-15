@@ -63,6 +63,7 @@ body {
 
 .field {
     box-sizing: border-box;
+    position: relative;
     float: left;
     width: calc(100vw / 15);
     height: calc(100vw / 15);
@@ -72,7 +73,7 @@ body {
     display: inline-grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    #overflow: hidden;
+    overflow: hidden;
 }
 
 .water {
@@ -83,6 +84,7 @@ body {
 .map_object {
     position: relative;
     margin: 3px;
+    z-index: 2;
 }
 
 .building {
@@ -734,4 +736,22 @@ body {
 
 .btn_recruit:hover{
     background-color: limegreen;
+}
+
+.player_marker1 {
+    position: absolute;
+    width: calc(100vw / 15);
+    height: calc(100vw / 15);
+    background-color: #fca311;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.player_marker2 {
+    position: absolute;
+    width: calc(100vw / 15);
+    height: calc(100vw / 15);
+    background-color: blue;
+    opacity: 0.4;
+    z-index: 1;
 }
