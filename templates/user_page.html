@@ -96,11 +96,13 @@
             </header>
             <form class="new_game_form" action="#" method="POST">
                 <img src="{{ url_for('static', filename='images/sword.png') }}">
-                <input type="number" placeholder="Szerokość">
-                <input type="number" placeholder="Wysokość">
-                <input type="number" placeholder="Gracze">
-                <input type="number" step=".01" placeholder="Surowce">
-                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">
+                <input type="number" placeholder="Szerokość" name="xs">
+                <input type="number" placeholder="Wysokość" name="ys">
+                <input type="number" placeholder="Gracze" name="maxp">
+                <input type="number" step=".01" placeholder="Surowce" name="chances">
+{#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
+{#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
             </form>
         </div>
      </div>

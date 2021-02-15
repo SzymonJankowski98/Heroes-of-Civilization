@@ -2,14 +2,35 @@ from flask import Flask, render_template, redirect, url_for, request, session, f
 from datetime import timedelta
 import cx_Oracle
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
-app.permanent_session_lifetime = timedelta(minutes=5)
+app.permanent_session_lifetime = timedelta(minutes=120)
 db = cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab02_students.cs.put.poznan.pl")
 cursor = db.cursor()
+
+# with open('static/images/gold-ingots.png', 'rb') as f:
+#     imgdata = f.read()
+# cursor.callproc("AddResource", ['Gold', imgdata])
+#
+# with open('static/images/wood.png', 'rb') as f:
+#     imgdata = f.read()
+# cursor.callproc("AddResource", ['Wood', imgdata])
+#
+# with open('static/images/stone.png', 'rb') as f:
+#     imgdata = f.read()
+# cursor.callproc("AddResource", ['Stone', imgdata])
+#
+# with open('static/images/beam.png', 'rb') as f:
+#     imgdata = f.read()
+# cursor.callproc("AddResource", ['Iron', imgdata])
+#
+# with open('static/images/gem.png', 'rb') as f:
+#     imgdata = f.read()
+# cursor.callproc("AddResource", ['Crystal', imgdata])
+# db.commit()
 
 
 def get_games_info(name):
@@ -20,7 +41,7 @@ def get_games_info(name):
     infos = []
     objType = db.gettype("G_INFO_TABLE")
     for g_id in ids:
-        cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [name, g_id[0]]))
+        cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [g_id[0]]))
         for y in cursor:
             infos.append(list(y))
     nfull = []
@@ -75,13 +96,25 @@ def register_page():
     return render_template('register_page.html')
 
 
-@app.route('/user')
+@app.route('/user', methods=["POST", "GET"])
 def user_page():
     if "user" in session:
         user = session["user"]
         infos, nfull = get_games_info(user)
-        print(infos, nfull)
-        return render_template("user_page.html", usr=user, games=infos, all_games=nfull)
+        if request.method == "POST":
+            x_size = request.form['xs']
+            y_size = request.form['ys']
+            max_players = request.form['maxp']
+            r_chances = request.form['chances']
+            if len(x_size) > 0 or len(y_size) > 0 or len(max_players) > 0 or len(r_chances) > 0:
+                cursor.callproc("CreateGame", [user, int(x_size), int(y_size), int(max_players), float(r_chances)])
+                db.commit()
+                return redirect(url_for("user_page"))
+            else:
+                return render_template("user_page.html", usr=user, games=infos, all_games=nfull)
+        else:
+            infos, nfull = get_games_info(user)
+            return render_template("user_page.html", usr=user, games=infos, all_games=nfull)
     else:
         return redirect(url_for("login_page"))
 

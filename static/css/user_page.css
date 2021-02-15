@@ -213,7 +213,7 @@ td img.enter {
     position: relative;
 }
 
-.new_game_form input {
+.new_game_form input{
     box-sizing: border-box;
     display: flex;
     height: 80%;
@@ -242,19 +242,28 @@ td img.enter {
     border: 1px solid #14213d;
 
 }
-
 .new_game_form img{
     width: 36px;
     height: 36px;
     display: block;
     position: relative;
-    float: left;
     top: 50%;
     transform: translateY(-50%);
-    padding: 10px;
+    float: left;
+    padding:10px;
 }
+
+input[type=image].add {
+    width: 36px;
+    height: 36px;
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    float: left;
+    padding:1px;
+    }
 
 .enter, .add {
     cursor: pointer;
 }
-
