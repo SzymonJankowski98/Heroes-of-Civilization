@@ -41,7 +41,7 @@ def get_games_info(name):
     infos = []
     objType = db.gettype("G_INFO_TABLE")
     for g_id in ids:
-        cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [name, g_id[0]]))
+        cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [g_id[0]]))
         for y in cursor:
             infos.append(list(y))
     nfull = []
@@ -101,7 +101,6 @@ def user_page():
     if "user" in session:
         user = session["user"]
         infos, nfull = get_games_info(user)
-        print(infos, nfull)
         if request.method == "POST":
             x_size = request.form['xs']
             y_size = request.form['ys']
