@@ -22,8 +22,9 @@
                 <span>WYLOGUJ</span>
             </div>
             <div class="map" id="map">
-                <div class="field">
+                <div class="field" onclick="click_field(this)">
                     <div class="player_marker2"></div>
+                    <img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}">
                     <div class="map_object building">
 
                     </div>
@@ -65,13 +66,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="field">
+                <div class="field" onclick="click_field(this)">
                 </div>
-                <div class="field"><div class="player_marker1"></div></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
+                <div class="field" onclick="click_field(this)"><div class="player_marker1"></div></div>
+                <div class="field" onclick="click_field(this)"></div>
+                <div class="field" onclick="click_field(this)"></div>
+                <div class="field" onclick="click_field(this)"></div>
+                <div class="field" onclick="click_field(this)"></div>
                 <div class="field"></div>
                 <div class="field">
                     <div class="map_object unit">
@@ -94,7 +95,7 @@
                 <div class="field"></div>
                 <div class="field"></div>
                 <div class="field"></div>
-                <div class="field">
+                <div class="field" onclick="click_field(this)">
                     <div class="player_marker2"></div>
                     <div class="map_object unit">
                          <div class="unit_info">
@@ -116,14 +117,16 @@
                 <div class="field"></div>
                 <div class="field"></div>
                 <div class="field"></div>
+                <div class="field" onclick="click_field(this)"><img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field" onclick="click_field(this)">
+                    <div class="player_marker1"></div>
+                </div>
                 <div class="field"></div>
                 <div class="field"></div>
                 <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field">
+                <div class="field" onclick="click_field(this)">
                     <div class="player_marker1"></div>
                     <div class="map_object building">
 
@@ -151,7 +154,8 @@
                 <div class="field water"></div>
                 <div class="field"></div>
                 <div class="field"></div>
-                <div class="field">
+                <div class="field" onclick="click_field(this)">
+                    <img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}">
                     <div class="map_object building">
 
                     </div>

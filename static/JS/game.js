@@ -244,4 +244,29 @@ function activate_tab(elmnt) {
 
 function exit_buildings_units_tab() {
   document.getElementById("buildings_and_units_tab").style.display = 'none';
+  let i;
+  const all_fields = document.getElementsByClassName("player_marker1");
+  for (i of all_fields) {
+    if (i.classList) {
+      i.classList.remove("active_field_marker");
+    }
+  }
+}
+
+function click_field(elmnt) {
+  let i;
+  const all_fields = document.getElementsByClassName("player_marker1");
+  for (i of all_fields) {
+    if (i.classList) {
+      i.classList.remove("active_field_marker");
+    }
+  }
+  const active_elem = elmnt.getElementsByClassName("player_marker1")[0];
+  if (active_elem !== undefined && active_elem.classList.contains("player_marker1")) {
+      active_elem.classList.add("active_field_marker");
+      document.getElementById("buildings_and_units_tab").style.display = 'block';
+  }
+  else {
+    exit_buildings_units_tab();
+  }
 }
