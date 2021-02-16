@@ -146,6 +146,16 @@ var map = 1;
 
 function change_map() {
 
+  remove_unit_move_markers();
+
+  let j;
+  const all_units = document.getElementsByClassName("unit");
+  for (j of all_units) {
+    if (j.classList) {
+      j.classList.remove("active_unit_marker");
+    }
+  }
+
   var i = 0;
   const buildings = document.getElementsByClassName("building");
   const units = document.getElementsByClassName("unit");
@@ -245,7 +255,7 @@ function activate_tab(elmnt) {
 function exit_buildings_units_tab() {
   document.getElementById("buildings_and_units_tab").style.display = 'none';
   let i;
-  const all_fields = document.getElementsByClassName("player_marker1");
+  const all_fields = document.getElementsByClassName("active_field_marker");
   for (i of all_fields) {
     if (i.classList) {
       i.classList.remove("active_field_marker");
@@ -255,12 +265,21 @@ function exit_buildings_units_tab() {
 
 function click_field(elmnt) {
   let i;
-  const all_fields = document.getElementsByClassName("player_marker1");
+  const all_fields = document.getElementsByClassName("active_field_marker");
   for (i of all_fields) {
     if (i.classList) {
       i.classList.remove("active_field_marker");
     }
   }
+
+  let j;
+  const all_units = document.getElementsByClassName("active_unit_marker");
+  for (j of all_units) {
+    if (j.classList) {
+      j.classList.remove("active_unit_marker");
+    }
+  }
+
   const active_elem = elmnt.getElementsByClassName("player_marker1")[0];
   if (active_elem !== undefined && active_elem.classList.contains("player_marker1")) {
       active_elem.classList.add("active_field_marker");
@@ -268,5 +287,65 @@ function click_field(elmnt) {
   }
   else {
     exit_buildings_units_tab();
+  }
+
+  remove_unit_move_markers();
+}
+
+function click_unit(elmnt, event) {
+  let i;
+  const all_units = document.getElementsByClassName("unit");
+  for (i of all_units) {
+    if (i.classList) {
+      i.classList.remove("active_unit_marker");
+    }
+  }
+  elmnt.classList.add("active_unit_marker");
+
+  exit_buildings_units_tab();
+
+  if (!event)
+      event = window.event;
+    if (event.stopPropagation) {
+      event.stopPropagation();
+    }
+    else {
+      event.cancelBubble = true;
+    }
+
+   mark_unit_move(elmnt, 2)
+}
+
+function mark_unit_move(elmnt, move_dist) {
+  remove_unit_move_markers();
+  var elmnt_coords = elmnt.parentElement.id.split(";");
+
+  var coords = Array.from({length: move_dist + 1}, (_, i) => i);
+  coords = coords.concat(Array.from({length: move_dist + 1}, (_, i) => -i));
+  var dest_coords;
+  var dest_elmnt;
+  for (const i of coords) {
+    for (const j of coords) {
+       if (i === 0 && j === 0) continue;
+       dest_coords = (i + parseInt(elmnt_coords[0])).toString() + ';' + (j + parseInt(elmnt_coords[1])).toString();
+       dest_elmnt = document.getElementById(dest_coords);
+       if (dest_elmnt) {
+         if (dest_elmnt.classList.contains("water")) continue;
+         dest_elmnt = dest_elmnt.getElementsByClassName("marker")[0];
+         if (dest_elmnt) {
+           dest_elmnt.classList.add("active_unit_dest_marker");
+         }
+       }
+    }
+  }
+}
+
+function remove_unit_move_markers() {
+  var i;
+  var all_fields = document.getElementsByClassName("active_unit_dest_marker");
+  for (i=all_fields.length -1; i >= 0; i--) {
+    if (all_fields[i].classList) {
+      all_fields[i].classList.remove("active_unit_dest_marker");
+    }
   }
 }

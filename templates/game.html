@@ -22,22 +22,22 @@
                 <span>WYLOGUJ</span>
             </div>
             <div class="map" id="map">
-                <div class="field" onclick="click_field(this)">
-                    <div class="player_marker2"></div>
+                <div class="field" id="1;1" onclick="click_field(this)">
+                    <div class="marker player_marker2"></div>
                     <img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}">
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object unit">
+                    <div class="unit" onclick="click_unit(this, event)">
                         <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -51,7 +51,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="map_object unit">
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -66,16 +66,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="field" onclick="click_field(this)">
+                <div class="field" id="2;1" onclick="click_field(this)">
+                    <div class="marker"></div>
                 </div>
-                <div class="field" onclick="click_field(this)"><div class="player_marker1"></div></div>
-                <div class="field" onclick="click_field(this)"></div>
-                <div class="field" onclick="click_field(this)"></div>
-                <div class="field" onclick="click_field(this)"></div>
-                <div class="field" onclick="click_field(this)"></div>
-                <div class="field"></div>
-                <div class="field">
-                    <div class="map_object unit">
+                <div class="field" id="3;1" onclick="click_field(this)">
+                    <div class="marker player_marker1"></div>
+                </div>
+                <div class="field" id="4;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="5;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="6;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="7;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="8;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="9;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -90,14 +104,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field" onclick="click_field(this)">
-                    <div class="player_marker2"></div>
-                    <div class="map_object unit">
+                <div class="field" id="10;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="11;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="12;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="13;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="14;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="15;1" onclick="click_field(this)">
+                    <div class="marker player_marker2"></div>
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -112,75 +136,150 @@
                         </div>
                     </div>
                 </div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field" onclick="click_field(this)"><img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field" onclick="click_field(this)">
-                    <div class="player_marker1"></div>
+                <div class="field" id="16;1">
+                    <div class="marker"></div>
                 </div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field" onclick="click_field(this)">
-                    <div class="player_marker1"></div>
-                    <div class="map_object building">
+                <div class="field" id="17;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="18;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="19;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="20;1" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="1;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                    <img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}"></div>
+                <div class="field" id="2;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="3;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="4;2" onclick="click_field(this)">
+                    <div class="marker player_marker1"></div>
+                </div>
+                <div class="field" id="5;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="6;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="7;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="8;2" onclick="click_field(this)">
+                    <div class="marker player_marker1"></div>
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
+                    <div class="unit" onclick="click_unit(this, event)">
+                         <div class="unit_info">
+                            <header>
+                                <img src="{{ url_for('static', filename='images/mace.png') }}">
+                                <h1>Kusznik</h1>
+                            </header>
+                            <ul class="info">
+                                <li>Ilość: <span>1000</span></li>
+                                <li>Punkty życia: <span>92</span></li>
+                                <li>Atak: <span>18</span></li>
+                                <li>Obrona: <span>32</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="field water"></div>
-                <div class="field water"></div>
-                <div class="field"></div>
-                <div class="field water"></div>
-                <div class="field"></div>
-                <div class="field water"></div>
-                <div class="field water"></div>
-                <div class="field water"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field water"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field" onclick="click_field(this)">
+                <div class="field water" id="9;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="10;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="11;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="12;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="13;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="14;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="15;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="16;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="17;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="18;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="19;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="20;2" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="1;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="2;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="3;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="4;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field water" id="5;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="6;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="7;3" onclick="click_field(this)">
+                    <div class="marker"></div>
+                </div>
+                <div class="field" id="8;3" onclick="click_field(this)">
+                    <div class="marker"></div>
                     <img class="resource_marker" src="{{ url_for('static', filename='images/gem.png') }}">
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
-                    <div class="map_object building">
+                    <div class="building">
 
                     </div>
                 </div>
@@ -197,7 +296,7 @@
                 <div class="field"></div>
                 <div class="field"></div>
                 <div class="field">
-                    <div class="map_object unit">
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -211,48 +310,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="map_object unit">
-                         <div class="unit_info">
-                            <header>
-                                <img src="{{ url_for('static', filename='images/mace.png') }}">
-                                <h1>Kusznik</h1>
-                            </header>
-                            <ul class="info">
-                                <li>Ilość: <span>1000</span></li>
-                                <li>Punkty życia: <span>92</span></li>
-                                <li>Atak: <span>18</span></li>
-                                <li>Obrona: <span>32</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field">
-                    <div class="map_object building">
-
-                    </div>
-                    <div class="map_object building">
-
-                    </div>
-                </div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field water"></div>
-                <div class="field water"></div>
-                <div class="field water"></div>
-                <div class="field"></div>
-                <div class="field"></div>
-                <div class="field">
-                    <div class="map_object unit">
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -272,8 +330,29 @@
                 <div class="field"></div>
                 <div class="field"></div>
                 <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
                 <div class="field">
-                    <div class="map_object unit">
+                    <div></div>
+                    <div class="building">
+
+                    </div>
+                    <div class="building">
+
+                    </div>
+                </div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field water"></div>
+                <div class="field water"></div>
+                <div class="field water"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field">
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">
@@ -287,7 +366,28 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="map_object unit">
+                </div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field"></div>
+                <div class="field">
+                    <div class="unit" onclick="click_unit(this, event)">
+                         <div class="unit_info">
+                            <header>
+                                <img src="{{ url_for('static', filename='images/mace.png') }}">
+                                <h1>Kusznik</h1>
+                            </header>
+                            <ul class="info">
+                                <li>Ilość: <span>1000</span></li>
+                                <li>Punkty życia: <span>92</span></li>
+                                <li>Atak: <span>18</span></li>
+                                <li>Obrona: <span>32</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="unit" onclick="click_unit(this, event)">
                          <div class="unit_info">
                             <header>
                                 <img src="{{ url_for('static', filename='images/mace.png') }}">

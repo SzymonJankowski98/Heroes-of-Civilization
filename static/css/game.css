@@ -81,7 +81,7 @@ body {
     background-size: 100%;
 }
 
-.map_object {
+.building, .unit {
     position: relative;
     margin: 3px;
     z-index: 2;
@@ -739,6 +739,12 @@ body {
     background-color: limegreen;
 }
 
+.marker {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .player_marker1 {
     position: absolute;
     width: 100%;
@@ -770,4 +776,14 @@ body {
 .active_field_marker {
     background-color: forestgreen;
     opacity: 0.75;
+}
+
+.active_unit_marker{
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.active_unit_dest_marker {
+    box-sizing: border-box;
+    border: 2px solid white;
+    z-index: 1;
 }
