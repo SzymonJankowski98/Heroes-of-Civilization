@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from datetime import timedelta
 import cx_Oracle
-import json
+from base64 import b64encode
 
 #cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
 cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
@@ -71,7 +71,7 @@ def get_map(name, game_id):
     cursor.execute(''' SELECT * FROM table(:z) ''', z=cursor.callfunc("get_map", objType, [game_id]))
     for field in cursor:
         fields.append(list(field))
-    print(fields)
+    #print(fields)
     cursor.close()
 
     cursor = db.cursor()
@@ -80,7 +80,7 @@ def get_map(name, game_id):
     cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_map", objType, [game_id]))
     for building in cursor:
         buildings.append(list(building))
-    print(buildings)
+    #print(buildings)
     cursor.close()
 
     cursor = db.cursor()
@@ -89,7 +89,7 @@ def get_map(name, game_id):
     cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_units_map", objType, [game_id]))
     for unit in cursor:
         units.append(list(unit))
-    print(units)
+    #print(units)
     cursor.close()
 
     cursor = db.cursor()
@@ -98,7 +98,7 @@ def get_map(name, game_id):
     cursor.execute(''' SELECT * FROM table(:x) ''', x=cursor.callfunc("get_units_info", objType2, []))
     for unit_info in cursor:
         units_info.append(list(unit_info))
-    print(units_info)
+    #print(units_info)
     cursor.close()
 
     cursor = db.cursor()
@@ -107,7 +107,7 @@ def get_map(name, game_id):
     cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_info", objType, []))
     for building_info in cursor:
         buildings_info.append(list(building_info))
-    print(buildings_info)
+    #print(buildings_info)
     cursor.close()
 
     cursor = db.cursor()
@@ -115,8 +115,8 @@ def get_map(name, game_id):
     objType = db.gettype("RESOURCES_INFO_TABLE")
     cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_resources_info", objType, [game_id, name]))
     for resource_info in cursor:
-        resources_info.append(list(resources_info))
-    print(resources_info)
+        resources_info.append(list(resource_info))
+    #print(resources_info)
     cursor.close()
 
     return fields, buildings, units, units_info, buildings_info, resources_info
@@ -198,7 +198,38 @@ def logout():
 def game(game_id):
     user = session["user"]
     fields, buildings, units, units_info, buildings_info, resources_info = get_map(user, int(game_id))
-    return render_template('game.html', fields=fields, buildings=buildings, units=units, units_info=units_info, buildings_info=buildings_info, resources_info=resources_info)
+
+    width = 0
+    for i in fields:
+        if i[1] > width:
+            width = i[1]
+
+    height = 0
+    for i in fields:
+        if i[0] > height:
+            height = i[0]
+
+    new_units = [[[] for i in range(width)] for j in range(height)]
+    for i in units:
+        new_units[i[0]-1][i[1]-1].append(i[2])
+
+    new_buildings = [[[] for i in range(width)] for j in range(height)]
+    for i in buildings:
+        new_buildings[i[0]-1][i[1]-1].append(i[2])
+
+    new_units_info = dict()
+    for i in units_info:
+        new_units_info[i[0]] = [i[1], i[2], i[3], i[4], b64encode(i[5].read()).decode("utf-8")]
+
+    new_buildings_info = dict()
+    for i in buildings_info:
+        new_buildings_info[i[0]] = b64encode(i[1].read()).decode("utf-8")
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+        
+    return render_template('game.html', user_name=user, width=width, height=height, fields=fields, buildings=new_buildings, units=new_units, units_info=new_units_info, buildings_info=new_buildings_info, resources_info=new_resourcer_info)
 
 
 if __name__ == '__main__':

@@ -87,14 +87,13 @@ body {
     z-index: 2;
 }
 
-.building {
-    background: url("../images/castle.png");
-    background-size: 100%;
+.building img, .unit img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .unit {
-    background: url("../images/mace.png");
-    background-size: 100%;
     display: none;
 }
 
