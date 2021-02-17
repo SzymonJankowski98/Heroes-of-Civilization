@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from datetime import timedelta
 import cx_Oracle
+import json
 
 #cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
 cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
@@ -35,22 +36,90 @@ cursor = db.cursor()
 
 def get_games_info(name):
     ids = []
+    cursor = db.cursor()
     cursor.execute(''' SELECT game_id FROM users_in_games WHERE user_name = :usr_name ''', usr_name=name)
     for i in cursor:
         ids.append(i)
     infos = []
+    cursor.close()
+
     objType = db.gettype("G_INFO_TABLE")
+    cursor = db.cursor()
     for g_id in ids:
         cursor.execute(''' SELECT * FROM table(:x)''', x=cursor.callfunc('game_info', objType, [g_id[0]]))
         for y in cursor:
             infos.append(list(y))
+    cursor.close()
+
     nfull = []
     objType2 = db.gettype("NFULL_GAMES_TABLE")
-    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("nfull_games_info", objType2, [name]))
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:p) ''', p=cursor.callfunc("nfull_games_info", objType2, [name]))
     for rec in cursor:
         nfull.append(list(rec))
+    cursor.close()
 
     return infos, nfull
+
+
+def get_map(name, game_id):
+    game_id = int(game_id)
+    fields = []
+
+    cursor = db.cursor()
+    objType = db.gettype("GAME_MAP_TABLE")
+    cursor.execute(''' SELECT * FROM table(:z) ''', z=cursor.callfunc("get_map", objType, [game_id]))
+    for field in cursor:
+        fields.append(list(field))
+    print(fields)
+    cursor.close()
+
+    cursor = db.cursor()
+    buildings = []
+    objType = db.gettype("BUILDINGS_MAP_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_map", objType, [game_id]))
+    for building in cursor:
+        buildings.append(list(building))
+    print(buildings)
+    cursor.close()
+
+    cursor = db.cursor()
+    units = []
+    objType = db.gettype("UNITS_MAP_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_units_map", objType, [game_id]))
+    for unit in cursor:
+        units.append(list(unit))
+    print(units)
+    cursor.close()
+
+    cursor = db.cursor()
+    units_info = []
+    objType2 = db.gettype("UNITS_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:x) ''', x=cursor.callfunc("get_units_info", objType2, []))
+    for unit_info in cursor:
+        units_info.append(list(unit_info))
+    print(units_info)
+    cursor.close()
+
+    cursor = db.cursor()
+    buildings_info = []
+    objType = db.gettype("BUILDINGS_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_info", objType, []))
+    for building_info in cursor:
+        buildings_info.append(list(building_info))
+    print(buildings_info)
+    cursor.close()
+
+    cursor = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_resources_info", objType, [game_id, name]))
+    for resource_info in cursor:
+        resources_info.append(list(resources_info))
+    print(resources_info)
+    cursor.close()
+
+    return fields, buildings, units, units_info, buildings_info, resources_info
 
 
 @app.route('/')
@@ -125,9 +194,11 @@ def logout():
     return redirect(url_for("login_page"))
 
 
-@app.route('/game')
-def game():
-    return render_template('game.html')
+@app.route('/game/<game_id>')
+def game(game_id):
+    user = session["user"]
+    fields, buildings, units, units_info, buildings_info, resources_info = get_map(user, int(game_id))
+    return render_template('game.html', fields=fields, buildings=buildings, units=units, units_info=units_info, buildings_info=buildings_info, resources_info=resources_info)
 
 
 if __name__ == '__main__':
