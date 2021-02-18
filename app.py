@@ -344,6 +344,48 @@ def available_buildings():
     return render_template('available_buildings.html', available_buildings=available_buildings, resources_info=new_resourcer_info, x=x, y=y)
 
 
+@app.route('/yourbuildings', methods=["POST"])
+def your_buildings():
+    user = session["user"]
+    game_id = session["game_id"]
+    x = request.values['x']
+    y = request.values['y']
+
+    your_buildings = []
+    objType = db.gettype("YOUR_BUILDINGS_TABLE")
+    cursor2 = db.cursor()
+    m = cursor2.callfunc("get_your_buildings", objType, [game_id, user, x, y])
+    cursor2.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    for building in cursor:
+        cursor3 = db.cursor()
+        cursor3.execute(''' SELECT * FROM table(:l) ''', l=building[3])
+        income = []
+        for r in cursor3:
+            income.append(r)
+        cursor3.close()
+
+        your_buildings.append([building[0], b64encode(building[1].read()).decode("utf-8"), building[2], income])
+    cursor.close()
+
+    cursor5 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor5.execute(''' SELECT * FROM table(:r) ''', r=cursor5.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor5:
+        resources_info.append(list(resource_info))
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor5.close()
+
+    print(your_buildings)
+
+    return render_template('your_buildings.html', your_buildings=your_buildings, resources_info=new_resourcer_info, x=x, y=y)
+
+
 @app.route('/buildbuilding', methods=["POST"])
 def build_building():
     user = session["user"]
@@ -371,6 +413,99 @@ def build_building():
 
     return render_template('resorces.html', resources_info=new_resourcer_info)
 
+
+@app.route('/availableunits', methods=["POST"])
+def available_units():
+    user = session["user"]
+    game_id = session["game_id"]
+    x = request.values['x']
+    y = request.values['y']
+
+    available_units = []
+    objType = db.gettype("AVAILABLE_UNIT_TABLE")
+    cursor2 = db.cursor()
+    m = cursor2.callfunc("get_available_units", objType, [game_id, user, x, y])
+    cursor2.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    for unit in cursor:
+        cursor3 = db.cursor()
+        cursor3.execute(''' SELECT * FROM table(:l) ''', l=unit[9])
+        costs = []
+        for r in cursor3:
+            costs.append(r)
+        cursor3.close()
+
+        available_units.append([unit[0], unit[1], unit[2], unit[3], unit[4], unit[5], b64encode(unit[6].read()).decode("utf-8"), unit[7], unit[8], costs])
+    cursor.close()
+
+    cursor5 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor5.execute(''' SELECT * FROM table(:r) ''', r=cursor5.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor5:
+        resources_info.append(list(resource_info))
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor5.close()
+
+    print(available_units)
+
+    return render_template('available_units.html', available_units=available_units, resources_info=new_resourcer_info, x=x, y=y)
+
+
+@app.route('/yourunits', methods=["POST"])
+def your_units():
+    user = session["user"]
+    game_id = session["game_id"]
+    x = request.values['x']
+    y = request.values['y']
+
+    your_units = []
+    objType = db.gettype("YOUR_UNITS_TABLE")
+    cursor2 = db.cursor()
+    m = cursor2.callfunc("get_your_units", objType, [game_id, user, x, y])
+    cursor2.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    for unit in cursor:
+        your_units.append([unit[0], unit[1], unit[2], unit[3], unit[4], unit[5], b64encode(unit[6].read()).decode("utf-8"), unit[7]])
+    cursor.close()
+
+    print(your_units)
+
+    return render_template('your_units.html', your_units=your_units, x=x, y=y)
+
+
+@app.route('/recruitunit', methods=["POST"])
+def recruit_unit():
+    user = session["user"]
+    game_id = session["game_id"]
+    unit_name = request.values['name']
+    x = request.values['x']
+    y = request.values['y']
+    amount = request.values['amount']
+
+    cursor = db.cursor()
+    cursor.callproc("RecruitUnit_Action ", [unit_name, user, amount, x, y, int(game_id)])
+    db.commit()
+
+    cursor2 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor2.execute(''' SELECT * FROM table(:a) ''', a=cursor.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor2:
+        resources_info.append(list(resource_info))
+    cursor2.close()
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor.close()
+
+    return render_template('resorces.html', resources_info=new_resourcer_info)
 
 if __name__ == '__main__':
     app.run()

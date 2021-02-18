@@ -1,0 +1,54 @@
+{% for unit in available_units %}
+<div class="units_tab2_element">
+    <header>
+        {% if unit[6] %}
+            <img class="resource" src="data:;base64,{{ unit[6] }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/helmet.png') }}">
+        {% endif %}
+        <h1>{{ unit[0] }}</h1>
+    </header>
+    <span> {{ unit[7] }} </span>
+    <div class="unit_stats">
+        <span>Atrybuty: </span>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/hp.png') }}">
+            <h1>{{ unit[3] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/attack.png') }}">
+            <h1>{{ unit[1] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/defence.png') }}">
+            <h1>{{ unit[2] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/move.png') }}">
+            <h1>{{ unit[4] }}</h1>
+        </div>
+    </div>
+    <div class="required_resources">
+        <span>Wymagania: </span>
+        {% for cost in unit[9] %}
+        <div class="resource_container">
+            {% if resources_info[cost[0]][1] %}
+                <img class="resource" src="data:;base64,{{ resources_info[cost[0]][1] }}">
+            {% else %}
+                <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+            {% endif %}
+            <h1>{{ cost[1] }}</h1>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="recruit_section">
+        {% if unit[8] == 0 %}
+        <input type="number" placeholder="ilość">
+        <button class="btn_recruit" onclick="recruitUnit(this, '{{ unit[0]}}', {{ x }}, {{ y }})">rekrutuj</button>
+        {% else %}
+        <input type="number" placeholder="ilość" disabled>
+        <button class="btn_recruit_disabled" disabled>rekrutuj</button>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}

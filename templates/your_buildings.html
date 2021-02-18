@@ -1,0 +1,87 @@
+{% for building in your_buildings %}
+<div class="buildings_tab1_element">
+    <header>
+        {% if building[1] %}
+        <img class="resource" src="data:;base64,{{ building[1] }}">
+        {% else %}
+        <img src="{{ url_for('static', filename='images/anvil.png') }}">
+        {% endif %}
+        <h1>{{ building[0] }}</h1>
+    </header>
+    <span>{{ building[2] }}</span>
+    <div class="required_resources">
+        <span>Zysk:</span>
+        {% for income in building[3] %}
+        <div class="resource_container">
+            {% if resources_info[income[0]][1] %}
+                <img class="resource" src="data:;base64,{{ resources_info[income[0]][1] }}">
+            {% else %}
+                <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+            {% endif %}
+            <h1>{{ income[1] }}</h1>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+
+<!---
+<div class="buildings_tab1_element">
+    <header>
+        <img src="{{ url_for('static', filename='images/anvil.png') }}">
+        <h1>Budynek1</h1>
+        <div class="building_level">1</div>
+    </header>
+    <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
+    <div class="required_resources">
+        <span>Zysk:</span>
+        <div class="resource_container">
+            <img class="resource"
+                 src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+            <h1>100<span>(150)</span></h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/wood.png') }}">
+            <h1>234<span>(150)</span></h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/stone.png') }}">
+            <h1>12<span>(150)</span></h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/beam.png') }}">
+            <h1>765<span>(150)</span></h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/gem.png') }}">
+            <h1>412<span>(150)</span></h1>
+        </div>
+    </div>
+    <div class="required_resources">
+        <span>Wymagania: </span>
+        <div class="resource_container">
+            <img class="resource"
+                 src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+            <h1>100</h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/wood.png') }}">
+            <h1>234</h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/stone.png') }}">
+            <h1>12</h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/beam.png') }}">
+            <h1>765</h1>
+        </div>
+        <div class="resource_container">
+            <img class="resource" src="{{ url_for('static', filename='images/gem.png') }}">
+            <h1>412</h1>
+        </div>
+    </div>
+    <button class="btn_confirm">Ulepsz(2)</button>
+</div>
+--->

@@ -1,0 +1,31 @@
+{% for unit in your_units %}
+<div class="units_tab1_element">
+    <header>
+        {% if unit[6] %}
+            <img class="resource" src="data:;base64,{{ unit[6] }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/helmet.png') }}">
+        {% endif %}
+        <h1>{{ unit[0] }}<span>({{ unit[1] }})</span></h1>
+    </header>
+    <span> {{ unit[7] }} </span>
+    <div class="unit_stats">
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/hp.png') }}">
+            <h1>{{ unit[3] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/attack.png') }}">
+            <h1>{{ unit[1] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/defence.png') }}">
+            <h1>{{ unit[2] }}</h1>
+        </div>
+        <div class="stat_container">
+            <img class="unit_stat" src="{{ url_for('static', filename='images/move.png') }}">
+            <h1>{{ unit[4] }}</h1>
+        </div>
+    </div>
+</div>
+{% endfor %}

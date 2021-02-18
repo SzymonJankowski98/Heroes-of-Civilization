@@ -613,8 +613,8 @@ body {
     justify-content: space-between;
     width: 100%;
 }
-
-.buildings_tab2_element header, .units_tab1_content header, .units_tab2_content header {
+.buildings_tab1_element header, .buildings_tab2_element header,
+.units_tab1_content header, .units_tab2_content header {
     justify-content: flex-start;
 }
 
@@ -683,6 +683,10 @@ body {
     text-align: justify;
 }
 
+.units_tab1_element {
+    width: 100%;
+}
+
 .required_resources>span, .unit_stats>span {
     position: relative;
     margin: 0;
@@ -722,7 +726,7 @@ body {
     outline: none;
 }
 
-.btn_recruit{
+.btn_recruit, .btn_recruit_disabled {
     background-color: #279c27;
     border: 0;
     padding: 11px;
@@ -734,6 +738,11 @@ body {
     font-size: 1rem;
     font-weight: bold;
     transform: translateX(-5px) translateY(1px);
+}
+
+.btn_recruit_disabled {
+    background-color: lightgray;
+    cursor: default;
 }
 
 .btn_recruit:focus{

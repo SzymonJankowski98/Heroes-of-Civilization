@@ -211,6 +211,10 @@ function toggle_science() {
 }
 
 function activate_tab(elmnt) {
+  const active_field = document.getElementsByClassName("active_field_marker")[0];
+
+  var active_field_coords = active_field.parentElement.id.split(";");
+
   if ("buildings_tab1".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
     document.getElementById("buildings_and_fields_content_header").style.backgroundColor = "#f5cc16";
@@ -222,6 +226,16 @@ function activate_tab(elmnt) {
     document.getElementById("buildings_tab2_content").style.display = "none";
     document.getElementById("units_tab1_content").style.display = "none";
     document.getElementById("units_tab2_content").style.display = "none";
+
+    $.ajax({
+      type: 'POST',
+      url: "/yourbuildings",
+      data: {x: active_field_coords[0], y: active_field_coords[1]},
+      dataType: "text",
+      success: function(data){
+                 document.getElementById("buildings_tab1_content").innerHTML = data;
+               }
+    });
   }
   if ("buildings_tab2".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
@@ -235,19 +249,12 @@ function activate_tab(elmnt) {
     document.getElementById("units_tab1_content").style.display = "none";
     document.getElementById("units_tab2_content").style.display = "none";
 
-    const active_field = document.getElementsByClassName("active_field_marker")[0];
-
-    console.log(active_field);
-
-    var active_field_coords = active_field.parentElement.id.split(";");
-
     $.ajax({
       type: 'POST',
       url: "/availablebuildings",
       data: {x: active_field_coords[0], y: active_field_coords[1]},
       dataType: "text",
       success: function(data){
-                console.log(data);
                  document.getElementById("buildings_tab2_content").innerHTML = data;
                }
     });
@@ -263,6 +270,16 @@ function activate_tab(elmnt) {
     document.getElementById("buildings_tab1_content").style.display = "none";
     document.getElementById("buildings_tab2_content").style.display = "none";
     document.getElementById("units_tab2_content").style.display = "none";
+
+     $.ajax({
+      type: 'POST',
+      url: "/yourunits",
+      data: {x: active_field_coords[0], y: active_field_coords[1]},
+      dataType: "text",
+      success: function(data){
+                 document.getElementById("units_tab1_content").innerHTML = data;
+               }
+    });
   }
   if ("units_tab2".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
@@ -275,6 +292,16 @@ function activate_tab(elmnt) {
     document.getElementById("buildings_tab1_content").style.display = "none";
     document.getElementById("buildings_tab2_content").style.display = "none";
     document.getElementById("units_tab1_content").style.display = "none";
+
+    $.ajax({
+      type: 'POST',
+      url: "/availableunits",
+      data: {x: active_field_coords[0], y: active_field_coords[1]},
+      dataType: "text",
+      success: function(data){
+                 document.getElementById("units_tab2_content").innerHTML = data;
+               }
+    });
   }
 }
 
@@ -402,6 +429,34 @@ function buildBuilding(elmnt, name, x, y) {
                  elmnt.classList.remove("btn_confirm");
                  elmnt.classList.add("btn_disabled");
                  elmnt.disabled = true;
+                 document.getElementById("resources").innerHTML = data;
+               },
+               error: function () {
+                  window.alert('Za mało surowców');
+               }
+    });
+}
+
+function recruitUnit(elmnt, name, x, y) {
+
+    amount = elmnt.parentElement.getElementsByTagName("input")[0];
+
+    if (amount.value === '') {
+      window.alert('Podaj liczbę jednostek!');
+      return;
+    }
+
+    $.ajax({
+      type: 'POST',
+      url: "/recruitunit",
+      data: {name: name, x:x, y:y, amount:amount.value},
+      dataType: "text",
+      success: function(data){
+
+                 elmnt.classList.remove("btn_recruit");
+                 elmnt.classList.add("btn_recruit_disabled");
+                 elmnt.disabled = true;
+                 amount.disabled = true;
                  document.getElementById("resources").innerHTML = data;
                },
                error: function () {
