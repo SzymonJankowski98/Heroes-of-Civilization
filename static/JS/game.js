@@ -305,6 +305,23 @@ function activate_tab(elmnt) {
   }
 }
 
+function update_active_tab() {
+  var b1 = document.getElementById("buildings_tab1_content");
+  var b2 = document.getElementById("buildings_tab2_content");
+  var u1 = document.getElementById("units_tab1_content");
+  var u2 = document.getElementById("units_tab2_content");
+
+  if (b1.style.display !== 'none') {
+    activate_tab(document.getElementById("buildings_tab1"));
+  } else if (b2.style.display !== 'none') {
+    activate_tab(document.getElementById("buildings_tab2"))
+  } else if (u1.style.display !== 'none') {
+    activate_tab(document.getElementById("units_tab1"))
+  } else if (u2.style.display !== 'none') {
+    activate_tab(document.getElementById("units_tab2"))
+  }
+}
+
 function exit_buildings_units_tab() {
   document.getElementById("buildings_and_units_tab").style.display = 'none';
   let i;
@@ -317,6 +334,7 @@ function exit_buildings_units_tab() {
 }
 
 function click_field(elmnt) {
+
   let i;
   const all_fields = document.getElementsByClassName("active_field_marker");
   for (i of all_fields) {
@@ -343,6 +361,8 @@ function click_field(elmnt) {
   }
 
   remove_unit_move_markers();
+
+  update_active_tab();
 }
 
 function click_unit(elmnt, event) {
