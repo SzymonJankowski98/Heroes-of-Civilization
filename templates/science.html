@@ -1,0 +1,30 @@
+{% for s in science %}
+<div class="science_element">
+    <header>
+        {% if s[2] %}
+            <img src="data:;base64,{{ s[2] }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='images/chemistry.png') }}">
+        {% endif %}
+        <h1>{{ s[0] }}</h1>
+    </header>
+    <span>{{ s[3] }}</span>
+    <div class="required_resources">
+        {% for req_resource in s[5] %}
+        <div class="resource_container">
+            {% if resources_info[req_resource[0]][1] %}
+                <img class="resource" src="data:;base64,{{ resources_info[req_resource[0]][1] }}">
+            {% else %}
+                <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+            {% endif %}
+            <h1>{{ req_resource[1] }}</h1>
+        </div>
+        {% endfor %}
+    </div>
+    {% if s[4] == 0 %}
+        <button class="btn_confirm" onclick="doScience(this, '{{ s[0] }}')"> zbadaj({{ s[1] }})</button>
+    {% else %}
+        <button class="btn_disabled" disabled> w trakcie({{ s[1] }})</button>
+    {% endif %}
+</div>
+{% endfor %}

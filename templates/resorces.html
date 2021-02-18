@@ -1,0 +1,10 @@
+{% for resource in resources_info %}
+<div class="resource_container">
+    {% if resources_info[resource][1] %}
+        <img class="resource" src="data:;base64,{{ resources_info[resource][1] }}">
+    {% else %}
+        <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+    {% endif %}
+    <h1 class="{{ resource }}_amount">{{ resources_info[resource][0] }}</h1>
+</div>
+{% endfor %}

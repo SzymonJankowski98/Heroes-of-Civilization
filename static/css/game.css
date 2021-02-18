@@ -264,6 +264,7 @@ body {
     display: inline-flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     overflow-y: auto;
 }
 
@@ -363,7 +364,7 @@ body {
     color: forestgreen;
 }
 
-.btn_confirm{
+.btn_confirm, .btn_disabled{
     display: block;
     background-color: #279c27;
     border: 0;
@@ -377,6 +378,11 @@ body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 1rem;
     font-weight: bold;
+}
+
+.btn_disabled {
+    background-color: lightgray;
+    cursor: default;
 }
 
 .btn_confirm:focus{

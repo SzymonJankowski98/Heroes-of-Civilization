@@ -80,19 +80,19 @@
                 <img class="change_map" id="change_map" onclick="change_map()"
                      src="{{ url_for('static', filename='images/castle_button.png') }}">
             </div>
-            <div class="btn_science">
+            <div id="btn_science" class="btn_science">
                 <img class="science" onclick="toggle_science()"
                      src="{{ url_for('static', filename='images/settings.png') }}">
             </div>
-            <div class="resources">
-                {% for resource in resources_info.values() %}
+            <div id="resources" class="resources">
+                {% for resource in resources_info %}
                 <div class="resource_container">
-                    {% if resource[1] %}
-                        <img class="resource" src="data:;base64,{{ resource[1] }}">
+                    {% if resources_info[resource][1] %}
+                        <img class="resource" src="data:;base64,{{ resources_info[resource][1] }}">
                     {% else %}
                         <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
                     {% endif %}
-                    <h1>{{ resource[0] }}</h1>
+                    <h1>{{ resources_info[resource][0] }}</h1>
                 </div>
                 {% endfor %}
             </div>
@@ -103,99 +103,7 @@
                          src="{{ url_for('static', filename='images/exit.png') }}">
                 </header>
                 <div class="science_list">
-                    <div class="available_science">
-                        <div class="science_element">
-                            <header>
-                                <img src="{{ url_for('static', filename='images/chemistry.png') }}">
-                                <h1>Nazwa</h1>
-                            </header>
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
-                            <div class="required_resources">
-                                <div class="resource_container">
-                                    <img class="resource"
-                                         src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                                    <h1>100</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/wood.png') }}">
-                                    <h1>234</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/stone.png') }}">
-                                    <h1>12</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/beam.png') }}">
-                                    <h1>765</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/gem.png') }}">
-                                    <h1>412</h1>
-                                </div>
-                            </div>
-                            <button class="btn_confirm">Zbadaj(2)</button>
-                        </div>
-                        <div class="science_element">
-                            <header>
-                                <img src="{{ url_for('static', filename='images/chemistry.png') }}">
-                                <h1>Nazwa2</h1>
-                            </header>
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
-                            <div class="required_resources">
-                                <div class="resource_container">
-                                    <img class="resource"
-                                         src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                                    <h1>98</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/wood.png') }}">
-                                    <h1>11</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/stone.png') }}">
-                                    <h1>12345</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/beam.png') }}">
-                                    <h1>764</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/gem.png') }}">
-                                    <h1>1233</h1>
-                                </div>
-                            </div>
-                            <button class="btn_confirm">Zbadaj(4)</button>
-                        </div>
-                        <div class="science_element">
-                            <header>
-                                <img src="{{ url_for('static', filename='images/chemistry.png') }}">
-                                <h1>Nazwa2</h1>
-                            </header>
-                            <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</span>
-                            <div class="required_resources">
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                                    <h1>98</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/wood.png') }}">
-                                    <h1>11</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/stone.png') }}">
-                                    <h1>12345</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/beam.png') }}">
-                                    <h1>764</h1>
-                                </div>
-                                <div class="resource_container">
-                                    <img class="resource" src="{{ url_for('static', filename='images/gem.png') }}">
-                                    <h1>1233</h1>
-                                </div>
-                            </div>
-                            <button class="btn_confirm">Zbadaj(4)</button>
-                        </div>
+                    <div id="available_science" class="available_science">
                     </div>
                 </div>
             </div>

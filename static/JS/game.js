@@ -195,6 +195,15 @@ function toggle_science() {
    if (science === 0) {
      science = 1;
      science_tab.style.display = 'block';
+
+     $.ajax({
+      type: 'POST',
+      url: "/science",
+      dataType: "text",
+      success: function(data){
+                 document.getElementById("available_science").innerHTML = data;
+               }
+    });
    }
    else {
      science = 0;
@@ -349,4 +358,19 @@ function remove_unit_move_markers() {
       all_fields[i].classList.remove("active_unit_dest_marker");
     }
   }
+}
+
+function doScience(elmnt, name) {
+  $.ajax({
+      type: 'POST',
+      url: "/doscience",
+      data: {name: name},
+      dataType: "text",
+      success: function(data){
+                 elmnt.classList.remove("btn_confirm");
+                 elmnt.classList.add("btn_disabled");
+                 elmnt.disabled = true;
+                 document.getElementById("resources").innerHTML = data;
+               }
+    });
 }

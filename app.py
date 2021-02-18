@@ -196,6 +196,7 @@ def logout():
 
 @app.route('/game/<game_id>')
 def game(game_id):
+    session["game_id"] = game_id
     user = session["user"]
     fields, buildings, units, units_info, buildings_info, resources_info = get_map(user, int(game_id))
 
@@ -228,9 +229,70 @@ def game(game_id):
     new_resourcer_info = dict()
     for i in resources_info:
         new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
-        
+
     return render_template('game.html', user_name=user, width=width, height=height, fields=fields, buildings=new_buildings, units=new_units, units_info=new_units_info, buildings_info=new_buildings_info, resources_info=new_resourcer_info)
 
+
+@app.route('/science', methods=["POST"])
+def science():
+    user = session["user"]
+    game_id = session["game_id"]
+
+    science = []
+    objType = db.gettype("SCIENCE_INFO_TABLE")
+    cursor2 = db.cursor()
+    m = cursor2.callfunc("get_available_science", objType, [game_id, user])
+    cursor2.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    for s in cursor:
+        cursor3 = db.cursor()
+        cursor3.execute(''' SELECT * FROM table(:l) ''', l=s[5])
+        res = []
+        for r in cursor3:
+            res.append(r)
+        science.append([s[0], s[1], b64encode(s[2].read()).decode("utf-8"), s[3], s[4], res])
+        cursor3.close()
+
+    cursor = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor:
+        resources_info.append(list(resource_info))
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor.close()
+
+    return render_template('science.html', science=science, resources_info=new_resourcer_info)
+
+
+@app.route('/doscience', methods=["POST"])
+def doScience():
+    user = session["user"]
+    game_id = session["game_id"]
+    science_name = request.values['name']
+
+    cursor = db.cursor()
+    cursor.callproc("doScience", [int(game_id), user, science_name])
+    db.commit()
+
+    cursor2 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor2.execute(''' SELECT * FROM table(:a) ''', a=cursor.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor2:
+        resources_info.append(list(resource_info))
+    cursor2.close()
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor.close()
+
+    return render_template('resorces.html', resources_info=new_resourcer_info)
 
 if __name__ == '__main__':
     app.run()
