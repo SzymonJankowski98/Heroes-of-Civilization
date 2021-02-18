@@ -42,7 +42,6 @@ function dragMap(elmnt) {
     pos3 = e.clientX;
     pos4 = e.clientY;
     // set the element's new position:
-    console.log(size_x, size_y * (document.documentElement.clientWidth / 15), document.documentElement.clientHeight);
     if (size_y * (document.documentElement.clientWidth / 15) > document.documentElement.clientHeight) {
       if (elmnt.offsetTop - pos2 <= 150) {
         if (elmnt.offsetTop - pos2 >= -((document.documentElement.clientWidth / 15 * size_y) - (document.documentElement.clientHeight) + 150)) {
@@ -235,6 +234,23 @@ function activate_tab(elmnt) {
     document.getElementById("buildings_tab1_content").style.display = "none";
     document.getElementById("units_tab1_content").style.display = "none";
     document.getElementById("units_tab2_content").style.display = "none";
+
+    const active_field = document.getElementsByClassName("active_field_marker")[0];
+
+    console.log(active_field);
+
+    var active_field_coords = active_field.parentElement.id.split(";");
+
+    $.ajax({
+      type: 'POST',
+      url: "/availablebuildings",
+      data: {x: active_field_coords[0], y: active_field_coords[1]},
+      dataType: "text",
+      success: function(data){
+                console.log(data);
+                 document.getElementById("buildings_tab2_content").innerHTML = data;
+               }
+    });
   }
   if ("units_tab1".includes(elmnt.id)) {
     elmnt.style.transform = "translateY(-12px)";
@@ -371,6 +387,25 @@ function doScience(elmnt, name) {
                  elmnt.classList.add("btn_disabled");
                  elmnt.disabled = true;
                  document.getElementById("resources").innerHTML = data;
+               }
+    });
+}
+
+function buildBuilding(elmnt, name, x, y) {
+  $.ajax({
+      type: 'POST',
+      url: "/buildbuilding",
+      data: {name: name, x:x, y:y},
+      dataType: "text",
+      success: function(data){
+
+                 elmnt.classList.remove("btn_confirm");
+                 elmnt.classList.add("btn_disabled");
+                 elmnt.disabled = true;
+                 document.getElementById("resources").innerHTML = data;
+               },
+               error: function () {
+                  window.alert('Za mało surowców');
                }
     });
 }

@@ -1,0 +1,44 @@
+{% for building in available_buildings %}
+<div class="buildings_tab2_element">
+<header>
+    {% if building[2] %}
+        <img class="resource" src="data:;base64,{{ building[2] }}">
+    {% else %}
+        <img src="{{ url_for('static', filename='images/anvil.png') }}">
+    {% endif %}
+    <h1>{{ building[0] }}</h1>
+</header>
+<span>{{ building[3] }}</span>
+<div class="required_resources">
+    <span>Zysk:</span>
+    {% for income in building[6] %}
+    <div class="resource_container">
+        {% if resources_info[income[0]][1] %}
+            <img class="resource" src="data:;base64,{{ resources_info[income[0]][1] }}">
+        {% else %}
+            <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+        {% endif %}
+        <h1>{{ income[1] }}</h1>
+    </div>
+    {% endfor %}
+</div>
+<div class="required_resources">
+    <span>Wymagania: </span>
+    {% for income in building[5] %}
+    <div class="resource_container">
+        {% if resources_info[income[0]][1] %}
+            <img class="resource" src="data:;base64,{{ resources_info[income[0]][1] }}">
+        {% else %}
+            <img class="resource" src="{{ url_for('static', filename='images/cristal.png') }}">
+        {% endif %}
+        <h1>{{ income[1] }}</h1>
+    </div>
+    {% endfor %}
+</div>
+{% if building[4] == 0 %}
+<button class="btn_confirm"  onclick="buildBuilding(this, '{{ building[0]}}', {{ x }}, {{ y }})">Zbuduj({{ building[1] }})</button>
+{% else %}
+<button class="btn_disabled" disabled>w trakcie({{ building[1] }})</button>
+{% endif %}
+</div>
+{% endfor %}

@@ -270,7 +270,7 @@ def science():
 
 
 @app.route('/doscience', methods=["POST"])
-def doScience():
+def do_science():
     user = session["user"]
     game_id = session["game_id"]
     science_name = request.values['name']
@@ -293,6 +293,84 @@ def doScience():
     cursor.close()
 
     return render_template('resorces.html', resources_info=new_resourcer_info)
+
+
+@app.route('/availablebuildings', methods=["POST"])
+def available_buildings():
+    user = session["user"]
+    game_id = session["game_id"]
+    x = request.values['x']
+    y = request.values['y']
+
+    available_buildings = []
+    objType = db.gettype("AVAILABLE_BUILDINGS_TABLE")
+    cursor2 = db.cursor()
+    m = cursor2.callfunc("get_available_buildings", objType, [game_id, user, x, y])
+    cursor2.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    for building in cursor:
+        cursor3 = db.cursor()
+        cursor3.execute(''' SELECT * FROM table(:l) ''', l=building[5])
+        costs = []
+        for r in cursor3:
+            costs.append(r)
+        cursor3.close()
+
+        cursor4 = db.cursor()
+        cursor4.execute(''' SELECT * FROM table(:i) ''', i=building[6])
+        income = []
+        for r in cursor4:
+            income.append(r)
+        cursor4.close()
+
+        available_buildings.append([building[0], building[1], b64encode(building[2].read()).decode("utf-8"), building[3], building[4], costs, income])
+    cursor.close()
+
+    cursor5 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor5.execute(''' SELECT * FROM table(:r) ''', r=cursor5.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor5:
+        resources_info.append(list(resource_info))
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor5.close()
+
+    print(available_buildings)
+
+    return render_template('available_buildings.html', available_buildings=available_buildings, resources_info=new_resourcer_info, x=x, y=y)
+
+
+@app.route('/buildbuilding', methods=["POST"])
+def build_building():
+    user = session["user"]
+    game_id = session["game_id"]
+    building_name = request.values['name']
+    x = request.values['x']
+    y = request.values['y']
+
+    cursor = db.cursor()
+    cursor.callproc("BuildBuilding", [int(game_id), x, y, building_name, user])
+    db.commit()
+
+    cursor2 = db.cursor()
+    resources_info = []
+    objType = db.gettype("RESOURCES_INFO_TABLE")
+    cursor2.execute(''' SELECT * FROM table(:a) ''', a=cursor.callfunc("get_resources_info", objType, [game_id, user]))
+    for resource_info in cursor2:
+        resources_info.append(list(resource_info))
+    cursor2.close()
+
+    new_resourcer_info = dict()
+    for i in resources_info:
+        new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+    cursor.close()
+
+    return render_template('resorces.html', resources_info=new_resourcer_info)
+
 
 if __name__ == '__main__':
     app.run()
