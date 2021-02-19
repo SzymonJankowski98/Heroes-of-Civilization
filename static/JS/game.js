@@ -6,6 +6,12 @@ dragTab(document.getElementById("buildings_and_units_tab"), "buildings_and_field
 var size_x = 10;
 var size_y = 10;
 
+var picked_unit;
+var move_dist = 0;
+var source_x = 0;
+var source_y = 0;
+var unit_name;
+
 function set_size(x, y) {
   size_x = x;
   size_y = y;
@@ -334,38 +340,68 @@ function exit_buildings_units_tab() {
 }
 
 function click_field(elmnt) {
+  coords = elmnt.id.split(";");
+  if (picked_unit && Math.abs(coords[0] - source_x) <= move_dist && Math.abs(coords[1] - source_y) <= move_dist && (Math.abs(coords[0] - source_x) !== 0 || Math.abs(coords[1] - source_y) !== 0)) {
 
-  let i;
-  const all_fields = document.getElementsByClassName("active_field_marker");
-  for (i of all_fields) {
-    if (i.classList) {
-      i.classList.remove("active_field_marker");
-    }
-  }
-
-  let j;
-  const all_units = document.getElementsByClassName("active_unit_marker");
-  for (j of all_units) {
-    if (j.classList) {
-      j.classList.remove("active_unit_marker");
-    }
-  }
-
-  const active_elem = elmnt.getElementsByClassName("player_marker1")[0];
-  if (active_elem !== undefined && active_elem.classList.contains("player_marker1")) {
-      active_elem.classList.add("active_field_marker");
-      document.getElementById("buildings_and_units_tab").style.display = 'block';
+    $.ajax({
+      type: 'POST',
+      url: "/moveunit",
+      data: {name: unit_name, x_source: source_x, y_source: source_y, x_dest: coords[0], y_dest: coords[1]},
+      dataType: "text",
+      success: function(data){
+                var res = "";
+                res += "<div class=\"unit\"  style=\"display: block;\">";
+                res += picked_unit.innerHTML;
+                res += '</div>';
+                elmnt.innerHTML += res;
+                picked_unit.parentElement.removeChild(picked_unit);
+                picked_unit = null;
+                source_x = 0;
+                source_y = 0;
+                move_dist = 0;
+                unit_name = null;
+               }
+    });
   }
   else {
-    exit_buildings_units_tab();
+    picked_unit = null;
+    source_x = 0;
+    source_y = 0;
+    move_dist = 0;
+    unit_name = null;
+
+    let i;
+    const all_fields = document.getElementsByClassName("active_field_marker");
+    for (i of all_fields) {
+      if (i.classList) {
+        i.classList.remove("active_field_marker");
+      }
+    }
+
+    let j;
+    const all_units = document.getElementsByClassName("active_unit_marker");
+    for (j of all_units) {
+      if (j.classList) {
+        j.classList.remove("active_unit_marker");
+      }
+    }
+
+    const active_elem = elmnt.getElementsByClassName("player_marker1")[0];
+    if (active_elem !== undefined && active_elem.classList.contains("player_marker1")) {
+        active_elem.classList.add("active_field_marker");
+        document.getElementById("buildings_and_units_tab").style.display = 'block';
+    }
+    else {
+      exit_buildings_units_tab();
+    }
+
+    update_active_tab();
   }
 
   remove_unit_move_markers();
-
-  update_active_tab();
 }
 
-function click_unit(elmnt, event) {
+function click_unit(elmnt, event, dist, name) {
   let i;
   const all_units = document.getElementsByClassName("unit");
   for (i of all_units) {
@@ -386,7 +422,14 @@ function click_unit(elmnt, event) {
       event.cancelBubble = true;
     }
 
-   mark_unit_move(elmnt, 2)
+   mark_unit_move(elmnt, dist);
+
+  coords = elmnt.parentElement.id.split(";");
+  source_x = coords[0];
+  source_y = coords[1];
+  picked_unit = elmnt;
+  move_dist = dist;
+  unit_name = name;
 }
 
 function mark_unit_move(elmnt, move_dist) {
@@ -482,5 +525,39 @@ function recruitUnit(elmnt, name, x, y) {
                error: function () {
                   window.alert('Za mało surowców');
                }
+    });
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function check_if_next_turn() {
+  while (true) {
+    await sleep(10000);
+    $.ajax({
+      type: 'POST',
+      url: "/getturn",
+      dataType: "text",
+      success: function(data){
+                 var turn = document.getElementById("turn_number").innerHTML;
+                if (turn !== data) {
+                    location.reload();
+                }
+               }
+    });
+  }
+}
+
+check_if_next_turn();
+
+function nextTurn() {
+    $.ajax({
+      type: 'POST',
+      url: "/nextturn",
+      dataType: "text",
+      success: function(data){
+
+      }
     });
 }

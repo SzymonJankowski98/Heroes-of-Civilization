@@ -10,7 +10,6 @@ app = Flask(__name__)
 app.secret_key = "hoc1"
 app.permanent_session_lifetime = timedelta(minutes=120)
 db = cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab02_students.cs.put.poznan.pl")
-cursor = db.cursor()
 
 # with open('static/images/gold-ingots.png', 'rb') as f:
 #     imgdata = f.read()
@@ -67,8 +66,8 @@ def get_map(name, game_id):
     fields = []
 
     cursor = db.cursor()
-    objType = db.gettype("GAME_MAP_TABLE")
-    cursor.execute(''' SELECT * FROM table(:z) ''', z=cursor.callfunc("get_map", objType, [game_id]))
+    objType1 = db.gettype("GAME_MAP_TABLE")
+    cursor.execute(''' SELECT * FROM table(:z) ''', z=cursor.callfunc("get_map", objType1, [game_id]))
     for field in cursor:
         fields.append(list(field))
     #print(fields)
@@ -76,8 +75,11 @@ def get_map(name, game_id):
 
     cursor = db.cursor()
     buildings = []
-    objType = db.gettype("BUILDINGS_MAP_TABLE")
-    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_map", objType, [game_id]))
+    objType2 = db.gettype("BUILDINGS_MAP_TABLE")
+    a = cursor.callfunc("get_buildings_map", objType2, [game_id])
+    cursor.close()
+    cursor = db.cursor()
+    cursor.execute(''' SELECT * FROM table(:a) ''', a=a)
     for building in cursor:
         buildings.append(list(building))
     #print(buildings)
@@ -85,17 +87,17 @@ def get_map(name, game_id):
 
     cursor = db.cursor()
     units = []
-    objType = db.gettype("UNITS_MAP_TABLE")
-    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_units_map", objType, [game_id]))
+    objType3 = db.gettype("UNITS_MAP_TABLE")
+    cursor.execute(''' SELECT * FROM table(:b) ''', b=cursor.callfunc("get_units_map", objType3, [game_id]))
     for unit in cursor:
         units.append(list(unit))
-    #print(units)
+    print(units)
     cursor.close()
 
     cursor = db.cursor()
     units_info = []
-    objType2 = db.gettype("UNITS_INFO_TABLE")
-    cursor.execute(''' SELECT * FROM table(:x) ''', x=cursor.callfunc("get_units_info", objType2, []))
+    objType4 = db.gettype("UNITS_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:x) ''', x=cursor.callfunc("get_units_info", objType4, []))
     for unit_info in cursor:
         units_info.append(list(unit_info))
     #print(units_info)
@@ -103,8 +105,8 @@ def get_map(name, game_id):
 
     cursor = db.cursor()
     buildings_info = []
-    objType = db.gettype("BUILDINGS_INFO_TABLE")
-    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_buildings_info", objType, []))
+    objType5 = db.gettype("BUILDINGS_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:c) ''', c=cursor.callfunc("get_buildings_info", objType5, []))
     for building_info in cursor:
         buildings_info.append(list(building_info))
     #print(buildings_info)
@@ -112,8 +114,8 @@ def get_map(name, game_id):
 
     cursor = db.cursor()
     resources_info = []
-    objType = db.gettype("RESOURCES_INFO_TABLE")
-    cursor.execute(''' SELECT * FROM table(:ar) ''', ar=cursor.callfunc("get_resources_info", objType, [game_id, name]))
+    objType6 = db.gettype("RESOURCES_INFO_TABLE")
+    cursor.execute(''' SELECT * FROM table(:d) ''', d=cursor.callfunc("get_resources_info", objType6, [game_id, name]))
     for resource_info in cursor:
         resources_info.append(list(resource_info))
     #print(resources_info)
@@ -130,11 +132,13 @@ def index():
 @app.route('/login', methods=["POST", "GET"])
 def login_page():
     if request.method == 'POST':
+        cursor = db.cursor()
         session.permanent = True
         user = request.form["nm"]
         password = request.form["pw"]
         if cursor.callfunc("goodPass", int, [user, password]) > 0:
             session["user"] = user
+            cursor.close()
             return redirect(url_for("user_page"))
         else:
             flash("Niepoprawna nazwa użytkownika lub hasło.")
@@ -148,6 +152,7 @@ def login_page():
 @app.route('/register', methods=["POST", "GET"])
 def register_page():
     if request.method == 'POST':
+        cursor = db.cursor()
         usr = request.form["nm"]
         usr_pw = request.form["pw"]
         usr_rpw = request.form["rpw"]
@@ -161,7 +166,9 @@ def register_page():
                 db.commit()
                 session.permanent = True
                 session["user"] = usr
+                cursor.close()
                 return redirect(url_for("user_page"))
+    cursor.close()
     return render_template('register_page.html')
 
 
@@ -176,8 +183,10 @@ def user_page():
             max_players = request.form['maxp']
             r_chances = request.form['chances']
             if len(x_size) > 0 or len(y_size) > 0 or len(max_players) > 0 or len(r_chances) > 0:
+                cursor = db.cursor()
                 cursor.callproc("CreateGame", [user, int(x_size), int(y_size), int(max_players), float(r_chances)])
                 db.commit()
+                cursor.close()
                 return redirect(url_for("user_page"))
             else:
                 return render_template("user_page.html", usr=user, games=infos, all_games=nfull)
@@ -212,7 +221,7 @@ def game(game_id):
 
     new_units = [[[] for i in range(width)] for j in range(height)]
     for i in units:
-        new_units[i[0]-1][i[1]-1].append(i[2])
+        new_units[i[0]-1][i[1]-1].append([i[2], i[3], i[4], i[5]])
 
     new_buildings = [[[] for i in range(width)] for j in range(height)]
     for i in buildings:
@@ -230,7 +239,31 @@ def game(game_id):
     for i in resources_info:
         new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
 
-    return render_template('game.html', user_name=user, width=width, height=height, fields=fields, buildings=new_buildings, units=new_units, units_info=new_units_info, buildings_info=new_buildings_info, resources_info=new_resourcer_info)
+    cursor6 = db.cursor()
+    o = cursor6.callfunc("get_turn", int, [game_id])
+    cursor6.close()
+
+    return render_template('game.html', user_name=user, width=width, height=height, fields=fields, buildings=new_buildings, units=new_units, units_info=new_units_info, buildings_info=new_buildings_info, resources_info=new_resourcer_info, turn_number=o)
+
+
+@app.route('/getturn', methods=["POST"])
+def get_turn():
+    game_id = session["game_id"]
+    cursor16 = db.cursor()
+    p = cursor16.callfunc("get_turn", int, [game_id])
+    cursor16.close()
+
+    return str(p)
+
+@app.route('/nextturn', methods=["POST"])
+def next_turn():
+    game_id = session["game_id"]
+    user = session["user"]
+    cursor6 = db.cursor()
+    cursor6.callproc("nextTurn", [game_id, user])
+    cursor6.close()
+
+    return "True"
 
 
 @app.route('/science', methods=["POST"])
@@ -241,10 +274,10 @@ def science():
     science = []
     objType = db.gettype("SCIENCE_INFO_TABLE")
     cursor2 = db.cursor()
-    m = cursor2.callfunc("get_available_science", objType, [game_id, user])
+    h = cursor2.callfunc("get_available_science", objType, [game_id, user])
     cursor2.close()
     cursor = db.cursor()
-    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    cursor.execute(''' SELECT * FROM table(:h) ''', h=h)
     for s in cursor:
         cursor3 = db.cursor()
         cursor3.execute(''' SELECT * FROM table(:l) ''', l=s[5])
@@ -305,10 +338,10 @@ def available_buildings():
     available_buildings = []
     objType = db.gettype("AVAILABLE_BUILDINGS_TABLE")
     cursor2 = db.cursor()
-    m = cursor2.callfunc("get_available_buildings", objType, [game_id, user, x, y])
+    g = cursor2.callfunc("get_available_buildings", objType, [game_id, user, x, y])
     cursor2.close()
     cursor = db.cursor()
-    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    cursor.execute(''' SELECT * FROM table(:g) ''', g=g)
     for building in cursor:
         cursor3 = db.cursor()
         cursor3.execute(''' SELECT * FROM table(:l) ''', l=building[5])
@@ -339,8 +372,6 @@ def available_buildings():
         new_resourcer_info[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
     cursor5.close()
 
-    print(available_buildings)
-
     return render_template('available_buildings.html', available_buildings=available_buildings, resources_info=new_resourcer_info, x=x, y=y)
 
 
@@ -352,12 +383,12 @@ def your_buildings():
     y = request.values['y']
 
     your_buildings = []
-    objType = db.gettype("YOUR_BUILDINGS_TABLE")
+    objType10 = db.gettype("YOUR_BUILDINGS_TABLE")
     cursor2 = db.cursor()
-    m = cursor2.callfunc("get_your_buildings", objType, [game_id, user, x, y])
+    v = cursor2.callfunc("get_your_buildings", objType10, [game_id, user, x, y])
     cursor2.close()
     cursor = db.cursor()
-    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    cursor.execute(''' SELECT * FROM table(:v) ''', v=v)
     for building in cursor:
         cursor3 = db.cursor()
         cursor3.execute(''' SELECT * FROM table(:l) ''', l=building[3])
@@ -424,10 +455,10 @@ def available_units():
     available_units = []
     objType = db.gettype("AVAILABLE_UNIT_TABLE")
     cursor2 = db.cursor()
-    m = cursor2.callfunc("get_available_units", objType, [game_id, user, x, y])
+    f = cursor2.callfunc("get_available_units", objType, [game_id, user, x, y])
     cursor2.close()
     cursor = db.cursor()
-    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    cursor.execute(''' SELECT * FROM table(:f) ''', f=f)
     for unit in cursor:
         cursor3 = db.cursor()
         cursor3.execute(''' SELECT * FROM table(:l) ''', l=unit[9])
@@ -464,12 +495,12 @@ def your_units():
     y = request.values['y']
 
     your_units = []
-    objType = db.gettype("YOUR_UNITS_TABLE")
+    objType9 = db.gettype("YOUR_UNITS_TABLE")
     cursor2 = db.cursor()
-    m = cursor2.callfunc("get_your_units", objType, [game_id, user, x, y])
+    e = cursor2.callfunc("get_your_units", objType9, [game_id, user, x, y])
     cursor2.close()
     cursor = db.cursor()
-    cursor.execute(''' SELECT * FROM table(:m) ''', m=m)
+    cursor.execute(''' SELECT * FROM table(:e) ''', e=e)
     for unit in cursor:
         your_units.append([unit[0], unit[1], unit[2], unit[3], unit[4], unit[5], b64encode(unit[6].read()).decode("utf-8"), unit[7]])
     cursor.close()
@@ -506,6 +537,24 @@ def recruit_unit():
     cursor.close()
 
     return render_template('resorces.html', resources_info=new_resourcer_info)
+
+
+@app.route('/moveunit', methods=["POST"])
+def move_unit():
+    user = session["user"]
+    game_id = session["game_id"]
+    unit_name = request.values['name']
+    source_x = request.values['x_source']
+    source_y = request.values['y_source']
+    dest_x = request.values['x_dest']
+    dest_y = request.values['y_dest']
+
+    cursor = db.cursor()
+    cursor.callproc("MoveUnit", [user, unit_name, source_x, source_y, dest_x, dest_y, int(game_id)])
+    db.commit()
+
+    return "true"
+
 
 if __name__ == '__main__':
     app.run()

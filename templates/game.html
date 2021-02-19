@@ -19,7 +19,7 @@
                 <h1 class="logo">Heroes of Civilization</h1>
             </header>
             <div class="btn" onclick="location.href = '/user';">
-                <span>WYLOGUJ</span>
+                <span>Menu</span>
             </div>
             <div class="map" id="map">
                 {% for field in fields %}
@@ -41,26 +41,26 @@
                         </div>
                     {% endfor %}
                     {% for unit in units[field[0] - 1][field[1] - 1] %}
-                        <div class="unit" onclick="click_unit(this, event)">
-                        {% if units_info[unit][4] %}
-                            <img class="resource_marker" src="data:;base64,{{ units_info[unit][4] }}">
+                        <div class="unit" {% if unit[2] == user_name and  unit[3] == 0 %} onclick="click_unit(this, event, {{ units_info[unit[0]][3] }}, '{{ unit[0] }}')"{% endif %}>
+                        {% if units_info[unit[0]][4] %}
+                            <img src="data:;base64,{{ units_info[unit[0]][4] }}">
                         {% else %}
                             <img src="{{ url_for('static', filename='images/mace.png') }}">
                         {% endif %}
                             <div class="unit_info">
                                 <header>
-                                    {% if units_info[unit][4] %}
-                                        <img class="resource_marker" src="data:;base64,{{ units_info[unit][4] }}">
+                                    {% if units_info[unit[0]][4] %}
+                                        <img src="data:;base64,{{ units_info[unit[0]][4] }}">
                                     {% else %}
                                         <img src="{{ url_for('static', filename='images/mace.png') }}">
                                     {% endif %}
-                                    <h1>{{ unit }}</h1>
+                                    <h1>{{ unit[0] }}</h1>
                                 </header>
                                 <ul class="info">
-                                    <li>Ilość: <span>{{ units_info[unit][0] }}</span></li>
-                                    <li>Punkty życia: <span>{{ units_info[unit][1] }}</span></li>
-                                    <li>Atak: <span>{{ units_info[unit][2] }}</span></li>
-                                    <li>Obrona: <span>{{ units_info[unit][3] }}</span></li>
+                                    <li>Ilość: <span>{{ unit[1] }}</span></li>
+                                    <li>Punkty życia: <span>{{ units_info[unit[0]][1] }}</span></li>
+                                    <li>Atak: <span>{{ units_info[unit[0]][0] }}</span></li>
+                                    <li>Obrona: <span>{{ units_info[unit[0]][2] }}</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -70,10 +70,10 @@
 
             </div>
             <div class="btn_next_turn">
-                <img class="play" src="{{ url_for('static', filename='images/play.png') }}">
+                <img class="play" src="{{ url_for('static', filename='images/play.png') }}" onclick="nextTurn()">
             </div>
             <div class="turn_number">
-                <h1>131</h1>
+                <h1 id="turn_number">{{ turn_number }}</h1>
             </div>
 
             <div class="btn_change_map">
