@@ -589,6 +589,11 @@ def administration_panel_science():
     user = session["user"]
     return render_template("administration_panel_science.html", usr=user)
 
+@app.route('/administrationpanel/updateresource', methods=["GET"])
+def administration_panel_update_resource():
+    user = session["user"]
+    return render_template("administration_panel_update_resource.html", usr=user)
+
 
 if __name__ == '__main__':
     app.run()

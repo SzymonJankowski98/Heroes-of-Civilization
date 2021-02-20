@@ -1,10 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_pages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_update_resource.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>HoC {{ usr }}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+     <div class="filter"></div>
+     <header>
+         <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
+     </header>
+
+     <div class="btn" onclick="location.href = '/administrationpanel/resources';">
+            <span>MENU</span>
+     </div>
+        <div class="admin_page">
+            <div class="add_elem">
+                <header>
+                    <h1>Edytuj surowiec</h1>
+                </header>
+                <form class="new_elem_form" action="#" method="POST">
+                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <input type="text" placeholder="Nazwa" name="xs">
+                    <input type="text" placeholder="Opis" name="xs">
+                    <input type="file" name="ys">
+    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
+    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                </form>
+            </div>
+         </div>
+ </main>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+{% endblock %}
