@@ -52,6 +52,10 @@
                               </td>
                               <td class="resource_name">{{ i }}</td>
                               <td>{{ res_array[i][0] }}</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_building('{{ i }}')">
+                              </td>
                             </tr>
                         {% endfor %}
                     </tbody>

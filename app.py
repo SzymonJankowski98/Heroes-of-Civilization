@@ -3,8 +3,8 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -588,25 +588,33 @@ def administration_panel_buildings():
         b_desc = request.form["b_desc"]
         b_s_req = request.form["b_s_req"]
         b_b_req = request.form["b_b_req"]
+        b_r_req = request.form["b_r_req"]
         b_icon = request.form["b_icon"]
+        if b_icon == "":
+            b_icon = None
         if b_desc == "":
             b_desc = None
         if b_s_req == "":
             b_s_req = None
         if b_b_req == "":
             b_b_req = None
-        if b_icon == "":
-            b_icon = None
+        if b_r_req == "":
+            b_r_req = None
 
-        print(b_b_req)
         try:
-            with open(f"static/images/{b_icon}", 'rb') as f:
-                img = f.read()
+            if b_icon is not None:
+                with open(f"static/images/{b_icon}", 'rb') as f:
+                    img = f.read()
             cursor101 = g.db.cursor()
             cursor101.callproc("AddBuilding", [b_name, img, b_desc, b_turns, b_s_req, b_b_req])
             cursor101.close()
+            if b_r_req is not None:
+                cursor201 = g.db.cursor()
+                cursor201.callproc("AddToMines", [b_name, b_r_req])
+                cursor201.close()
         except:
             print("Add_building")
+
         return redirect(url_for("administration_panel_buildings"))
     else:
         return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2)
@@ -644,9 +652,14 @@ def administration_panel_resources():
         r_name = request.form["r_name"]
         r_desc = request.form["r_desc"]
         r_icon = request.form["r_icon"]
+        if r_icon == "":
+            r_icon = None
+        if r_desc == "":
+            r_desc = None
         try:
-            with open(f"static/images/{r_icon}", 'rb') as f:
-                img = f.read()
+            if r_icon is not None:
+                with open(f"static/images/{r_icon}", 'rb') as f:
+                    img = f.read()
             cursor104 = g.db.cursor()
             cursor104.callproc("AddResource", [r_name, img, r_desc])
             cursor104.close()
@@ -691,9 +704,19 @@ def administration_panel_science():
         s_s_req = request.form["s_s_req"]
         s_b_req = request.form["s_b_req"]
         s_icon = request.form["s_icon"]
+        if s_icon == "":
+            s_icon = None
+        if s_desc == "":
+            s_desc = None
+        if s_s_req == "":
+            s_s_req = None
+        if s_b_req == "":
+            s_b_req = None
+
         try:
-            with open(f"static/images/{s_icon}", 'rb') as f:
-                img = f.read()
+            if s_icon is not None:
+                with open(f"static/images/{s_icon}", 'rb') as f:
+                    img = f.read()
             cursor107 = g.db.cursor()
             cursor107.callproc("AddScience", [s_name, img, s_desc, s_turns, s_s_req, s_b_req])
             cursor107.close()
@@ -742,10 +765,19 @@ def administration_panel_units():
         u_s_req = request.form["u_s_req"]
         u_b_req = request.form["u_b_req"]
         u_icon = request.form["u_icon"]
+        if u_icon == "":
+            u_icon = None
+        if u_desc == "":
+            u_desc = None
+        if u_s_req == "":
+            u_s_req = None
+        if u_b_req == "":
+            u_b_req = None
 
         try:
-            with open(f"static/images/{u_icon}", 'rb') as f:
-                img = f.read()
+            if u_icon is not None:
+                with open(f"static/images/{u_icon}", 'rb') as f:
+                    img = f.read()
             cursor110 = g.db.cursor()
             cursor110.callproc("AddUnit", [u_name, u_damage, u_def, u_traveldist, u_hp, img, u_desc, u_turns, u_s_req, u_b_req])
             cursor110.close()
