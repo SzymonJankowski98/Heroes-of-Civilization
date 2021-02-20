@@ -3,34 +3,14 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
 app.permanent_session_lifetime = timedelta(minutes=120)
-#db = cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab02_students.cs.put.poznan.pl")
+# db = cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab02_students.cs.put.poznan.pl")
 
-# with open('static/images/gold-ingots.png', 'rb') as f:
-#     imgdata = f.read()
-# cursor.callproc("AddResource", ['Gold', imgdata])
-#
-# with open('static/images/wood.png', 'rb') as f:
-#     imgdata = f.read()
-# cursor.callproc("AddResource", ['Wood', imgdata])
-#
-# with open('static/images/stone.png', 'rb') as f:
-#     imgdata = f.read()
-# cursor.callproc("AddResource", ['Stone', imgdata])
-#
-# with open('static/images/beam.png', 'rb') as f:
-#     imgdata = f.read()
-# cursor.callproc("AddResource", ['Iron', imgdata])
-#
-# with open('static/images/gem.png', 'rb') as f:
-#     imgdata = f.read()
-# cursor.callproc("AddResource", ['Crystal', imgdata])
-# db.commit()
 
 def connect_db():
     return cx_Oracle.connect("inf141229", "inf141229", "admlab2.cs.put.poznan.pl/dblab02_students.cs.put.poznan.pl")
@@ -586,7 +566,25 @@ def administration_panel():
 @app.route('/administrationpanel/buildings', methods=["GET"])
 def administration_panel_buildings():
     user = session["user"]
+    return render_template("administration_panel_buildings.html", usr=user)
+
+
+@app.route('/administrationpanel/units', methods=["GET"])
+def administration_panel_units():
+    user = session["user"]
+    return render_template("administration_panel_units.html", usr=user)
+
+
+@app.route('/administrationpanel/resources', methods=["GET"])
+def administration_panel_resources():
+    user = session["user"]
     return render_template("administration_panel_resources.html", usr=user)
+
+
+@app.route('/administrationpanel/science', methods=["GET"])
+def administration_panel_science():
+    user = session["user"]
+    return render_template("administration_panel_science.html", usr=user)
 
 
 if __name__ == '__main__':
