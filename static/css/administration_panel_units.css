@@ -41,10 +41,10 @@
     right: 40px;
 }
 
-.buildings {
+.units {
     position: relative;
     #background-color: #f2f2f2;
-    min-width: 1140px;
+    min-width: 1480px;
     width: 60%;
     height: 750px;
     border-radius: 8px;
@@ -54,7 +54,7 @@
     #box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.buildings_table {
+.units_table {
     position: absolute;
     width: 100%;
     height: 90%;
@@ -65,7 +65,7 @@
 
 }
 
-.buildings_table header {
+.units_table header {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -76,12 +76,12 @@
     height: 18%;
 }
 
-.buildings_table header {
+.units_table header {
     border-radius: 8px 8px 0 0;
     background-color: #14213d;
 }
 
-.buildings_table header h1 {
+.units_table header h1 {
     position: relative;
     font-size: 2.5em;
     line-height: 100%;
@@ -137,13 +137,6 @@ td img {
 td img.enter {
     width: 64px;
     height: 64px;
-    cursor: pointer;
-}
-
-td img.delete {
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
 }
 
 ::-webkit-scrollbar {

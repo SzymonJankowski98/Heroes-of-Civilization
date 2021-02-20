@@ -2,7 +2,7 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_buildings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_units.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -16,11 +16,12 @@
      <header>
          <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
      </header>
+
      <div class="btn" onclick="location.href = '/logout';">
             <span>WYLOGUJ</span>
      </div>
-        <div class="buildings">
-            <div class="buildings_table">
+        <div class="units">
+            <div class="units_table">
                 <header>
                     <h1>Jednostki</h1>
                 </header>
@@ -29,12 +30,16 @@
                         <thead>
                         <tr>
                           <th></th>
-                          <th>Id gry</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Gracze</th>
+                          <th>Nazwa</th>
+                          <th>Atak</th>
+                          <th>Obrona</th>
+                          <th>Życie</th>
+                          <th>Zasięg podróży</th>
+                          <th>Tury do rekrutacji</th>
+                          <th>Ikona</th>
+                          <th>Opis</th>
+                          <th>Potrzebne Badanie</th>
+                          <th>Potrzebny Budynek</th>
                           <th></th>
                         </tr>
                        </thead>
@@ -51,8 +56,13 @@
                               <td>dff</td>
                               <td>dff</td>
                               <td>fdf</td>
+                              <td>fdf</td>
+                              <td>fdf</td>
+                              <td>fdf</td>
+                              <td>fdf</td>
                               <td>
                                   <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
                               </td>
                             </tr>
                     </tbody>
