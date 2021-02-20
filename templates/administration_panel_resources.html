@@ -25,6 +25,7 @@
                 <header>
                     <h1>Surowce</h1>
                 </header>
+                <input id="search" placeholder="szukaj">
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -49,12 +50,8 @@
                                   <img src="{{ url_for('static', filename='images/cristal.png') }}">
                                   {% endif %}
                               </td>
-                              <td>{{ i }}</td>
+                              <td class="resource_name">{{ i }}</td>
                               <td>{{ res_array[i][0] }}</td>
-                              <td>
-                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
-                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_resource('{{ i }}')">
-                              </td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -66,16 +63,15 @@
                     <h1>Nowy Surowiec</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
                     <input type="text" placeholder="Nazwa" name="r_name">
                     <input type="text" placeholder="Opis" name="r_desc">
                     <input type="file" name="r_icon">
-    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
-    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
                 </form>
             </div>
          </div>
  </main>
  <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_resources.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/search.js') }}"></script>
 {% endblock %}

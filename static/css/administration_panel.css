@@ -54,3 +54,56 @@
     margin: 20px auto;
     padding: 5px 150px;
 }
+
+
+.user_games {
+    position: absolute;
+    width: 49%;
+    height: 80%;
+    left: 0;
+    background-color: #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+
+}
+
+.all_games {
+    position: absolute;
+    width: 49%;
+    height: 80%;
+    right: 0;
+    background-color: #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+}
+
+.user_games header,  .all_games header {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    height: 18%;
+}
+
+.user_games header {
+    border-radius: 8px 8px 0 0;
+    background-color: #14213d;
+}
+
+.all_games header {
+    border-radius: 8px 8px 0 0;
+    background-color: #fca311;
+}
+
+.user_games header h1, .all_games header h1{
+    position: relative;
+    font-size: 2.5em;
+    line-height: 100%;
+    font-family: 'Bree Serif', sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

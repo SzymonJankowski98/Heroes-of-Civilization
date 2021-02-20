@@ -1,0 +1,9 @@
+.add_elem {
+    width: 60%;
+    top: 40%;
+    bottom: auto;
+}
+
+.new_elem_form input {
+    width: 30%;
+}

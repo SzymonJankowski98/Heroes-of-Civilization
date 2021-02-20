@@ -89,8 +89,16 @@
                     <input type="text" placeholder="Zasięg" name="u_traveldist">
                     <input type="text" placeholder="Tury" name="u_turns">
                     <input type="text" placeholder="Opis" name="u_desc">
-                    <input type="text" placeholder="Potrzebne Badanie" name="u_s_req">
-                    <input type="text" placeholder="Potrzebny Budynek" name="u_b_req">
+                    <select name="u_s_req">
+                        <option value="">Potrzebne Badanie...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
+                    <select name="u_b_req">
+                        <option value="">Potrzebne Budynek...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
                     <input type="file" name="u_icon">
     {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
     {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
