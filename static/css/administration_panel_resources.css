@@ -1,0 +1,15 @@
+.admin_page_table {
+    width: 60%;
+    left: 50%;
+    height: 80%;
+    top: 0;
+    transform: translateX(-50%);
+}
+
+.add_elem {
+    width: 60%;
+}
+
+.new_elem_form input {
+    width: 30%;
+}

@@ -2,7 +2,8 @@
 
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_buildings.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_pages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_resources.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -19,8 +20,8 @@
      <div class="btn" onclick="location.href = '/logout';">
             <span>WYLOGUJ</span>
      </div>
-        <div class="buildings">
-            <div class="buildings_table">
+        <div class="admin_page">
+            <div class="admin_page_table">
                 <header>
                     <h1>Surowce</h1>
                 </header>
@@ -29,12 +30,8 @@
                         <thead>
                         <tr>
                           <th></th>
-                          <th>Id gry</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Rozmiar</th>
-                          <th>Gracze</th>
+                          <th>Nazwa</th>
+                          <th>Opis</th>
                           <th></th>
                         </tr>
                        </thead>
@@ -46,11 +43,7 @@
                             <tr>
                               <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
                               <td>#fdf</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>fdf</td>
+                              <td>#fdf</td>
                               <td>
                                   <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}">
                               </td>
@@ -58,6 +51,20 @@
                     </tbody>
                 </table>
                 </div>
+            </div>
+            <div class="add_elem">
+                <header>
+                    <h1>Nowa gra</h1>
+                </header>
+                <form class="new_elem_form" action="#" method="POST">
+                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <input type="text" placeholder="Nazwa" name="xs">
+                    <input type="text" placeholder="Opis" name="xs">
+                    <input type="file" name="ys">
+    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
+    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                </form>
             </div>
          </div>
  </main>
