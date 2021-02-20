@@ -17,8 +17,8 @@
      <header>
          <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
      </header>
-     <div class="btn" onclick="location.href = '/logout';">
-            <span>WYLOGUJ</span>
+     <div class="btn" onclick="location.href = '/administrationpanel';">
+            <span>MENU</span>
      </div>
         <div class="admin_page">
             <div class="admin_page_table">
@@ -46,6 +46,7 @@
                               <td>#fdf</td>
                               <td>
                                   <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
                               </td>
                             </tr>
                     </tbody>
@@ -54,7 +55,7 @@
             </div>
             <div class="add_elem">
                 <header>
-                    <h1>Nowa gra</h1>
+                    <h1>Nowy surowiec</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/sword.png') }}">
