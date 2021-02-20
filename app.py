@@ -569,6 +569,19 @@ def administration_panel():
 @app.route('/administrationpanel/buildings', methods=["GET", "POST"])
 def administration_panel_buildings():
     user = session["user"]
+    buildings_array = []
+    cursor100 = g.db.cursor()
+    cursor100.execute(''' select b.NAME, ICON, DESCRIPTION, REQUIRED_SCIENCE, REQUIRED_BUILDING, TURNS_TO_MAKE,  REQUIRED_RESOURCE
+                        from BUILDINGS b left join MINES m on b.NAME = m.NAME ''')
+
+    for i in cursor100:
+        buildings_array.append(i)
+    cursor100.close()
+
+    buildings_array2 = dict()
+    for i in buildings_array:
+        buildings_array2[i[0]] = [i[5], i[2], i[3], i[4], i[6], b64encode(i[1].read()).decode("utf-8")]
+
     if request.method == 'POST':
         b_name = request.form["b_name"]
         b_turns = request.form["b_turns"]
@@ -576,14 +589,148 @@ def administration_panel_buildings():
         b_s_req = request.form["b_s_req"]
         b_b_req = request.form["b_b_req"]
         b_icon = request.form["b_icon"]
-        return render_template("administration_panel_buildings.html", usr=user)
+        if b_desc == "":
+            b_desc = None
+        if b_s_req == "":
+            b_s_req = None
+        if b_b_req == "":
+            b_b_req = None
+        if b_icon == "":
+            b_icon = None
+
+        print(b_b_req)
+        try:
+            with open(f"static/images/{b_icon}", 'rb') as f:
+                img = f.read()
+            cursor101 = g.db.cursor()
+            cursor101.callproc("AddBuilding", [b_name, img, b_desc, b_turns, b_s_req, b_b_req])
+            cursor101.close()
+        except:
+            print("Add_building")
+        return redirect(url_for("administration_panel_buildings"))
     else:
-        return render_template("administration_panel_buildings.html", usr=user)
+        return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2)
+
+
+@app.route('/administrationpanel/buildings/delete/<b_name>', methods=['GET'])
+def delete_building(b_name):
+    try:
+        print(b_name)
+        cursor102 = g.db.cursor()
+        cursor102.callproc('RemoveBuilding', [b_name])
+        cursor102.close()
+        return redirect(url_for("administration_panel_building"))
+    except:
+        print("delete_resource")
+        return redirect(url_for("administration_panel_building"))
+
+
+@app.route('/administrationpanel/resources', methods=["GET", "POST"])
+def administration_panel_resources():
+    user = session["user"]
+
+    resources_array = []
+    cursor103 = g.db.cursor()
+    cursor103.execute(''' SELECT * FROM RESOURCES ''')
+    for i in cursor103:
+        resources_array.append(i)
+    cursor103.close()
+
+    resources_array2 = dict()
+    for i in resources_array:
+        resources_array2[i[0]] = [i[2], b64encode(i[1].read()).decode("utf-8")]
+
+    if request.method == 'POST':
+        r_name = request.form["r_name"]
+        r_desc = request.form["r_desc"]
+        r_icon = request.form["r_icon"]
+        try:
+            with open(f"static/images/{r_icon}", 'rb') as f:
+                img = f.read()
+            cursor104 = g.db.cursor()
+            cursor104.callproc("AddResource", [r_name, img, r_desc])
+            cursor104.close()
+        except:
+            print("Add_resource")
+        return redirect(url_for("administration_panel_resources"))
+    else:
+        return render_template("administration_panel_resources.html", usr=user, res_array=resources_array2)
+
+
+@app.route('/administrationpanel/resources/delete/<r_name>', methods=['GET'])
+def delete_resource(r_name):
+    try:
+        print(r_name)
+        cursor105 = g.db.cursor()
+        cursor105.callproc('RemoveResource', [r_name])
+        cursor105.close()
+        return redirect(url_for("administration_panel_resources"))
+    except:
+        print("delete_resource")
+        return redirect(url_for("administration_panel_resources"))
+
+
+@app.route('/administrationpanel/science', methods=["GET", "POST"])
+def administration_panel_science():
+    user = session["user"]
+    science_array = []
+    cursor106 = g.db.cursor()
+    cursor106.execute(''' SELECT * FROM SCIENCE ''')
+    for i in cursor106:
+        science_array.append(i)
+    cursor106.close()
+
+    science_array2 = dict()
+    for i in science_array:
+        science_array2[i[0]] = [i[5], i[2], i[3], i[4], b64encode(i[1].read()).decode("utf-8")]
+
+    if request.method == 'POST':
+        s_name = request.form["s_name"]
+        s_turns = request.form["s_turns"]
+        s_desc = request.form["s_desc"]
+        s_s_req = request.form["s_s_req"]
+        s_b_req = request.form["s_b_req"]
+        s_icon = request.form["s_icon"]
+        try:
+            with open(f"static/images/{s_icon}", 'rb') as f:
+                img = f.read()
+            cursor107 = g.db.cursor()
+            cursor107.callproc("AddScience", [s_name, img, s_desc, s_turns, s_s_req, s_b_req])
+            cursor107.close()
+        except:
+            print("Add_resource")
+        return redirect(url_for("administration_panel_science"))
+    else:
+        return render_template("administration_panel_science.html", usr=user, sc_array=science_array2)
+
+
+@app.route('/administrationpanel/science/delete/<s_name>', methods=['GET'])
+def delete_science(s_name):
+    try:
+        print(s_name)
+        cursor108 = g.db.cursor()
+        cursor108.callproc('RemoveScience', [s_name])
+        cursor108.close()
+        return redirect(url_for("administration_panel_science"))
+    except:
+        print("delete_science")
+        return redirect(url_for("administration_panel_science"))
 
 
 @app.route('/administrationpanel/units', methods=["GET", "POST"])
 def administration_panel_units():
     user = session["user"]
+    units_array = []
+    cursor109 = g.db.cursor()
+    cursor109.execute(''' SELECT * FROM UNITS ''')
+    for i in cursor109:
+        units_array.append(i)
+    cursor109.close()
+
+    units_array2 = dict()
+    for i in units_array:
+        units_array2[i[0]] = [i[1], i[2], i[4], i[3], i[9], i[6], i[7], i[8], b64encode(i[5].read()).decode("utf-8")]
+
     if request.method == 'POST':
         u_name = request.form["u_name"]
         u_damage = request.form["u_damage"]
@@ -595,36 +742,31 @@ def administration_panel_units():
         u_s_req = request.form["u_s_req"]
         u_b_req = request.form["u_b_req"]
         u_icon = request.form["u_icon"]
-        return render_template("administration_panel_units.html", usr=user)
+
+        try:
+            with open(f"static/images/{u_icon}", 'rb') as f:
+                img = f.read()
+            cursor110 = g.db.cursor()
+            cursor110.callproc("AddUnit", [u_name, u_damage, u_def, u_traveldist, u_hp, img, u_desc, u_turns, u_s_req, u_b_req])
+            cursor110.close()
+        except:
+            print("Add_unit")
+        return redirect(url_for("administration_panel_units"))
     else:
-        return render_template("administration_panel_units.html", usr=user)
+        return render_template("administration_panel_units.html", usr=user, u_array=units_array2)
 
 
-@app.route('/administrationpanel/resources', methods=["GET", "POST"])
-def administration_panel_resources():
-    user = session["user"]
-    if request.method == 'POST':
-        r_name = request.form["r_name"]
-        r_desc = request.form["r_desc"]
-        r_icon = request.form["r_icon"]
-        return render_template("administration_panel_resources.html", usr=user)
-    else:
-        return render_template("administration_panel_resources.html", usr=user)
-
-
-@app.route('/administrationpanel/science', methods=["GET", "POST"])
-def administration_panel_science():
-    user = session["user"]
-    if request.method == 'POST':
-        s_name = request.form["s_name"]
-        s_turns = request.form["s_turns"]
-        s_desc = request.form["s_desc"]
-        s_s_req = request.form["s_s_req"]
-        s_b_req = request.form["s_b_req"]
-        s_icon = request.form["s_icon"]
-        return render_template("administration_panel_science.html", usr=user)
-    else:
-        return render_template("administration_panel_science.html", usr=user)
+@app.route('/administrationpanel/units/delete/<u_name>', methods=['GET'])
+def delete_unit(u_name):
+    try:
+        print(u_name)
+        cursor111 = g.db.cursor()
+        cursor111.callproc('RemoveScience', [u_name])
+        cursor111.close()
+        return redirect(url_for("administration_panel_units"))
+    except:
+        print("delete_unit")
+        return redirect(url_for("administration_panel_units"))
 
 
 if __name__ == '__main__':

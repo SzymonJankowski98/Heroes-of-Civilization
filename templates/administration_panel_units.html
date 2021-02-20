@@ -48,22 +48,30 @@
                 <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tbody>
+                        {% for i in u_array %}
                             <tr>
-                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                              <td>#fdf</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>dff</td>
-                              <td>fdf</td>
-                              <td>fdf</td>
-                              <td>fdf</td>
-                              <td>fdf</td>
+                              <td>
+                                  {% if u_array[i][8] %}
+                                  <img src="data:;base64,{{ u_array[i][8] }}">
+                                  {% else %}
+                                  <img src="{{ url_for('static', filename='images/cristal.png') }}">
+                                  {% endif %}
+                              </td>
+                              <td>{{ i }}</td>
+                              <td>{{ u_array[i][0] }}</td>
+                              <td>{{ u_array[i][1] }}</td>
+                              <td>{{ u_array[i][2] }}</td>
+                              <td>{{ u_array[i][3] }}</td>
+                              <td>{{ u_array[i][4] }}</td>
+                              <td>{{ u_array[i][5] }}</td>
+                              <td>{{ u_array[i][6] }}</td>
+                              <td>{{ u_array[i][7] }}</td>
                               <td>
                                   <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
-                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_unit('{{ i }}')">
                               </td>
                             </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
                 </div>
@@ -91,5 +99,5 @@
             </div>
          </div>
  </main>
- <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_units.js') }}"></script>
 {% endblock %}
