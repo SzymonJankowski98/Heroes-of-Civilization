@@ -64,12 +64,20 @@
                     <h1>Nowy Budynek</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <img src="{{ url_for('static', filename='images/mine_wood.png') }}">
                     <input type="text" placeholder="Nazwa" name="b_name">
                     <input type="text" placeholder="Tury" name="b_turns">
                     <input type="text" placeholder="Opis" name="b_desc">
-                    <input type="text" placeholder="Potrzebne Badanie" name="b_s_req">
-                    <input type="text" placeholder="Potrzebny Budynek" name="b_b_req">
+                    <select name="b_s_req">
+                        <option value="">Potrzebne Badanie...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
+                    <select name="b_b_req">
+                        <option value="">Potrzebne Budynek...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
                     <input type="file" name="b_icon">
     {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
     {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}

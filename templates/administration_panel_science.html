@@ -64,12 +64,29 @@
                     <h1>Nowy Badanie</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <img src="{{ url_for('static', filename='images/chemistry.png') }}">
                     <input type="text" placeholder="Nazwa" name="s_name">
                     <input type="text" placeholder="Tury" name="s_turns">
                     <input type="text" placeholder="Opis" name="s_desc">
-                    <input type="text" placeholder="Potrzebne Badanie" name="s_s_req">
-                    <input type="text" placeholder="Potrzebny Budynek" name="s_b_req">
+                    <select name="s_s_req">
+                        <option value="">Potrzebne Badanie...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
+                    <select name="s_b_req">
+                        <option value="">Potrzebne Budynek...</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                    </select>
                     <input type="file" name="s_icon">
     {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
     {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
