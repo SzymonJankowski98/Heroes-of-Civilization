@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_buildings.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>HoC {{ usr }}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+     <div class="filter"></div>
+     <header>
+         <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
+     </header>
+     <div class="btn" onclick="location.href = '/logout';">
+            <span>WYLOGUJ</span>
+     </div>
+        <div class="buildings">
+            <div class="buildings_table">
+                <header>
+                    <h1>Budynki</h1>
+                </header>
+                <div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                        <tr>
+                          <th></th>
+                          <th>Id gry</th>
+                          <th>Rozmiar</th>
+                          <th>Rozmiar</th>
+                          <th>Rozmiar</th>
+                          <th>Rozmiar</th>
+                          <th>Gracze</th>
+                          <th></th>
+                        </tr>
+                       </thead>
+                    </table>
+                </div>
+                <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tbody>
+                            <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td>#fdf</td>
+                              <td>dff</td>
+                              <td>dff</td>
+                              <td>dff</td>
+                              <td>dff</td>
+                              <td>fdf</td>
+                              <td>
+                                  <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}">
+                              </td>
+                            </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+         </div>
+ </main>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+{% endblock %}W

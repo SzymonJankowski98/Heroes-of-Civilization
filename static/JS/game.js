@@ -534,7 +534,7 @@ function sleep(ms) {
 
 async function check_if_next_turn() {
   while (true) {
-    await sleep(10000);
+    await sleep(30000);
     $.ajax({
       type: 'POST',
       url: "/getturn",

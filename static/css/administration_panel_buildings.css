@@ -1,0 +1,150 @@
+.filter {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    cursor: pointer;
+    font-size: 3em;
+    text-align: left;
+    margin-left: 3%;
+    text-shadow:   0px -3px 0 #212121,
+                   0px -3px 0 #212121,
+                   0px  3px 0 #212121,
+                     0px  3px 0 #212121,
+                    -3px  0px 0 #212121,
+                     3px  0px 0 #212121,
+                    -3px  0px 0 #212121,
+                     3px  0px 0 #212121,
+                    -3px -3px 0 #212121,
+                     3px -3px 0 #212121,
+                    -3px  3px 0 #212121,
+                     3px  3px 0 #212121,
+                    -3px  9px 0 #212121,
+                     0px  9px 0 #212121,
+                     3px  9px 0 #212121,
+                     0 9px 1px rgba(0,0,0,.1),
+                     0 0 3px rgba(0,0,0,.1),
+                     0 3px 1px rgba(0,0,0,.3),
+                     0 6px 3px rgba(0,0,0,.2),
+                     0 9px 9px rgba(0,0,0,.25),
+                     0 12px 12px rgba(0,0,0,.2),
+                     0 18px 18px rgba(0,0,0,.15);
+}
+
+.btn {
+    position: absolute;
+    display: block;
+    top: 20px;
+    right: 40px;
+}
+
+.buildings {
+    position: relative;
+    #background-color: #f2f2f2;
+    min-width: 960px;
+    width: 60%;
+    height: 750px;
+    border-radius: 8px;
+    left: 50%;
+    top: 55%;
+    transform: translateX(-50%) translateY(-50%);
+    #box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.buildings_table {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    left: 0;
+    background-color: #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+
+}
+
+.buildings_table header {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 100%;
+    height: 18%;
+}
+
+.buildings_table header {
+    border-radius: 8px 8px 0 0;
+    background-color: #14213d;
+}
+
+.buildings_table header h1 {
+    position: relative;
+    font-size: 2.5em;
+    line-height: 100%;
+    font-family: 'Bree Serif', sans-serif;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.tbl-header {
+    top: 18%;
+    position: relative;
+}
+
+table {
+    width:100%;
+    table-layout: fixed;
+}
+
+th{
+    padding: 12px 5px;
+    text-align: left;
+    font-size: 1.2em;
+    vertical-align:middle;
+    background-color: lightslategray;
+    font-family: 'Bree Serif', sans-serif;
+}
+
+td {
+    padding: 5px;
+    text-align: left;
+    vertical-align:middle;
+    font-size: 14px;
+    font-family: 'Bree Serif', sans-serif;
+    border-bottom: 1px lightgray solid;
+}
+
+.tbl-content {
+    display: block;
+    position: relative;
+    top: 18%;
+    height: 72.7%;
+    overflow-x: auto;
+}
+
+td img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: 0 auto;
+}
+
+td img.enter {
+    width: 64px;
+    height: 64px;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}

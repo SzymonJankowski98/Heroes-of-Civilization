@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>HoC {{ usr }}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+     <div class="filter"></div>
+     <header>
+         <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
+     </header>
+     <div class="btn" onclick="location.href = '/logout';">
+            <span>WYLOGUJ</span>
+     </div>
+    <div class="options">
+        <div class="btn" onclick="location.href = '/logout';">
+            <span>Budynki</span>
+        </div>
+        <div class="btn" onclick="location.href = '/logout';">
+            <span>Surowce</span>
+        </div>
+        <div class="btn" onclick="location.href = '/logout';">
+            <span>Badania</span>
+        </div>
+        <div class="btn" onclick="location.href = '/logout';">
+            <span>Jednostki</span>
+        </div>
+    </div>
+ </main>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+{% endblock %}W
