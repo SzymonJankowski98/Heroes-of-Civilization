@@ -576,15 +576,18 @@ def move_unit():
         print("move_unit")
     return "true"
 
+
 @app.route('/administrationpanel', methods=["GET"])
 def administration_panel():
     user = session["user"]
     return render_template("administration_panel.html", usr=user)
 
+
 @app.route('/administrationpanel/buildings', methods=["GET"])
 def administration_panel_buildings():
     user = session["user"]
-    return render_template("administration_panel_buildings.html", usr=user)
+    return render_template("administration_panel_resources.html", usr=user)
+
 
 if __name__ == '__main__':
     app.run()
