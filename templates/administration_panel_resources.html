@@ -45,7 +45,7 @@
                               <td>#fdf</td>
                               <td>#fdf</td>
                               <td>
-                                  <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}">
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
                                   <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
                               </td>
                             </tr>
@@ -55,13 +55,13 @@
             </div>
             <div class="add_elem">
                 <header>
-                    <h1>Nowy surowiec</h1>
+                    <h1>Nowe Badanie</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/sword.png') }}">
-                    <input type="text" placeholder="Nazwa" name="xs">
-                    <input type="text" placeholder="Opis" name="xs">
-                    <input type="file" name="ys">
+                    <input type="text" placeholder="Nazwa" name="r_name">
+                    <input type="text" placeholder="Opis" name="r_desc">
+                    <input type="file" name="r_icon">
     {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
     {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">

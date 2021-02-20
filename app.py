@@ -3,8 +3,8 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-# cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -566,28 +566,65 @@ def administration_panel():
     return render_template("administration_panel.html", usr=user)
 
 
-@app.route('/administrationpanel/buildings', methods=["GET"])
+@app.route('/administrationpanel/buildings', methods=["GET", "POST"])
 def administration_panel_buildings():
     user = session["user"]
-    return render_template("administration_panel_buildings.html", usr=user)
+    if request.method == 'POST':
+        b_name = request.form["b_name"]
+        b_turns = request.form["b_turns"]
+        b_desc = request.form["b_desc"]
+        b_s_req = request.form["b_s_req"]
+        b_b_req = request.form["b_b_req"]
+        b_icon = request.form["b_icon"]
+        return render_template("administration_panel_buildings.html", usr=user)
+    else:
+        return render_template("administration_panel_buildings.html", usr=user)
 
 
-@app.route('/administrationpanel/units', methods=["GET"])
+@app.route('/administrationpanel/units', methods=["GET", "POST"])
 def administration_panel_units():
     user = session["user"]
-    return render_template("administration_panel_units.html", usr=user)
+    if request.method == 'POST':
+        u_name = request.form["u_name"]
+        u_damage = request.form["u_damage"]
+        u_def = request.form["u_def"]
+        u_hp = request.form["u_hp"]
+        u_traveldist = request.form["u_traveldist"]
+        u_turns = request.form["u_turns"]
+        u_desc = request.form["u_desc"]
+        u_s_req = request.form["u_s_req"]
+        u_b_req = request.form["u_b_req"]
+        u_icon = request.form["u_icon"]
+        return render_template("administration_panel_units.html", usr=user)
+    else:
+        return render_template("administration_panel_units.html", usr=user)
 
 
-@app.route('/administrationpanel/resources', methods=["GET"])
+@app.route('/administrationpanel/resources', methods=["GET", "POST"])
 def administration_panel_resources():
     user = session["user"]
-    return render_template("administration_panel_resources.html", usr=user)
+    if request.method == 'POST':
+        r_name = request.form["r_name"]
+        r_desc = request.form["r_desc"]
+        r_icon = request.form["r_icon"]
+        return render_template("administration_panel_resources.html", usr=user)
+    else:
+        return render_template("administration_panel_resources.html", usr=user)
 
 
-@app.route('/administrationpanel/science', methods=["GET"])
+@app.route('/administrationpanel/science', methods=["GET", "POST"])
 def administration_panel_science():
     user = session["user"]
-    return render_template("administration_panel_science.html", usr=user)
+    if request.method == 'POST':
+        s_name = request.form["s_name"]
+        s_turns = request.form["s_turns"]
+        s_desc = request.form["s_desc"]
+        s_s_req = request.form["s_s_req"]
+        s_b_req = request.form["s_b_req"]
+        s_icon = request.form["s_icon"]
+        return render_template("administration_panel_science.html", usr=user)
+    else:
+        return render_template("administration_panel_science.html", usr=user)
 
 @app.route('/administrationpanel/updateresource', methods=["GET"])
 def administration_panel_update_resource():
