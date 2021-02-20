@@ -1,11 +1,14 @@
 .admin_page_table {
-    width: 1200px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    height: 80%;
+}
+
+.tbl-content {
+    height: 68.5%;
 }
 
 .add_elem {
-    width: 1200px;
+    width: 100%;
 }
 
 #search {
