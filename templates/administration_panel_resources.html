@@ -24,8 +24,8 @@
             <div class="admin_page_table">
                 <header>
                     <h1>Surowce</h1>
+                    <input id="search" placeholder="szukaj">
                 </header>
-                <input id="search" placeholder="szukaj">
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -50,7 +50,7 @@
                                   <img src="{{ url_for('static', filename='images/cristal.png') }}">
                                   {% endif %}
                               </td>
-                              <td class="resource_name">{{ i }}</td>
+                              <td class="search_key">{{ i }}</td>
                               <td>{{ res_array[i][0] }}</td>
                               <td>
                                   <img class="update" src="{{ url_for('static', filename='images/update.png') }}">

@@ -3,6 +3,39 @@
     height: 80%;
 }
 
+.tbl-content {
+    height: 68.5%;
+}
+
 .add_elem {
     width: 100%;
+}
+
+#search {
+    position: absolute;
+    padding: 10px;
+    top: 10px;
+    right: 0;
+    margin: 25px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    display: flex;
+    width: 25%;
+    font-size: 0.8rem;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+    border: 0;
+}
+
+#search::placeholder {
+  color: #8f8fa1;
+  font-family: 'Ubuntu', sans-serif;
+  opacity: 0.7;
+}
+
+#search:focus{
+    outline: none;
+    border: 1px solid #14213d;
+
 }

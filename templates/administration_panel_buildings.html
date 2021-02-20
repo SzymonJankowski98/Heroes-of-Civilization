@@ -24,6 +24,7 @@
             <div class="admin_page_table">
                 <header>
                     <h1>Budynki</h1>
+                    <input id="search" placeholder="szukaj">
                 </header>
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
@@ -53,7 +54,7 @@
                                   <img src="{{ url_for('static', filename='images/cristal.png') }}">
                                   {% endif %}
                               </td>
-                              <td>{{ i }}</td>
+                              <td class="search_key">{{ i }}</td>
                               <td>{{ b_array[i][0] }}</td>
                               <td>{{ b_array[i][1] }}</td>
                               <td>{{ b_array[i][2] }}</td>
@@ -100,4 +101,5 @@
          </div>
  </main>
  <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_buildings.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/search.js') }}"></script>
 {% endblock %}
