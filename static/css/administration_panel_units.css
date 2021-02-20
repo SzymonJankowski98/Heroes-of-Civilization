@@ -1,0 +1,9 @@
+.admin_page_table {
+    width: 1200px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.add_elem {
+    width: 1200px;
+}

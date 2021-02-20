@@ -3,6 +3,7 @@
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_pages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_buildings.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -16,8 +17,8 @@
      <header>
          <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
      </header>
-     <div class="btn" onclick="location.href = '/logout';">
-            <span>WYLOGUJ</span>
+     <div class="btn" onclick="location.href = '/administrationpanel';">
+            <span>MENU</span>
      </div>
         <div class="admin_page">
             <div class="admin_page_table">
@@ -31,7 +32,6 @@
                           <th></th>
                           <th>Nazwa</th>
                           <th>Tury do zbudowania</th>
-                          <th>Ikona</th>
                           <th>Opis</th>
                           <th>Potrzebne Badanie</th>
                           <th>Potrzebny Budynek</th>
@@ -49,7 +49,6 @@
                               <td>dff</td>
                               <td>dff</td>
                               <td>dff</td>
-                              <td>dff</td>
                               <td>fdf</td>
                               <td>
                                   <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
@@ -59,6 +58,23 @@
                     </tbody>
                 </table>
                 </div>
+            </div>
+            <div class="add_elem">
+                <header>
+                    <h1>Nowy Budynek</h1>
+                </header>
+                <form class="new_elem_form" action="#" method="POST">
+                    <img src="{{ url_for('static', filename='images/sword.png') }}">
+                    <input type="text" placeholder="Nazwa" name="b_name">
+                    <input type="text" placeholder="Tury" name="b_turns">
+                    <input type="text" placeholder="Opis" name="b_desc">
+                    <input type="text" placeholder="Potrzebne Badanie" name="b_s_req">
+                    <input type="text" placeholder="Potrzebny Budynek" name="b_b_req">
+                    <input type="file" name="b_icon">
+    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
+    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                </form>
             </div>
          </div>
  </main>
