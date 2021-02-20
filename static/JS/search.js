@@ -3,10 +3,9 @@ const input = document.querySelector('#search');
 input.addEventListener('input', updateValue);
 
 function updateValue(e) {
-    var elements = document.getElementsByClassName("resource_name")
+    var elements = document.getElementsByClassName("search_key")
     for (var i of elements) {
-        console.log(i);
-        if (i.innerText.includes(input.value)) {
+        if (i.innerText.toLowerCase().includes(input.value.toLowerCase())) {
             i.parentElement.style.display = "table-row";
         }
         else {
