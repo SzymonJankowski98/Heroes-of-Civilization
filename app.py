@@ -626,10 +626,29 @@ def administration_panel_science():
     else:
         return render_template("administration_panel_science.html", usr=user)
 
+
 @app.route('/administrationpanel/updateresource', methods=["GET"])
 def administration_panel_update_resource():
     user = session["user"]
     return render_template("administration_panel_update_resource.html", usr=user)
+
+
+@app.route('/administrationpanel/updatescience', methods=["GET"])
+def administration_panel_update_science():
+    user = session["user"]
+    return render_template("administration_panel_update_science.html", usr=user)
+
+
+@app.route('/administrationpanel/updateunit', methods=["GET"])
+def administration_panel_update_unit():
+    user = session["user"]
+    return render_template("administration_panel_update_unit.html", usr=user)
+
+
+@app.route('/administrationpanel/updatebuilding', methods=["GET"])
+def administration_panel_update_building():
+    user = session["user"]
+    return render_template("administration_panel_update_building.html", usr=user)
 
 
 if __name__ == '__main__':

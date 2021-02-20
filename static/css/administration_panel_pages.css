@@ -251,3 +251,10 @@ input[type=image].add {
 .enter, .add {
     cursor: pointer;
 }
+
+.all_forms {
+    position: relative;
+    margin: 0 auto;
+    top: 20%;
+    width: 80%;
+}

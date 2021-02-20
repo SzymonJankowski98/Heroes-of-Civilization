@@ -1,10 +1,186 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_pages.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/administration_panel_update_building.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>HoC {{ usr }}</title>
+{% endblock %}
+
+{% block body %}
+<main>
+     <div class="filter"></div>
+     <header>
+         <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
+     </header>
+
+     <div class="btn" onclick="location.href = '/administrationpanel/resources';">
+            <span>MENU</span>
+     </div>
+    <div class="admin_page">
+        <div class="add_elem">
+            <header>
+                <h1>Edytuj Budynek</h1>
+            </header>
+            <form class="new_elem_form" action="#" method="POST">
+                <img src="{{ url_for('static', filename='images/mine_wood.png') }}">
+                <input type="text" placeholder="Nazwa" name="b_name">
+                <input type="text" placeholder="Tury" name="b_turns">
+                <input type="text" placeholder="Opis" name="b_desc">
+                <select name="b_s_req">
+                    <option value="">Potrzebne Badanie...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                </select>
+                <select name="b_b_req">
+                    <option value="">Potrzebne Budynek...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                </select>
+                <input type="file" name="b_icon">
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+            </form>
+        </div>
+        <div class="admin_page_table">
+            <header>
+                <h1>Wymagania</h1>
+            </header>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Ilość</th>
+                      <th></th>
+                    </tr>
+                   </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                    <tr>
+                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                      <td>#fdf</td>
+                      <td>
+                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+        <div class="admin_page_table">
+            <header>
+                <h1>Wymagania</h1>
+            </header>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Ilość</th>
+                      <th></th>
+                    </tr>
+                   </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                    <tr>
+                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                      <td>#fdf</td>
+                      <td>
+                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="add_elem add_req">
+            <header>
+                <h1>Dodaj wymaganie</h1>
+            </header>
+            <form class="new_elem_form" action="#" method="POST">
+                <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+                <input type="number" placeholder="Ilość" name="s_name">
+                <select name="s_b_req">
+                    <option value="">Potrzebny Surowiec...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                </select>
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+            </form>
+        </div>
+        <div class="admin_page_table admin_page_table2">
+            <header>
+                <h1>Zyski</h1>
+            </header>
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th>Ilość</th>
+                      <th></th>
+                    </tr>
+                   </thead>
+                </table>
+            </div>
+            <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody>
+                    <tr>
+                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                      <td>#fdf</td>
+                      <td>
+                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="add_elem add_req add_req2">
+            <header>
+                <h1>Dodaj zysk</h1>
+            </header>
+            <form class="new_elem_form" action="#" method="POST">
+                <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+                <input type="number" placeholder="Ilość" name="s_name">
+                <select name="s_b_req">
+                    <option value="">Potrzebny Surowiec...</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AL">Alabama</option>
+                    <option value="AK">Alaska</option>
+                </select>
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+            </form>
+        </div>
+     </div>
+ </main>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+{% endblock %}
