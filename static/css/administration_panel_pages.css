@@ -135,9 +135,9 @@ td img {
     margin: 0 auto;
 }
 
-td img.enter {
-    width: 64px;
-    height: 64px;
+td img.update {
+    width: 44px;
+    height: 44px;
     cursor: pointer;
 }
 
