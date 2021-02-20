@@ -25,6 +25,7 @@
                 <header>
                     <h1>Surowce</h1>
                 </header>
+                <input id="search" placeholder="szukaj">
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -39,11 +40,60 @@
                 </div>
                 <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
-                    <tbody>
+                    <tbody id="search_space">
                             <tr>
                               <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                              <td>#fdf</td>
-                              <td>#fdf</td>
+                              <td class="resource_name">#fdf</td>
+                              <td>fdf</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                              </td>
+                            </tr>
+                             <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td class="resource_name">#kgd</td>
+                              <td>savff</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                              </td>
+                            </tr>
+                            </tr>
+                             <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td class="resource_name">sadf</td>
+                              <td>sdwa</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                              </td>
+                            </tr>
+                            </tr>
+                             <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td class="resource_name">asd</td>
+                              <td>sdwa</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                              </td>
+                            </tr>
+                            </tr>
+                             <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td class="resource_name">asdf</td>
+                              <td>sdwa</td>
+                              <td>
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                              </td>
+                            </tr>
+                            </tr>
+                             <tr>
+                              <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
+                              <td class="resource_name">swwr</td>
+                              <td>sdwa</td>
                               <td>
                                   <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
                                   <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
@@ -62,12 +112,11 @@
                     <input type="text" placeholder="Nazwa" name="r_name">
                     <input type="text" placeholder="Opis" name="r_desc">
                     <input type="file" name="r_icon">
-    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
-    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
                 </form>
             </div>
          </div>
  </main>
  <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/search.js') }}"></script>
 {% endblock %}
