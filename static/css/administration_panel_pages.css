@@ -44,7 +44,7 @@
 .admin_page {
     position: relative;
     #background-color: #f2f2f2;
-    min-width: 960px;
+    min-width: 1140px;
     width: 60%;
     height: 750px;
     border-radius: 8px;
@@ -138,6 +138,13 @@ td img {
 td img.enter {
     width: 64px;
     height: 64px;
+    cursor: pointer;
+}
+
+td img.delete {
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {
