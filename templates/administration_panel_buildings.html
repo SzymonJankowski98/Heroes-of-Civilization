@@ -81,13 +81,15 @@
                     <input type="text" placeholder="Opis" name="b_desc">
                     <select name="b_s_req">
                         <option value="">Potrzebne Badanie...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for science in science_name %}
+                        <option value="{{ science }}">{{ science }}</option>
+                        {% endfor %}
                     </select>
                     <select name="b_b_req">
                         <option value="">Potrzebne Budynek...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for building in buildings_name %}
+                        <option value="{{ building }}">{{ building }}</option>
+                        {% endfor %}
                     </select>
                     <select name="b_r_req">
                         <option value="">Potrzebny Surowiec...</option>

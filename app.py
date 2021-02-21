@@ -572,6 +572,49 @@ def administration_panel():
     return render_template("administration_panel.html", usr=user)
 
 
+def get_select_lists3():
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
+
+    resources_name = []
+    cursor_r = g.db.cursor()
+    cursor_r.execute(''' SELECT NAME FROM RESOURCES''')
+    for i in cursor_r:
+        resources_name.append(i[0])
+    cursor_r.close()
+
+    return buildings_name, science_name, resources_name
+
+
+def get_select_lists2():
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
+
+    return buildings_name, science_name
+
+
 @app.route('/administrationpanel/buildings', methods=["GET", "POST"])
 def administration_panel_buildings():
     user = session["user"]
@@ -579,7 +622,6 @@ def administration_panel_buildings():
     cursor100 = g.db.cursor()
     cursor100.execute(''' select b.NAME, ICON, DESCRIPTION, REQUIRED_SCIENCE, REQUIRED_BUILDING, TURNS_TO_MAKE,  REQUIRED_RESOURCE
                         from BUILDINGS b left join MINES m on b.NAME = m.NAME ''')
-
     for i in cursor100:
         buildings_array.append(i)
     cursor100.close()
@@ -587,6 +629,8 @@ def administration_panel_buildings():
     buildings_array2 = dict()
     for i in buildings_array:
         buildings_array2[i[0]] = [i[5], i[2], i[3], i[4], i[6], b64encode(i[1].read()).decode("utf-8")]
+
+    buildings_name, science_name, resources_name = get_select_lists3()
 
     if request.method == 'POST':
         b_name = request.form["b_name"]
@@ -626,7 +670,8 @@ def administration_panel_buildings():
 
         return redirect(url_for("administration_panel_buildings"))
     else:
-        return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2)
+        return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2,
+                               buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
 
 
 @app.route('/administrationpanel/buildings/delete/<b_name>', methods=['GET'])
@@ -709,6 +754,8 @@ def administration_panel_science():
     for i in science_array:
         science_array2[i[0]] = [i[5], i[2], i[3], i[4], b64encode(i[1].read()).decode("utf-8")]
 
+    buildings_name, science_name = get_select_lists2()
+
     if request.method == 'POST':
         s_name = request.form["s_name"]
         s_turns = request.form["s_turns"]
@@ -739,7 +786,8 @@ def administration_panel_science():
             print("Add_science")
         return redirect(url_for("administration_panel_science"))
     else:
-        return render_template("administration_panel_science.html", usr=user, sc_array=science_array2)
+        return render_template("administration_panel_science.html", usr=user, sc_array=science_array2,
+                               buildings_name=buildings_name, science_name=science_name)
 
 
 @app.route('/administrationpanel/science/delete/<s_name>', methods=['GET'])
@@ -768,6 +816,8 @@ def administration_panel_units():
     units_array2 = dict()
     for i in units_array:
         units_array2[i[0]] = [i[1], i[2], i[4], i[3], i[9], i[6], i[7], i[8], b64encode(i[5].read()).decode("utf-8")]
+
+    buildings_name, science_name = get_select_lists2()
 
     if request.method == 'POST':
         u_name = request.form["u_name"]
@@ -803,7 +853,8 @@ def administration_panel_units():
             print("Add_unit")
         return redirect(url_for("administration_panel_units"))
     else:
-        return render_template("administration_panel_units.html", usr=user, u_array=units_array2)
+        return render_template("administration_panel_units.html", usr=user, u_array=units_array2,
+                               buildings_name=buildings_name, science_name=science_name)
 
 
 @app.route('/administrationpanel/units/delete/<u_name>', methods=['GET'])
@@ -881,7 +932,14 @@ def administration_panel_update_science(s_name):
     for i in cost_array:
         cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
 
+    buildings_name, science_name, resources_name = get_select_lists3()
+
     if request.method == 'POST':
+        science_name = request.form["science_name"]
+        if science_name != "":
+            return redirect(url_for("add_science_cost", s_name=science_name, r_name=request.form["r_name"],
+                                    r_amount=request.form["r_amount"]))
+
         s_name = request.form["s_name"]
         s_turns = request.form["s_turns"]
         s_desc = request.form["s_desc"]
@@ -910,7 +968,8 @@ def administration_panel_update_science(s_name):
             print("Update_science")
         return redirect(url_for("administration_panel_science"))
     else:
-        return render_template("administration_panel_update_science.html", usr=user, name=s_name, science=science_info2, cost=cost_array2)
+        return render_template("administration_panel_update_science.html", usr=user, name=s_name, science=science_info2,
+                               cost=cost_array2, buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
 
 
 @app.route('/administrationpanel/science/update/<s_name>/addCost/<r_name>/<r_amount>', methods=['GET'])
@@ -962,7 +1021,15 @@ def administration_panel_update_unit(u_name):
     for i in cost_array:
         cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
 
+    buildings_name, science_name, resources_name = get_select_lists3()
+
     if request.method == 'POST':
+        unit_name = request.form["unit_name"]
+        print(unit_name)
+        if unit_name != "":
+            return redirect(url_for("add_unit_cost", u_name=unit_name, r_name=request.form["r_name"],
+                                    r_amount=request.form["r_amount"]))
+
         u_name = request.form["u_name"]
         u_damage = request.form["u_damage"]
         u_def = request.form["u_def"]
@@ -996,7 +1063,8 @@ def administration_panel_update_unit(u_name):
 
         return redirect(url_for("administration_panel_units"))
     else:
-        return render_template("administration_panel_update_unit.html", usr=user, name=u_name, u_array=unit_info2, cost=cost_array2)
+        return render_template("administration_panel_update_unit.html", usr=user, name=u_name, u_array=unit_info2, cost=cost_array2,
+                               buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
 
 
 @app.route('/administrationpanel/units/update/<u_name>/addCost/<r_name>/<r_amount>', methods=['GET'])
@@ -1021,7 +1089,7 @@ def delete_unit_cost(u_name, r_name):
     return redirect(url_for("administration_panel_update_unit", u_name=u_name))
 
 
-@app.route('/administrationpanel/buildings/update/<b_name>', methods=["GET"])
+@app.route('/administrationpanel/buildings/update/<b_name>', methods=["GET", "POST"])
 def administration_panel_update_building(b_name):
     user = session["user"]
     building_info = []
@@ -1063,7 +1131,18 @@ def administration_panel_update_building(b_name):
     for i in incomes_array:
         incomes_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
 
+    buildings_name, science_name, resources_name = get_select_lists3()
+
     if request.method == 'POST':
+        building_name = request.form["building_name"]
+
+        if building_name[-1] == "1":
+            return redirect(url_for("add_building_cost", b_name=building_name[:-1], r_name=request.form["r_name"],
+                                    r_amount=request.form["r_amount"]))
+        elif building_name[-1] == "2":
+            return redirect(url_for("add_building_income", b_name=building_name[:-1], r_name=request.form["r_name"],
+                                    r_amount=request.form["r_amount"]))
+
         b_name = request.form["b_name"]
         b_turns = request.form["b_turns"]
         b_desc = request.form["b_desc"]
@@ -1091,16 +1170,57 @@ def administration_panel_update_building(b_name):
             cursor127 = g.db.cursor()
             cursor127.callproc("UpdateBuilding", [b_name, img, b_desc, b_turns, b_s_req, b_b_req])
             cursor127.close()
-            if b_r_req is not None:
-                cursor201 = g.db.cursor()
-                cursor201.callproc("AddToMines", [b_name, b_r_req])
-                cursor201.close()
         except:
             print("Update_building")
         return redirect(url_for("administration_panel_buildings"))
     else:
         return render_template("administration_panel_update_building.html", usr=user, name=b_name,
-                               b_array=building_info2, cost=cost_array2, incomes=incomes_array2)
+                               b_array=building_info2, cost=cost_array2, incomes=incomes_array2,
+                               buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
+
+
+@app.route('/administrationpanel/buildings/update/<b_name>/addCost/<r_name>/<r_amount>', methods=['GET'])
+def add_building_cost(b_name, r_name, r_amount):
+    try:
+        cursor128 = g.db.cursor()
+        cursor128.callproc('AddCostToBuilding', [b_name, r_name, r_amount])
+        cursor128.close()
+    except:
+        print("add_building_cost")
+    return redirect(url_for("administration_panel_update_building", b_name=b_name))
+
+
+@app.route('/administrationpanel/buildings/update/<b_name>/delCost/<r_name>', methods=['GET'])
+def delete_building_cost(b_name, r_name):
+    try:
+        cursor129 = g.db.cursor()
+        cursor129.callproc('RemoveCostFromBuilding', [b_name, r_name])
+        cursor129.close()
+    except:
+        print("delete_building_cost")
+    return redirect(url_for("administration_panel_update_building", b_name=b_name))
+
+
+@app.route('/administrationpanel/buildings/update/<b_name>/addIncome/<r_name>/<r_amount>', methods=['GET'])
+def add_building_income(b_name, r_name, r_amount):
+    try:
+        cursor130 = g.db.cursor()
+        cursor130.callproc('AddIncomeToBuilding', [b_name, r_name, r_amount])
+        cursor130.close()
+    except:
+        print("add_building_income")
+    return redirect(url_for("administration_panel_update_building", b_name=b_name))
+
+
+@app.route('/administrationpanel/buildings/update/<b_name>/delIncome/<r_name>', methods=['GET'])
+def delete_building_income(b_name, r_name):
+    try:
+        cursor131 = g.db.cursor()
+        cursor131.callproc('RemoveIncomeFromBuilding', [b_name, r_name])
+        cursor131.close()
+    except:
+        print("delete_building_income")
+    return redirect(url_for("administration_panel_update_building", b_name=b_name))
 
 
 if __name__ == '__main__':

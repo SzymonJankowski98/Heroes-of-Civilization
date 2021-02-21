@@ -32,18 +32,21 @@
                     {% else %}
                         <img src="{{ url_for('static', filename='images/cristal.png') }}">
                     {% endif %}
+                    <input type="hidden" name="science_name" value="">
                     <input type="text" value="{{ name }}" placeholder="Nazwa" name="s_name" required>
                     <input type="number" value="{{ science[name][0] }}" placeholder="Tury" name="s_turns" required>
                     <input type="text" value="{{ science[name][1] }}" placeholder="Opis" name="s_desc">
                     <select name="s_s_req">
                         <option value="">Potrzebne Badanie...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for science in science_name %}
+                            <option value="{{ science }}">{{ science }}</option>
+                        {% endfor %}
                     </select>
                     <select name="s_b_req">
                         <option value="">Potrzebne Budynek...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for building in buildings_name %}
+                            <option value="{{ building }}">{{ building }}</option>
+                        {% endfor %}
                     </select>
                     <input type="file" name="s_icon">
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/update.png') }}">
@@ -95,14 +98,14 @@
             </header>
             <form class="new_elem_form" action="#" method="POST">
                 <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
+                <input type="hidden" name="science_name" value="{{ name }}">
                 <input type="number" min="1" placeholder="Ilość" name="r_amount" required>
-                <select name="s_b_req">
-                    <option value="">Potrzebny Surowiec...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
+                <select name="r_name">
+                    {% for resource in resources_name %}
+                    <option value="{{ resource }}">{{ resource }}</option>
+                    {% endfor %}
                 </select>
-                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}"
-                       onclick="add_science_cost('{{ name }}', '{{ i }}', '{{ r_amount }}')">
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
             </form>
         </div>
      </div>

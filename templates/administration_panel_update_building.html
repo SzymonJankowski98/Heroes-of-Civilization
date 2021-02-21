@@ -28,22 +28,31 @@
             </header>
             <form class="new_elem_form" action="#" method="POST">
                 {% if b_array[name][5] %}
-                        <img src="data:;base64,{{ b_array[name][5] }}">
-                    {% else %}
-                        <img src="{{ url_for('static', filename='images/axes.png') }}">
-                    {% endif %}
+                    <img src="data:;base64,{{ b_array[name][5] }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/castle_tab.png') }}">
+                {% endif %}
+                <input type="hidden" name="building_name" value="">
                 <input type="text" value="{{ name }}" placeholder="Nazwa" name="b_name" required>
                 <input type="number" min="1" value="{{ b_array[name][0] }}" placeholder="Tury" name="b_turns" required>
                 <input type="text" placeholder="Opis" value="{{ b_array[name][1] }}" name="b_desc">
                 <select name="b_s_req">
                     <option value="">Potrzebne Badanie...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
+                    {% for science in science_name %}
+                        <option value="{{ science }}">{{ science }}</option>
+                    {% endfor %}
                 </select>
                 <select name="b_b_req">
-                    <option value="">Potrzebne Budynek...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
+                    <option value="">Potrzebny Budynek...</option>
+                    {% for building in buildings_name %}
+                        <option value="{{ building }}">{{ building }}</option>
+                    {% endfor %}
+                </select>
+                <select name="b_r_req">
+                    <option value="">Potrzebny Surowiec...</option>
+                    {% for resource in resources_name %}
+                        <option value="{{ resource }}">{{ resource }}</option>
+                    {% endfor %}
                 </select>
                 <input type="file" name="b_icon">
                 <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
@@ -94,12 +103,13 @@
                 <h1>Dodaj wymaganie</h1>
             </header>
             <form class="new_elem_form" action="#" method="POST">
+                <input type="hidden" name="building_name" value="{{ name }}1">
                 <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                <input type="number" min="1" placeholder="Ilość" name="s_name" required>
-                <select name="s_b_req">
-                    <option value="">Potrzebny Surowiec...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
+                <input type="number" min="1" placeholder="Ilość" name="r_amount" required>
+                <select name="r_name">
+                    {% for resource in resources_name %}
+                        <option value="{{ resource }}">{{ resource }}</option>
+                    {% endfor %}
                 </select>
                 <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
             </form>
@@ -135,7 +145,7 @@
                       <td>{{ incomes[i][0] }}</td>
                       <td>
                           <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}"
-                               onclick="delete_unit_cost('{{ name }}', '{{ i }}')">
+                               onclick="delete_building_income('{{ name }}', '{{ i }}')">
                       </td>
                     </tr>
                     {% endfor %}
@@ -149,16 +159,17 @@
             </header>
             <form class="new_elem_form" action="#" method="POST">
                 <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                <input type="number" min="1" placeholder="Ilość" name="s_name" required>
-                <select name="s_b_req">
-                    <option value="">Potrzebny Surowiec...</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
+                <input type="hidden" name="building_name" value="{{ name }}2">
+                <input type="number" min="1" placeholder="Ilość" name="r_amount" required>
+                <select name="r_name">
+                    {% for resource in resources_name %}
+                        <option value="{{ resource }}">{{ resource }}</option>
+                    {% endfor %}
                 </select>
                 <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
             </form>
         </div>
      </div>
  </main>
- <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_buildings_update.js') }}"></script>
 {% endblock %}
