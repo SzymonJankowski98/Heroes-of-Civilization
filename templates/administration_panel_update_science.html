@@ -32,8 +32,8 @@
                     {% else %}
                         <img src="{{ url_for('static', filename='images/cristal.png') }}">
                     {% endif %}
-                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="s_name">
-                    <input type="text" value="{{ science[name][0] }}" placeholder="Tury" name="s_turns">
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="s_name" required>
+                    <input type="number" value="{{ science[name][0] }}" placeholder="Tury" name="s_turns" required>
                     <input type="text" value="{{ science[name][1] }}" placeholder="Opis" name="s_desc">
                     <select name="s_s_req">
                         <option value="">Potrzebne Badanie...</option>
@@ -104,7 +104,7 @@
             </header>
             <form class="new_elem_form" action="#" method="POST">
                 <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                <input type="number" placeholder="Ilość" name="r_amount">
+                <input type="number" min="1" placeholder="Ilość" name="r_amount" required>
                 <select name="s_b_req">
                     <option value="">Potrzebny Surowiec...</option>
                     <option value="AL">Alabama</option>

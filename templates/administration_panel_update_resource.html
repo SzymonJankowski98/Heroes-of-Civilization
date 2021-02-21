@@ -32,7 +32,7 @@
                     {% else %}
                         <img src="{{ url_for('static', filename='images/cristal.png') }}">
                     {% endif %}
-                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="r_name">
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="r_name" required>
                     <input type="text" value="{{ resource[name][0] }}" placeholder="Opis" name="r_desc">
                     <input type="file" name="r_icon">
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/update.png') }}">

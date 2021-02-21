@@ -74,8 +74,8 @@
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/chemistry.png') }}">
-                    <input type="text" placeholder="Nazwa" name="s_name">
-                    <input type="text" placeholder="Tury" name="s_turns">
+                    <input type="text" placeholder="Nazwa" name="s_name" required>
+                    <input type="number" min="1" placeholder="Tury" name="s_turns" required>
                     <input type="text" placeholder="Opis" name="s_desc">
                     <select name="s_s_req">
                         <option value="">Potrzebne Badanie...</option>

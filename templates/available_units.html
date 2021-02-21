@@ -43,7 +43,7 @@
     </div>
     <div class="recruit_section">
         {% if unit[8] == 0 %}
-        <input type="number" placeholder="ilość">
+        <input type="number" min="1" placeholder="ilość" value="1" oninput="validity.valid||(value='1');" required>
         <button class="btn_recruit" onclick="recruitUnit(this, '{{ unit[0]}}', {{ x }}, {{ y }})">rekrutuj</button>
         {% else %}
         <input type="number" placeholder="ilość" disabled>
