@@ -954,6 +954,9 @@ def administration_panel_update_science(s_name):
         cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
 
     if request.method == 'POST':
+        science_name = request.form["science_name"]
+        if science_name != "":
+            return redirect(url_for("add_science_cost", s_name=science_name, r_name=request.form["r_name"], r_amount=request.form["r_amount"]))
         s_name = request.form["s_name"]
         s_turns = request.form["s_turns"]
         s_desc = request.form["s_desc"]
@@ -991,10 +994,10 @@ def add_science_cost(s_name, r_name, r_amount):
         cursor117 = g.db.cursor()
         cursor117.callproc('AddCostToScience', [s_name, r_name, r_amount])
         cursor117.close()
-        return redirect(url_for("administration_panel_update_science"))
+        return redirect(url_for("administration_panel_update_science", s_name=s_name))
     except:
         print("delete_science_cost")
-        return redirect(url_for("administration_panel_update_science"))
+        return redirect(url_for("administration_panel_update_science", s_name=s_name))
 
 
 @app.route('/administrationpanel/science/update/<s_name>/delCost/<r_name>', methods=['GET'])
