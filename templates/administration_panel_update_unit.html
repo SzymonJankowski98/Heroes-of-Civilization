@@ -27,14 +27,18 @@
                     <h1>Edytuj Jednostkę</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/sword.png') }}">
-                    <input type="text" placeholder="Nazwa" name="u_name" required>
-                    <input type="number" min="1" placeholder="Atak" name="u_damage" required>
-                    <input type="number" min="1" placeholder="Obrona" name="u_def" required>
-                    <input type="number" min="1" placeholder="Życie" name="u_hp" required>
-                    <input type="number" min="1" placeholder="Zasięg" name="u_traveldist" required>
-                    <input type="number" min="1" placeholder="Tury" name="u_turns" required>
-                    <input type="text" placeholder="Opis" name="u_desc">
+                    {% if u_array[name][8] %}
+                        <img src="data:;base64,{{ u_array[name][8] }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/axes.png') }}">
+                    {% endif %}
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="u_name" required>
+                    <input type="number" min="1" value="{{ u_array[name][0] }}" placeholder="Atak" name="u_damage" required>
+                    <input type="number" min="1" value="{{ u_array[name][1] }}" placeholder="Obrona" name="u_def" required>
+                    <input type="number" min="1" value="{{ u_array[name][2] }}" placeholder="Życie" name="u_hp" required>
+                    <input type="number" min="1" value="{{ u_array[name][3] }}" placeholder="Zasięg" name="u_traveldist" required>
+                    <input type="number" min="1" value="{{ u_array[name][4] }}" placeholder="Tury" name="u_turns" required>
+                    <input type="text" value="{{ u_array[name][5] }}" placeholder="Opis" name="u_desc">
                     <select name="u_s_req">
                         <option value="">Potrzebne Badanie...</option>
                         <option value="AL">Alabama</option>
@@ -46,9 +50,7 @@
                         <option value="AK">Alaska</option>
                     </select>
                     <input type="file" name="u_icon">
-    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
-    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
-                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/update.png') }}">
                 </form>
             </div>
         <div class="admin_page_table">
@@ -60,6 +62,7 @@
                     <thead>
                     <tr>
                       <th></th>
+                      <th>Nazwa</th>
                       <th>Ilość</th>
                       <th></th>
                     </tr>
@@ -69,46 +72,27 @@
             <div class="tbl-content">
             <table cellpadding="0" cellspacing="0" border="0">
                 <tbody>
+                    {% for i in cost %}
                     <tr>
-                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                      <td>#fdf</td>
                       <td>
-                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                          {% if cost[i][1] %}
+                              <img src="data:;base64,{{ cost[i][1] }}">
+                          {% else %}
+                              <img src="{{ url_for('static', filename='images/cristal.png') }}">
+                          {% endif %}
+                      </td>
+                      <td>{{ i }}</td>
+                      <td>{{ cost[i][0] }}</td>
+                      <td>
+                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}"
+                               onclick="delete_unit_cost('{{ name }}', '{{ i }}')">
                       </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-        <div class="admin_page_table">
-            <header>
-                <h1>Wymagania</h1>
-            </header>
-            <div class="tbl-header">
-                <table cellpadding="0" cellspacing="0" border="0">
-                    <thead>
-                    <tr>
-                      <th></th>
-                      <th>Ilość</th>
-                      <th></th>
-                    </tr>
-                   </thead>
-                </table>
-            </div>
-            <div class="tbl-content">
-            <table cellpadding="0" cellspacing="0" border="0">
-                <tbody>
-                    <tr>
-                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                      <td>#fdf</td>
-                      <td>
-                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
-                      </td>
-                    </tr>
-                </tbody>
-            </table>
-            </div>
-        </div>
         <div class="add_elem add_req">
             <header>
                 <h1>Dodaj wymaganie</h1>
@@ -119,15 +103,6 @@
                 <select name="s_b_req">
                     <option value="">Potrzebny Surowiec...</option>
                     <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
-                    <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                 </select>
                 <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
@@ -135,5 +110,5 @@
         </div>
      </div>
  </main>
- <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_units_update.js') }}"></script>
 {% endblock %}

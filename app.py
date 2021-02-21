@@ -3,8 +3,8 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -859,7 +859,7 @@ def administration_panel_update_science(s_name):
     user = session["user"]
     science_info = []
     cursor114 = g.db.cursor()
-    cursor114.execute(''' SELECT * FROM SCIENCE WHERE NAME = :ab ''', ab=s_name)
+    cursor114.execute(''' SELECT * FROM SCIENCE WHERE NAME = :ac ''', ac=s_name)
     for i in cursor114:
         science_info.append(i)
     cursor114.close()
@@ -872,7 +872,7 @@ def administration_panel_update_science(s_name):
     cursor115 = g.db.cursor()
     cursor115.execute(''' SELECT RESOURCE_NAME, AMOUNT, ICON 
                         from SCIENCE_COSTS S join RESOURCES R on S.RESOURCE_NAME = R.NAME
-                         WHERE SCIENCE_NAME = :ac ''', ac=s_name)
+                         WHERE SCIENCE_NAME = :ad ''', ad=s_name)
     for i in cursor115:
         cost_array.append(i)
     cursor115.close()
@@ -919,10 +919,9 @@ def add_science_cost(s_name, r_name, r_amount):
         cursor117 = g.db.cursor()
         cursor117.callproc('AddCostToScience', [s_name, r_name, r_amount])
         cursor117.close()
-        return redirect(url_for("administration_panel_update_science"))
     except:
         print("delete_science_cost")
-        return redirect(url_for("administration_panel_update_science"))
+    return redirect(url_for("administration_panel_update_science", s_name=s_name))
 
 
 @app.route('/administrationpanel/science/update/<s_name>/delCost/<r_name>', methods=['GET'])
@@ -931,22 +930,177 @@ def delete_science_cost(s_name, r_name):
         cursor118 = g.db.cursor()
         cursor118.callproc('RemoveCostFromScience', [s_name, r_name])
         cursor118.close()
-        return redirect(url_for("administration_panel_update_science", s_name=s_name))
     except:
         print("delete_science_cost")
-        return redirect(url_for("administration_panel_update_science", s_name=s_name))
+    return redirect(url_for("administration_panel_update_science", s_name=s_name))
 
 
-@app.route('/administrationpanel/units/update/<u_name>', methods=["GET"])
+@app.route('/administrationpanel/units/update/<u_name>', methods=["GET", "POST"])
 def administration_panel_update_unit(u_name):
     user = session["user"]
-    return render_template("administration_panel_update_unit.html", usr=user)
+    unit_info = []
+    cursor119 = g.db.cursor()
+    cursor119.execute(''' SELECT * FROM UNITS WHERE NAME = :ae ''', ae=u_name)
+    for i in cursor119:
+        unit_info.append(i)
+    cursor119.close()
+
+    unit_info2 = dict()
+    for i in unit_info:
+        unit_info2[i[0]] = [i[1], i[2], i[4], i[3], i[9], i[6], i[7], i[8], b64encode(i[5].read()).decode("utf-8")]
+
+    cost_array = []
+    cursor120 = g.db.cursor()
+    cursor120.execute(''' SELECT RESOURCE_NAME, AMOUNT, ICON 
+                            from UNITS_COSTS S join RESOURCES R on S.RESOURCE_NAME = R.NAME
+                             WHERE UNIT_NAME = :af ''', af=u_name)
+    for i in cursor120:
+        cost_array.append(i)
+    cursor120.close()
+
+    cost_array2 = dict()
+    for i in cost_array:
+        cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+
+    if request.method == 'POST':
+        u_name = request.form["u_name"]
+        u_damage = request.form["u_damage"]
+        u_def = request.form["u_def"]
+        u_hp = request.form["u_hp"]
+        u_traveldist = request.form["u_traveldist"]
+        u_turns = request.form["u_turns"]
+        u_desc = request.form["u_desc"]
+        u_s_req = request.form["u_s_req"]
+        u_b_req = request.form["u_b_req"]
+        u_icon = request.form["u_icon"]
+        if u_icon == "":
+            u_icon = None
+        if u_desc == "":
+            u_desc = None
+        if u_s_req == "":
+            u_s_req = None
+        if u_b_req == "":
+            u_b_req = None
+
+        try:
+            if u_icon is not None:
+                with open(f"static/images/{u_icon}", 'rb') as f:
+                    img = f.read()
+            else:
+                img = unit_info[0][5]
+            cursor121 = g.db.cursor()
+            cursor121.callproc("UpdateUnit", [u_name, u_damage, u_def, u_traveldist, u_hp, img, u_desc, u_turns, u_s_req, u_b_req])
+            cursor121.close()
+        except:
+            print("Update_unit")
+
+        return redirect(url_for("administration_panel_units"))
+    else:
+        return render_template("administration_panel_update_unit.html", usr=user, name=u_name, u_array=unit_info2, cost=cost_array2)
+
+
+@app.route('/administrationpanel/units/update/<u_name>/addCost/<r_name>/<r_amount>', methods=['GET'])
+def add_unit_cost(u_name, r_name, r_amount):
+    try:
+        cursor122 = g.db.cursor()
+        cursor122.callproc('AddCostToUnit', [u_name, r_name, r_amount])
+        cursor122.close()
+    except:
+        print("add_unit_cost")
+    return redirect(url_for("administration_panel_update_unit", u_name=u_name))
+
+
+@app.route('/administrationpanel/units/update/<u_name>/delCost/<r_name>', methods=['GET'])
+def delete_unit_cost(u_name, r_name):
+    try:
+        cursor123 = g.db.cursor()
+        cursor123.callproc('RemoveCostFromUnit', [u_name, r_name])
+        cursor123.close()
+    except:
+        print("delete_unit_cost")
+    return redirect(url_for("administration_panel_update_unit", u_name=u_name))
 
 
 @app.route('/administrationpanel/buildings/update/<b_name>', methods=["GET"])
 def administration_panel_update_building(b_name):
     user = session["user"]
-    return render_template("administration_panel_update_building.html", usr=user)
+    building_info = []
+    cursor124 = g.db.cursor()
+    cursor124.execute(''' select b.NAME, ICON, DESCRIPTION, REQUIRED_SCIENCE, REQUIRED_BUILDING, TURNS_TO_MAKE,  REQUIRED_RESOURCE
+                        from BUILDINGS b left join MINES m on b.NAME = m.NAME
+                         WHERE b.NAME = :ag ''', ag=b_name)
+    for i in cursor124:
+        building_info.append(i)
+    cursor124.close()
+
+    building_info2 = dict()
+    for i in building_info:
+        building_info2[i[0]] = [i[5], i[2], i[3], i[4], i[6], b64encode(i[1].read()).decode("utf-8")]
+
+    cost_array = []
+    cursor125 = g.db.cursor()
+    cursor125.execute(''' SELECT RESOURCE_NAME, AMOUNT, ICON 
+                                from BUILDINGS_COSTS S join RESOURCES R on S.RESOURCE_NAME = R.NAME
+                                 WHERE BUILDING_NAME = :ah ''', ah=b_name)
+    for i in cursor125:
+        cost_array.append(i)
+    cursor125.close()
+
+    cost_array2 = dict()
+    for i in cost_array:
+        cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+
+    incomes_array = []
+    cursor126 = g.db.cursor()
+    cursor126.execute(''' SELECT RESOURCE_NAME, AMOUNT, ICON 
+                                   from BUILDINGS_INCOMES S join RESOURCES R on S.RESOURCE_NAME = R.NAME
+                                    WHERE BUILDING_NAME = :ah ''', ah=b_name)
+    for i in cursor126:
+        incomes_array.append(i)
+    cursor126.close()
+
+    incomes_array2 = dict()
+    for i in incomes_array:
+        incomes_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
+
+    if request.method == 'POST':
+        b_name = request.form["b_name"]
+        b_turns = request.form["b_turns"]
+        b_desc = request.form["b_desc"]
+        b_s_req = request.form["b_s_req"]
+        b_b_req = request.form["b_b_req"]
+        b_r_req = request.form["b_r_req"]
+        b_icon = request.form["b_icon"]
+        if b_icon == "":
+            b_icon = None
+        if b_desc == "":
+            b_desc = None
+        if b_s_req == "":
+            b_s_req = None
+        if b_b_req == "":
+            b_b_req = None
+        if b_r_req == "":
+            b_r_req = None
+
+        try:
+            if b_icon is not None:
+                with open(f"static/images/{b_icon}", 'rb') as f:
+                    img = f.read()
+            else:
+                img = building_info[0][1]
+            cursor127 = g.db.cursor()
+            cursor127.callproc("UpdateBuilding", [b_name, img, b_desc, b_turns, b_s_req, b_b_req])
+            cursor127.close()
+            if b_r_req is not None:
+                cursor201 = g.db.cursor()
+                cursor201.callproc("AddToMines", [b_name, b_r_req])
+                cursor201.close()
+        except:
+            print("Update_building")
+        return redirect(url_for("administration_panel_buildings"))
+    else:
+        return render_template("administration_panel_update_building.html", usr=user, name=b_name,
+                               b_array=building_info2, cost=cost_array2, incomes=incomes_array2)
 
 
 if __name__ == '__main__':
