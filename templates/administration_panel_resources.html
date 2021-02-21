@@ -68,7 +68,7 @@
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                    <input type="text" placeholder="Nazwa" name="r_name">
+                    <input type="text" placeholder="Nazwa" name="r_name" required>
                     <input type="text" placeholder="Opis" name="r_desc">
                     <input type="file" name="r_icon">
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">

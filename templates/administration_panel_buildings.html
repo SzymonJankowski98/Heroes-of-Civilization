@@ -76,8 +76,8 @@
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/mine_wood.png') }}">
-                    <input type="text" placeholder="Nazwa" name="b_name">
-                    <input type="text" placeholder="Tury" name="b_turns">
+                    <input type="text" placeholder="Nazwa" name="b_name" required>
+                    <input type="number" min="1" placeholder="Tury" name="b_turns" required>
                     <input type="text" placeholder="Opis" name="b_desc">
                     <select name="b_s_req">
                         <option value="">Potrzebne Badanie...</option>

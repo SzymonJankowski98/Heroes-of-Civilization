@@ -83,12 +83,12 @@
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
                     <img src="{{ url_for('static', filename='images/sword.png') }}">
-                    <input type="text" placeholder="Nazwa" name="u_name">
-                    <input type="text" placeholder="Atak" name="u_damage">
-                    <input type="text" placeholder="Obrona" name="u_def">
-                    <input type="text" placeholder="Życie" name="u_hp">
-                    <input type="text" placeholder="Zasięg" name="u_traveldist">
-                    <input type="text" placeholder="Tury" name="u_turns">
+                    <input type="text" placeholder="Nazwa" name="u_name" required>
+                    <input type="number" min="1" placeholder="Atak" name="u_damage" required>
+                    <input type="number" min="1" placeholder="Obrona" name="u_def" required>
+                    <input type="number" min="1" placeholder="Życie" name="u_hp" required>
+                    <input type="number" min="1" placeholder="Zasięg" name="u_traveldist" required>
+                    <input type="number" min="1" placeholder="Tury" name="u_turns" required>
                     <input type="text" placeholder="Opis" name="u_desc">
                     <select name="u_s_req">
                         <option value="">Potrzebne Badanie...</option>
