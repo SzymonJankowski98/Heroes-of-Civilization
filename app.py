@@ -928,6 +928,27 @@ def administration_panel_update_science(s_name):
         cost_array.append(i)
     cursor115.close()
 
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
+
+    resources_name = []
+    cursor_r = g.db.cursor()
+    cursor_r.execute(''' SELECT NAME FROM RESOURCES''')
+    for i in cursor_r:
+        resources_name.append(i[0])
+    cursor_r.close()
+
     cost_array2 = dict()
     for i in cost_array:
         cost_array2[i[0]] = [i[1], b64encode(i[2].read()).decode("utf-8")]
@@ -961,7 +982,7 @@ def administration_panel_update_science(s_name):
             print("Update_science")
         return redirect(url_for("administration_panel_science"))
     else:
-        return render_template("administration_panel_update_science.html", usr=user, name=s_name, science=science_info2, cost=cost_array2)
+        return render_template("administration_panel_update_science.html", usr=user, name=s_name, science=science_info2, cost=cost_array2, buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
 
 
 @app.route('/administrationpanel/science/update/<s_name>/addCost/<r_name>/<r_amount>', methods=['GET'])
