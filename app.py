@@ -3,8 +3,8 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -697,10 +697,10 @@ def delete_building(b_name):
         cursor102 = g.db.cursor()
         cursor102.callproc('RemoveBuilding', [b_name])
         cursor102.close()
-        return redirect(url_for("administration_panel_building"))
+        return redirect(url_for("administration_panel_buildings"))
     except:
         print("delete_building")
-        return redirect(url_for("administration_panel_building"))
+        return redirect(url_for("administration_panel_buildings"))
 
 
 @app.route('/administrationpanel/resources', methods=["GET", "POST"])

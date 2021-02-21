@@ -93,8 +93,9 @@
                     </select>
                     <select name="b_r_req">
                         <option value="">Potrzebny Surowiec...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for resource in resources_name %}
+                        <option value="{{ resource }}">{{ resource }}</option>
+                        {% endfor %}
                     </select>
                     <input type="file" name="b_icon">
                     <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
