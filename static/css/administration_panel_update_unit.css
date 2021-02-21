@@ -4,39 +4,20 @@
     bottom: auto;
 }
 
+.new_elem_form input {
+    width: 30%;
+}
+
 .admin_page_table {
     top: 20%;
     height: 60%;
-    width: 49%;
-    left: 0;
-}
-
-.admin_page_table2 {
-    left: auto;
-    right: 0;
-}
-
-.admin_page_table2 th {
-    background-color: #f5cc16;
-}
-
-.admin_page_table2  header {
-    background-color: #fca311;
+    width: 50%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .add_req {
     bottom: 0;
-    left: 0;
     top: auto;
-    width: 49%;
-    transform: none;
-}
-
-.add_req2 {
-    left: auto;
-    right: 0;
-}
-
-.add_req2 header {
-    background-color: #fca311;
+    width: 50%;
 }
