@@ -27,13 +27,15 @@
                     <h1>Edytuj surowiec</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/sword.png') }}">
-                    <input type="text" placeholder="Nazwa" name="xs">
-                    <input type="text" placeholder="Opis" name="xs">
-                    <input type="file" name="ys">
-    {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}
-    {#                <img class="add" src="{{ url_for('static', filename='images/add.png') }}">#}
-                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                    {% if resource[name][1] %}
+                        <img src="data:;base64,{{ resource[name][1] }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/cristal.png') }}">
+                    {% endif %}
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="r_name">
+                    <input type="text" value="{{ resource[name][0] }}" placeholder="Opis" name="r_desc">
+                    <input type="file" name="r_icon">
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/update.png') }}">
                 </form>
             </div>
          </div>

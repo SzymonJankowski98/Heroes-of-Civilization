@@ -68,7 +68,7 @@
                               <td>{{ u_array[i][6] }}</td>
                               <td>{{ u_array[i][7] }}</td>
                               <td>
-                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}" onclick="update_unit('{{ i }}')">
                                   <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_unit('{{ i }}')">
                               </td>
                             </tr>

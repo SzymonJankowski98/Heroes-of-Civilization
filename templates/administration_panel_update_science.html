@@ -18,7 +18,7 @@
          <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
      </header>
 
-     <div class="btn" onclick="location.href = '/administrationpanel/resources';">
+     <div class="btn" onclick="location.href = '/administrationpanel/science';">
             <span>MENU</span>
      </div>
         <div class="admin_page">
@@ -27,10 +27,14 @@
                     <h1>Edytuj Badanie</h1>
                 </header>
                 <form class="new_elem_form" action="#" method="POST">
-                    <img src="{{ url_for('static', filename='images/chemistry.png') }}">
-                    <input type="text" placeholder="Nazwa" name="s_name">
-                    <input type="text" placeholder="Tury" name="s_turns">
-                    <input type="text" placeholder="Opis" name="s_desc">
+                    {% if science[name][4] %}
+                        <img src="data:;base64,{{ science[name][4] }}">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/cristal.png') }}">
+                    {% endif %}
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="s_name">
+                    <input type="text" value="{{ science[name][0] }}" placeholder="Tury" name="s_turns">
+                    <input type="text" value="{{ science[name][1] }}" placeholder="Opis" name="s_desc">
                     <select name="s_s_req">
                         <option value="">Potrzebne Badanie...</option>
                         <option value="AL">Alabama</option>
@@ -51,7 +55,7 @@
                         <option value="AK">Alaska</option>
                     </select>
                     <input type="file" name="s_icon">
-                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                    <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/update.png') }}">
                 </form>
             </div>
             <div class="admin_page_table">
@@ -63,6 +67,7 @@
                         <thead>
                         <tr>
                           <th></th>
+                          <th>Nazwa</th>
                           <th>Ilość</th>
                           <th></th>
                         </tr>
@@ -72,13 +77,23 @@
                 <div class="tbl-content">
                 <table cellpadding="0" cellspacing="0" border="0">
                 <tbody>
+                    {% for i in cost %}
                     <tr>
-                      <td><img src="{{ url_for('static', filename='images/axes.png') }}"></td>
-                      <td>#fdf</td>
                       <td>
-                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}">
+                          {% if cost[i][1] %}
+                              <img src="data:;base64,{{ cost[i][1] }}">
+                          {% else %}
+                              <img src="{{ url_for('static', filename='images/cristal.png') }}">
+                          {% endif %}
+                      </td>
+                      <td>{{ i }}</td>
+                      <td>{{ cost[i][0] }}</td>
+                      <td>
+                          <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}"
+                               onclick="delete_science_cost('{{ name }}', '{{ i }}')">
                       </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
             </div>
@@ -89,7 +104,7 @@
             </header>
             <form class="new_elem_form" action="#" method="POST">
                 <img src="{{ url_for('static', filename='images/gold-ingots.png') }}">
-                <input type="number" placeholder="Ilość" name="s_name">
+                <input type="number" placeholder="Ilość" name="r_amount">
                 <select name="s_b_req">
                     <option value="">Potrzebny Surowiec...</option>
                     <option value="AL">Alabama</option>
@@ -104,10 +119,11 @@
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                 </select>
-                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}">
+                <input class="add" type="image" alt="Add" src="{{ url_for('static', filename='images/add.png') }}"
+                       onclick="add_science_cost('{{ name }}', '{{ i }}', '{{ r_amount }}')">
             </form>
         </div>
      </div>
  </main>
- <script type="text/javascript" src="{{ url_for('static', filename='JS/user_page.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='JS/administration_panel_science_update.js') }}"></script>
 {% endblock %}

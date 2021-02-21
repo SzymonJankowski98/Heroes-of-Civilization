@@ -61,7 +61,7 @@
                               <td>{{ b_array[i][3] }}</td>
                               <td>{{ b_array[i][4] }}</td>
                               <td>
-                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}" onclick="update_building('{{ i }}')">
                                   <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_building('{{ i }}')">
                               </td>
                             </tr>

@@ -59,7 +59,7 @@
                               <td>{{ sc_array[i][2] }}</td>
                               <td>{{ sc_array[i][3] }}</td>
                               <td>
-                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}">
+                                  <img class="update" src="{{ url_for('static', filename='images/update.png') }}" onclick="update_science('{{ i }}')">
                                   <img class="delete" src="{{ url_for('static', filename='images/delete.png') }}" onclick="delete_science('{{ i }}')">
                               </td>
                             </tr>
