@@ -1105,6 +1105,8 @@ def administration_panel_update_building(b_name):
     for i in building_info:
         building_info2[i[0]] = [i[5], i[2], i[3], i[4], i[6], b64encode(i[1].read()).decode("utf-8")]
 
+    print(building_info)
+
     cost_array = []
     cursor125 = g.db.cursor()
     cursor125.execute(''' SELECT RESOURCE_NAME, AMOUNT, ICON 
@@ -1135,13 +1137,13 @@ def administration_panel_update_building(b_name):
 
     if request.method == 'POST':
         building_name = request.form["building_name"]
-
-        if building_name[-1] == "1":
-            return redirect(url_for("add_building_cost", b_name=building_name[:-1], r_name=request.form["r_name"],
-                                    r_amount=request.form["r_amount"]))
-        elif building_name[-1] == "2":
-            return redirect(url_for("add_building_income", b_name=building_name[:-1], r_name=request.form["r_name"],
-                                    r_amount=request.form["r_amount"]))
+        if building_name != "":
+            if building_name[-1] == "1":
+                return redirect(url_for("add_building_cost", b_name=building_name[:-1], r_name=request.form["r_name"],
+                                        r_amount=request.form["r_amount"]))
+            elif building_name[-1] == "2":
+                return redirect(url_for("add_building_income", b_name=building_name[:-1], r_name=request.form["r_name"],
+                                        r_amount=request.form["r_amount"]))
 
         b_name = request.form["b_name"]
         b_turns = request.form["b_turns"]
@@ -1167,9 +1169,23 @@ def administration_panel_update_building(b_name):
                     img = f.read()
             else:
                 img = building_info[0][1]
+
             cursor127 = g.db.cursor()
             cursor127.callproc("UpdateBuilding", [b_name, img, b_desc, b_turns, b_s_req, b_b_req])
             cursor127.close()
+
+            if b_r_req is None and building_info[0][6] is not None:
+                cursor227 = g.db.cursor()
+                cursor227.callproc("RemoveFromMines", [b_name])
+                cursor227.close()
+            elif b_r_req is not None and building_info[0][6] is None:
+                cursor327 = g.db.cursor()
+                cursor327.callproc("AddToMines", [b_name, b_r_req])
+                cursor327.close()
+            elif b_r_req is not None and building_info[0][6] is not None:
+                cursor427 = g.db.cursor()
+                cursor427.callproc("UpdateMine", [b_name, b_r_req])
+                cursor427.close()
         except:
             print("Update_building")
         return redirect(url_for("administration_panel_buildings"))
