@@ -79,22 +79,15 @@
                     <input type="text" placeholder="Opis" name="s_desc">
                     <select name="s_s_req">
                         <option value="">Potrzebne Badanie...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for science in science_name %}
+                        <option value="{{ science }}">{{ science }}</option>
+                        {% endfor %}
                     </select>
                     <select name="s_b_req">
                         <option value="">Potrzebne Budynek...</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AL">Alabama</option>
-                        <option value="AK">Alaska</option>
+                        {% for building in buildings_name %}
+                        <option value="{{ building }}">{{ building }}</option>
+                        {% endfor %}
                     </select>
                     <input type="file" name="s_icon">
     {#                <img itemtype="submit" src="{{ url_for('static', filename='images/add.png') }}" alt="add">#}

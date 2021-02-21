@@ -584,6 +584,29 @@ def administration_panel_buildings():
         buildings_array.append(i)
     cursor100.close()
 
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    print(buildings_name)
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
+
+    resources_name = []
+    cursor_r = g.db.cursor()
+    cursor_r.execute(''' SELECT NAME FROM RESOURCES''')
+    for i in cursor_r:
+        resources_name.append(i[0])
+    cursor_r.close()
+
     buildings_array2 = dict()
     for i in buildings_array:
         buildings_array2[i[0]] = [i[5], i[2], i[3], i[4], i[6], b64encode(i[1].read()).decode("utf-8")]
@@ -626,7 +649,7 @@ def administration_panel_buildings():
 
         return redirect(url_for("administration_panel_buildings"))
     else:
-        return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2)
+        return render_template("administration_panel_buildings.html", usr=user, b_array=buildings_array2, buildings_name=buildings_name, science_name=science_name, resources_name=resources_name)
 
 
 @app.route('/administrationpanel/buildings/delete/<b_name>', methods=['GET'])
@@ -709,6 +732,20 @@ def administration_panel_science():
     for i in science_array:
         science_array2[i[0]] = [i[5], i[2], i[3], i[4], b64encode(i[1].read()).decode("utf-8")]
 
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
+
     if request.method == 'POST':
         s_name = request.form["s_name"]
         s_turns = request.form["s_turns"]
@@ -739,7 +776,7 @@ def administration_panel_science():
             print("Add_science")
         return redirect(url_for("administration_panel_science"))
     else:
-        return render_template("administration_panel_science.html", usr=user, sc_array=science_array2)
+        return render_template("administration_panel_science.html", usr=user, sc_array=science_array2, buildings_name=buildings_name, science_name=science_name)
 
 
 @app.route('/administrationpanel/science/delete/<s_name>', methods=['GET'])
@@ -764,6 +801,20 @@ def administration_panel_units():
     for i in cursor109:
         units_array.append(i)
     cursor109.close()
+
+    buildings_name = []
+    cursor_b = g.db.cursor()
+    cursor_b.execute(''' SELECT NAME FROM BUILDINGS''')
+    for i in cursor_b:
+        buildings_name.append(i[0])
+    cursor_b.close()
+
+    science_name = []
+    cursor_s = g.db.cursor()
+    cursor_s.execute(''' SELECT NAME FROM SCIENCE''')
+    for i in cursor_s:
+        science_name.append(i[0])
+    cursor_s.close()
 
     units_array2 = dict()
     for i in units_array:
@@ -803,7 +854,7 @@ def administration_panel_units():
             print("Add_unit")
         return redirect(url_for("administration_panel_units"))
     else:
-        return render_template("administration_panel_units.html", usr=user, u_array=units_array2)
+        return render_template("administration_panel_units.html", usr=user, u_array=units_array2, buildings_name=buildings_name, science_name=science_name)
 
 
 @app.route('/administrationpanel/units/delete/<u_name>', methods=['GET'])
