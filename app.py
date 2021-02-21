@@ -3,8 +3,8 @@ from datetime import timedelta
 import cx_Oracle
 from base64 import b64encode
 
-#cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
-cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
+cx_Oracle.init_oracle_client(lib_dir=r"D:\Program Files\OracleClient\instantclient_19_9")
+# cx_Oracle.init_oracle_client(lib_dir=r"C:\Users\Szymon\Documents\instantclient_19_9")
 
 app = Flask(__name__)
 app.secret_key = "hoc1"
@@ -137,7 +137,14 @@ def login_page():
             cursor11.callfunc("goodPass", int, [user, password])
             session["user"] = user
             cursor11.close()
-            return redirect(url_for("user_page"))
+
+            cursor501 = g.db.cursor()
+            if cursor501.callfunc("isAdmin", int, [user]) > 0:
+                cursor501.close()
+                return redirect(url_for("administration_panel"))
+            else:
+                cursor501.close()
+                return redirect(url_for("user_page"))
         except Exception as e:
             print(e)
             return_msg = "Nieprawidłowe hasło lub login"
