@@ -33,7 +33,7 @@
                         <img src="{{ url_for('static', filename='images/axes.png') }}">
                     {% endif %}
                     <input type="hidden" name="unit_name" value="">
-                    <input disabled type="text" value="{{ name }}" placeholder="Nazwa" name="u_name" required>
+                    <input type="text" value="{{ name }}" placeholder="Nazwa" name="u_name" required>
                     <input type="number" min="1" value="{{ u_array[name][0] }}" placeholder="Atak" name="u_damage" required>
                     <input type="number" min="1" value="{{ u_array[name][1] }}" placeholder="Obrona" name="u_def" required>
                     <input type="number" min="1" value="{{ u_array[name][2] }}" placeholder="Życie" name="u_hp" required>

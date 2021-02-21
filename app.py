@@ -895,6 +895,7 @@ def administration_panel_update_resource(r_name):
     for i in cursor112:
         resource_info.append(i)
     cursor112.close()
+    print(resource_info)
 
     resource_info2 = dict()
     for i in resource_info:
@@ -904,10 +905,13 @@ def administration_panel_update_resource(r_name):
         r_name = request.form["r_name"]
         r_desc = request.form["r_desc"]
         r_icon = request.form["r_icon"]
+        print(r_icon)
         if r_icon == "":
             r_icon = None
         if r_desc == "":
             r_desc = None
+
+        print(r_icon)
         if r_icon is not None:
             with open(f"static/images/{r_icon}", 'rb') as f:
                 img = f.read()
