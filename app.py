@@ -199,6 +199,15 @@ def user_page():
         return redirect(url_for("login_page"))
 
 
+@app.route('/user/addToGame/<game_id>')
+def add_to_game(game_id):
+    user = session["user"]
+    cursor500 = g.db.cursor()
+    cursor500.callproc("AddPlayerToGame", [user, game_id])
+    cursor500.close()
+    return redirect(url_for("game", game_id=game_id))
+
+
 @app.route('/logout')
 def logout():
     session.pop("user", None)

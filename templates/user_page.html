@@ -82,7 +82,7 @@
                           <td>{{ i[1] }}x{{ i[2] }}</td>
                           <td>{{ i[3] }}/{{ i[4] }}</td>
                           <td>
-                              <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="open_game({{ i[0] }})">
+                              <img class="enter" src="{{ url_for('static', filename='images/enter2.png') }}" onclick="add_to_game({{ i[0] }})">
                           </td>
                         </tr>
                     {% endfor %}
