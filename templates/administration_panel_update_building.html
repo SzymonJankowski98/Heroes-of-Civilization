@@ -33,7 +33,7 @@
                     <img src="{{ url_for('static', filename='images/castle_tab.png') }}">
                 {% endif %}
                 <input type="hidden" name="building_name" value="">
-                <input type="text" value="{{ name }}" placeholder="Nazwa" name="b_name" required>
+                <input disabled type="text" value="{{ name }}" placeholder="Nazwa" name="b_name" required>
                 <input type="number" min="1" value="{{ b_array[name][0] }}" placeholder="Tury" name="b_turns" required>
                 <input type="text" placeholder="Opis" value="{{ b_array[name][1] }}" name="b_desc">
                 <select name="b_s_req">
