@@ -127,36 +127,43 @@ def index():
 
 @app.route('/login', methods=["POST", "GET"])
 def login_page():
+    return_msg = ""
     if request.method == 'POST':
-        cursor11 = g.db.cursor()
         session.permanent = True
         user = request.form["nm"]
         password = request.form["pw"]
-        if cursor11.callfunc("goodPass", int, [user, password]) > 0:
+        try:
+            cursor11 = g.db.cursor()
+            cursor11.callfunc("goodPass", int, [user, password])
             session["user"] = user
             cursor11.close()
             return redirect(url_for("user_page"))
-        else:
-            flash("Niepoprawna nazwa użytkownika lub hasło.")
-            return render_template('login_page.html')
+        except Exception as e:
+            print(e)
+            return_msg = "nieprawodłowe hasło lub login"
+            return render_template('login_page.html', return_msg=return_msg)
     else:
         if "user" in session:
             return redirect(url_for("user_page"))
-        return render_template('login_page.html')
+        return render_template('login_page.html', return_msg=return_msg)
 
 
 @app.route('/register', methods=["POST", "GET"])
 def register_page():
+    return_msg = ""
     if request.method == 'POST':
-        cursor12 = g.db.cursor()
         usr = request.form["nm"]
         usr_pw = request.form["pw"]
         usr_rpw = request.form["rpw"]
         if usr_rpw != usr_pw:
-            flash("Hasła nie są takie same.")
+            return_msg = "Hasła nie są takie same."
+            return render_template('register_page.html', return_msg=return_msg)
         else:
+            cursor12 = g.db.cursor()
             if cursor12.callfunc("isRegistered", int, [usr]) > 0:
-                flash("Nazwa użytkownika jest już zajęta.")
+                return_msg = "Nazwa użytkownika jest już zajęta."
+                cursor12.close()
+                return render_template('register_page.html', return_msg=return_msg)
             else:
                 cursor12.callproc("RegisterPlayer", [usr, usr_pw])
                 g.db.commit()
@@ -164,8 +171,7 @@ def register_page():
                 session["user"] = usr
                 cursor12.close()
                 return redirect(url_for("user_page"))
-        cursor12.close()
-    return render_template('register_page.html')
+    return render_template('register_page.html', return_msg=return_msg)
 
 
 @app.route('/user', methods=["POST", "GET"])

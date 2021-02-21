@@ -21,10 +21,13 @@
              <h1>Zaloguj się</h1>
          </header>
          <form class="login_form" action="#" method="POST">
-             <input type="text" placeholder="Nazwa użytkownika" name="nm">
-             <input type="password" placeholder="Hasło" name="pw">
+             <input type="text" placeholder="Nazwa użytkownika" name="nm" required>
+             <input type="password" placeholder="Hasło" name="pw" required>
+             {% if return_msg != "" %}
+             <span>{{ return_msg }}</span>
+             {% endif %}
              <button>ZALOGUJ</button>
          </form>
      </div>
  </main>
-{% endblock %}W
+{% endblock %}

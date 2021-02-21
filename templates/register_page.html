@@ -3,7 +3,6 @@
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home_page.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login_panel.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_panel.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -15,7 +14,7 @@
 <main>
      <div class="filter"></div>
      <header>
-         <h1 class="logo">Heroes of Civilization</h1>
+         <h1 class="logo" onclick="location.href = '/';">Heroes of Civilization</h1>
      </header>
      {% with messages = get_flashed_messages() %}
          {% if messages %}
@@ -29,11 +28,14 @@
              <h1>Zarejestruj się</h1>
          </header>
          <form class="login_form" action="#" method="POST">
-             <input type="text" placeholder="Nazwa użytkownika" name="nm">
-             <input type="password" placeholder="Hasło" name="pw">
-             <input type="password" placeholder="Powtórz hasło" name="rpw">
+             <input type="text" placeholder="Nazwa użytkownika" name="nm" required>
+             <input type="password" placeholder="Hasło" name="pw" required>
+             <input type="password" placeholder="Powtórz hasło" name="rpw" required>
+             {% if return_msg != "" %}
+             <span>{{ return_msg }}</span>
+             {% endif %}
              <button>ZAREJESTRUJ</button>
          </form>
      </div>
  </main>
-{% endblock %}W
+{% endblock %}
